@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
+import 'package:prism/utils/theme/theme_utils.dart';
 
 part '_app_core_theme.dart';
 part '_app_dimensions.dart';
