@@ -26,6 +26,10 @@ class AppCoreTheme {
 
   Color? shadow; // Normal shadowOnBackground
   Color? shadowSub; // Shadow light
+  
+  Color? white;
+  Color? pink;
+
 
   AppCoreTheme({
     this.primary,
@@ -48,6 +52,8 @@ class AppCoreTheme {
     this.shadow,
     this.shadowSub,
     this.lightGrey,
+    this.white,
+    this.pink,
   });
 
   AppCoreTheme copyWith({
@@ -74,6 +80,8 @@ class AppCoreTheme {
     Color? upsellCard,
     Color? hotelChipRefundable,
     Color? hotelChipAirportTransfer,
+    Color? white,
+    Color? pink,
   }) {
     return AppCoreTheme(
       danger: red ?? danger,
@@ -96,6 +104,8 @@ class AppCoreTheme {
       shadow: shadow ?? this.shadow,
       shadowSub: shadowSub ?? this.shadowSub,
       lightGrey: lightGrey ?? this.lightGrey,
+      white: white ?? this.white,
+      pink: pink ?? this.pink,
     );
   }
 }
