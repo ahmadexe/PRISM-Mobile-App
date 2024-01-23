@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prism/configs/configs.dart';
-import 'package:prism/widgets/buttons/app_button.dart';
+import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'configs/configs.dart' as theme;
 
 void main() {
