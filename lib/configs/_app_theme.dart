@@ -11,6 +11,7 @@ class AppTheme {
     fieldDark: const Color.fromARGB(255, 15, 16, 22),
     //
     shadow: Colors.black.withOpacity(0.25),
+    shadowSub: Colors.black.withOpacity(0.15),
     //
     text: const Color(0xFF6D8593),
     textGrey: const Color(0xff828282),
