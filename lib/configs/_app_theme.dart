@@ -5,13 +5,11 @@ class AppTheme {
     primary: const Color.fromARGB(255, 97, 100, 242),
     accent: const Color.fromARGB(255, 36, 165, 89),
     //
-    // background: const Color.fromRGBO(29, 31, 34, 1),
     background: const Color.fromARGB(255, 0, 0, 0),
     backgroundSub: const Color.fromARGB(255, 20, 19, 23),
     fieldLight: const Color.fromARGB(255, 33, 33, 41),
     fieldDark: const Color.fromARGB(255, 15, 16, 22),
     //
-    // shadowSub: const Color(0xFFD9D9D9),
     shadow: Colors.black.withOpacity(0.25),
     //
     text: const Color(0xFF6D8593),
