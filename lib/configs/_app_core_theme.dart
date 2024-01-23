@@ -26,10 +26,12 @@ class AppCoreTheme {
 
   Color? shadow; // Normal shadowOnBackground
   Color? shadowSub; // Shadow light
-  
+
   Color? white;
   Color? pink;
 
+  Color? fieldLight;
+  Color? fieldDark;
 
   AppCoreTheme({
     this.primary,
@@ -54,35 +56,39 @@ class AppCoreTheme {
     this.lightGrey,
     this.white,
     this.pink,
+    this.fieldLight,
+    this.fieldDark,
   });
 
-  AppCoreTheme copyWith({
-    Color? primary,
-    Color? primaryLight,
-    Color? primaryDark,
-    Color? accent,
-    Color? accentLight,
-    Color? accentDark,
-    Color? background,
-    Color? backgroundSub,
-    Color? scaffold,
-    Color? red,
-    Color? grey,
-    Color? scaffoldDark,
-    Color? text,
-    Color? lightGrey,
-    Color? yellow,
-    Color? ghostGrey,
-    Color? textSub,
-    Color? textSub2,
-    Color? shadow,
-    Color? shadowSub,
-    Color? upsellCard,
-    Color? hotelChipRefundable,
-    Color? hotelChipAirportTransfer,
-    Color? white,
-    Color? pink,
-  }) {
+  AppCoreTheme copyWith(
+      {Color? primary,
+      Color? primaryLight,
+      Color? primaryDark,
+      Color? accent,
+      Color? accentLight,
+      Color? accentDark,
+      Color? background,
+      Color? backgroundSub,
+      Color? scaffold,
+      Color? red,
+      Color? grey,
+      Color? scaffoldDark,
+      Color? text,
+      Color? lightGrey,
+      Color? yellow,
+      Color? ghostGrey,
+      Color? textSub,
+      Color? textSub2,
+      Color? shadow,
+      Color? shadowSub,
+      Color? upsellCard,
+      Color? hotelChipRefundable,
+      Color? hotelChipAirportTransfer,
+      Color? white,
+      Color? pink,
+      Color? fieldLight,
+      Color? fieldDark,
+      }) {
     return AppCoreTheme(
       danger: red ?? danger,
       grey: grey ?? this.grey,
@@ -106,6 +112,8 @@ class AppCoreTheme {
       lightGrey: lightGrey ?? this.lightGrey,
       white: white ?? this.white,
       pink: pink ?? this.pink,
+      fieldLight: fieldLight ?? this.fieldLight,
+      fieldDark: fieldDark ?? this.fieldDark,
     );
   }
 }

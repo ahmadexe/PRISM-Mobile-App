@@ -34,7 +34,8 @@ class AppText {
     ScreenUtil.init(context, designSize: const Size(428, 926));
 
     const b = FontWeight.bold;
-    const baseStyle = TextStyle(fontFamily: fontFamily);
+    TextStyle baseStyle =
+        TextStyle(fontFamily: fontFamily, color: AppTheme.c.white!);
 
     h1 = baseStyle.copyWith(fontSize: 24.h);
     h1b = h1!.copyWith(fontWeight: b);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prism/configs/configs.dart';
 import 'configs/configs.dart' as theme;
 
 void main() {
@@ -12,9 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      // title: 'Flutter Demo',
       theme: theme.themeDark,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      builder: (context, child) {
+        App.init(context);
+        AppText.init(context);
+        return child!;
+      },
     );
   }
 }
@@ -64,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -88,13 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
+              style: AppText.h1,
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: AppText.h1b,
             ),
+            // ElevatedButton(onPressed: (){}, child: Text('fdksajh'))
           ],
         ),
       ),

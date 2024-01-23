@@ -2,11 +2,14 @@ part of 'configs.dart';
 
 class AppTheme {
   static final _core = AppCoreTheme(
-    primary: const Color.fromARGB(255, 97, 95, 170),
-    accent: const Color.fromARGB(255, 98, 189, 93),
+    primary: const Color.fromARGB(255, 97, 100, 242),
+    accent: const Color.fromARGB(255, 36, 165, 89),
     //
-    background: const Color.fromRGBO(29, 31, 34, 1),
-    backgroundSub: const Color.fromARGB(255, 44, 45, 49),
+    // background: const Color.fromRGBO(29, 31, 34, 1),
+    background: const Color.fromARGB(255, 0, 0, 0),
+    backgroundSub: const Color.fromARGB(255, 20, 19, 23),
+    fieldLight: const Color.fromARGB(255, 33, 33, 41),
+    fieldDark: const Color.fromARGB(255, 15, 16, 22),
     //
     // shadowSub: const Color(0xFFD9D9D9),
     shadow: Colors.black.withOpacity(0.25),
@@ -20,10 +23,10 @@ class AppTheme {
     danger: const Color(0xffEB5757),
     yellow: const Color(0xffFFC179),
     ghostGrey: const Color(0xff333333),
-    // 
+    //
     white: const Color.fromARGB(255, 218, 218, 223),
 
-    pink: const Color.fromARGB(255, 213, 27, 94),
+    pink: const Color.fromARGB(255, 151, 150, 208),
   );
 
   static AppCoreTheme light = _core;
