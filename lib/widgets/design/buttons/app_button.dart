@@ -52,7 +52,7 @@ class AppButton extends StatelessWidget {
                   ),
         child: Center(
           child: Text(
-            'Button',
+            label,
             style: textStyle ?? AppText.b1bm,
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
+import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'configs/configs.dart' as theme;
 
 void main() {
@@ -106,6 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {},
               label: 'Button',
               buttonType: ButtonType.secondary,
+            ),
+            Space.y1!,
+            const AppTextField(
+              suffixIcon: Icon(Icons.search),
+              prefixIcon: Icon(Icons.search, color: Colors.red),
+              name: 'name',
+              hint: 'Hello',
             )
             // ElevatedButton(onPressed: (){}, child: Text('fdksajh'))
           ],
