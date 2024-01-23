@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/widgets/buttons/app_button.dart';
 import 'configs/configs.dart' as theme;
 
 void main() {
@@ -18,7 +19,6 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       builder: (context, child) {
         App.init(context);
-        AppText.init(context);
         return child!;
       },
     );
@@ -102,6 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: AppText.h1b,
             ),
+            AppButton(
+              onPressed: () {},
+              label: 'Button',
+            )
             // ElevatedButton(onPressed: (){}, child: Text('fdksajh'))
           ],
         ),
