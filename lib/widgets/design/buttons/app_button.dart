@@ -30,11 +30,11 @@ class AppButton extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         width: width ?? double.infinity,
-        height: height ?? AppDimensions.normalize(18),
+        height: height ?? AppDimensions.normalize(19),
         decoration: buttonType == ButtonType.secondary
             ? BoxDecoration(
-                borderRadius: BorderRadius.circular(AppDimensions.ratio * 100),
-                color: AppTheme.c.fieldLight!,
+                borderRadius: BorderRadius.circular(AppDimensions.ratio * 5),
+                color: backgroundColor ?? AppTheme.c.primary,
               )
             : buttonType == ButtonType.bordered
                 ? BoxDecoration(

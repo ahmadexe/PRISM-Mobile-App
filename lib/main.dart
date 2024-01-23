@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
             AppButton(
               onPressed: () {},
               label: 'Button',
+              buttonType: ButtonType.secondary,
             )
             // ElevatedButton(onPressed: (){}, child: Text('fdksajh'))
           ],
