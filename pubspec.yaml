@@ -41,6 +41,7 @@ dependencies:
   flutter_form_builder: ^9.1.1
   form_builder_validators: ^9.1.0
   rive: ^0.12.4
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:
