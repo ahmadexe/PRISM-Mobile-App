@@ -5,9 +5,12 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: const BottomBar(),
+        appBar: AppBar(
+          title: const Text('Home'),
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';

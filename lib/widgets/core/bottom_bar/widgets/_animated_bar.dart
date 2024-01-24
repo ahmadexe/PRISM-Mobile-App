@@ -1,0 +1,1 @@
+part of '../bottom_bar.dart';

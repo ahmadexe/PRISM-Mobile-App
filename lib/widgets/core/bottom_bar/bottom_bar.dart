@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/router/routes.dart';
 import 'package:rive/rive.dart';
 
 part 'utils/_icon_utils.dart';
@@ -16,6 +18,9 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     App.init(context);
+    final currentRoute = NavigationHistoryObserver().top;
+    final currentPath = currentRoute!.settings.name;
+
     return Padding(
       padding: Space.hf(10),
       child: Container(
@@ -32,25 +37,32 @@ class _BottomBarState extends State<BottomBar> {
               bottomNavElements.length,
               (index) => GestureDetector(
                 onTap: () {
-                  bottomNavElements[index].input!.change(true);
-                  Future.delayed(const Duration(seconds: 1), () {
-                    bottomNavElements[index].input!.change(false);
-                  });
+                  Navigator.pushReplacementNamed(
+                    context,
+                    bottomNavElements[index].path,
+                  );
                 },
                 child: SizedBox(
                   height: AppDimensions.normalize(14),
                   width: AppDimensions.normalize(14),
-                  child: RiveAnimation.asset(
-                    bottomNavElements[index].src,
-                    artboard: bottomNavElements[index].artboard,
-                    onInit: (artboard) {
-                      StateMachineController controller =
-                          _IconUtils.getController(artboard,
-                              stateMachineName:
-                                  bottomNavElements[index].stateMachineName);
-                      bottomNavElements[index].input =
-                          controller.findSMI('active') as SMIBool;
-                    },
+                  child: Opacity(
+                    opacity:
+                        currentPath == bottomNavElements[index].path ? 1 : 0.5,
+                    child: RiveAnimation.asset(
+                      bottomNavElements[index].src,
+                      artboard: bottomNavElements[index].artboard,
+                      onInit: (artboard) {
+                        StateMachineController controller =
+                            _IconUtils.getController(artboard,
+                                stateMachineName:
+                                    bottomNavElements[index].stateMachineName);
+                        bottomNavElements[index].input =
+                            controller.findSMI('active') as SMIBool;
+                        if (bottomNavElements[index].path == currentPath) {
+                          bottomNavElements[index].input!.change(true);
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),

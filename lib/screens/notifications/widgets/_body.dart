@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: const BottomBar(),
         appBar: AppBar(
           title: const Text('Notifications'),
         ),
