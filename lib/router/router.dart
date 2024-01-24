@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
-final appRoutes = {};
+final Map<String, Widget Function(dynamic)> appRoutes = {};
 
 Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {

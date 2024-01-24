@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/router/router.dart';
+import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
@@ -10,20 +13,36 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final navigatorKey = GlobalKey<NavigatorState>();
+  final List<NavigatorObserver> observers = [];
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       // title: 'Flutter Demo',
+      navigatorKey: navigatorKey,
+      navigatorObservers: [
+        ...observers,
+        NavigationHistoryObserver(),
+      ],
       theme: theme.themeDark,
+      initialRoute: AppRoutes.home,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       builder: (context, child) {
         App.init(context);
         return child!;
       },
+      onGenerateRoute: onGenerateRoutes,
+      routes: appRoutes,
     );
   }
 }
