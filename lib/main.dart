@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: theme.themeDark,
       initialRoute: AppRoutes.home,
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       builder: (context, child) {
         App.init(context);
         return child!;
