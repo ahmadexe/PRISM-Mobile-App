@@ -7,6 +7,8 @@ import 'package:rive/rive.dart';
 part 'utils/_icon_utils.dart';
 part 'utils/_assets.dart';
 
+part 'widgets/_animated_bar.dart';
+
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
 
@@ -26,7 +28,7 @@ class _BottomBarState extends State<BottomBar> {
       child: Container(
         height: AppDimensions.normalize(21),
         decoration: BoxDecoration(
-          color: AppTheme.c.fieldLight,
+          color: AppTheme.c.fieldLight!.withOpacity(.75),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
@@ -42,39 +44,43 @@ class _BottomBarState extends State<BottomBar> {
                     bottomNavElements[index].path,
                   );
                 },
-                child: SizedBox(
-                  height: AppDimensions.normalize(14),
-                  width: AppDimensions.normalize(14),
-                  child: Opacity(
-                    opacity:
-                        currentPath == bottomNavElements[index].path ? 1 : 0.5,
-                    child: RiveAnimation.asset(
-                      bottomNavElements[index].src,
-                      artboard: bottomNavElements[index].artboard,
-                      onInit: (artboard) {
-                        StateMachineController controller =
-                            _IconUtils.getController(artboard,
-                                stateMachineName:
-                                    bottomNavElements[index].stateMachineName);
-                        bottomNavElements[index].input =
-                            controller.findSMI('active') as SMIBool;
-                        if (bottomNavElements[index].path == currentPath) {
-                          bottomNavElements[index].input!.change(true);
-                        }
-                      },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _AnimatedBar(
+                      isActive: bottomNavElements[index].path == currentPath,
                     ),
-                  ),
+                    SizedBox(
+                      height: AppDimensions.normalize(13),
+                      width: AppDimensions.normalize(13),
+                      child: Opacity(
+                        opacity: currentPath == bottomNavElements[index].path
+                            ? 1
+                            : 0.5,
+                        child: RiveAnimation.asset(
+                          bottomNavElements[index].src,
+                          artboard: bottomNavElements[index].artboard,
+                          onInit: (artboard) {
+                            StateMachineController controller =
+                                _IconUtils.getController(artboard,
+                                    stateMachineName: bottomNavElements[index]
+                                        .stateMachineName);
+                            bottomNavElements[index].input =
+                                controller.findSMI('active') as SMIBool;
+                            if (bottomNavElements[index].path == currentPath) {
+                              bottomNavElements[index].input!.change(true);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-
-            // [
-
-            // ],
           ),
         ),
       ),
     );
-    // );
   }
 }
