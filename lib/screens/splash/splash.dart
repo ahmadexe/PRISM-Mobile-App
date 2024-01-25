@@ -1,6 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/router/routes.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';
