@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
         NavigationHistoryObserver(),
       ],
       theme: theme.themeDark,
-      initialRoute: AppRoutes.home,
+      initialRoute: AppRoutes.splash,
       builder: (context, child) {
         App.init(context);
         return child!;

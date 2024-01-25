@@ -1,72 +1,71 @@
 import 'package:flutter/material.dart';
 
-class AllLogoPainter extends CustomPainter {
+class AppLogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
-    path_0.moveTo(6.83, 446.61);
-    path_0.lineTo(329.34, 254.76000000000002);
-    path_0.lineTo(520.12, 440.03000000000003);
-    path_0.lineTo(299.99, 588.62);
-    path_0.lineTo(355.02, 678.51);
-    path_0.lineTo(655.8599999999999, 474.89);
-    path_0.lineTo(333.14, 5.46);
-    path_0.cubicTo(328.18, -1.75, 317.56, -1.83, 312.5, 5.31);
-    path_0.lineTo(2.76, 442.19);
-    path_0.cubicTo(
-        0.8399999999999999, 444.9, 3.9799999999999995, 448.3, 6.84, 446.61);
+    path_0.moveTo(2.11, 137.66);
+    path_0.lineTo(101.52, 78.53);
+    path_0.lineTo(160.32, 135.64);
+    path_0.lineTo(92.47, 181.44);
+    path_0.lineTo(109.43, 209.15);
+    path_0.lineTo(202.16000000000003, 146.39000000000001);
+    path_0.lineTo(102.68, 1.68);
+    path_0.cubicTo(101.15, -0.5400000000000003, 97.88000000000001,
+        -0.5700000000000001, 96.32000000000001, 1.63);
+    path_0.lineTo(0.85, 136.29);
+    path_0.cubicTo(0.26, 137.12, 1.23, 138.17, 2.11, 137.65);
     path_0.close();
 
-    Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = const Color(0xff6164f2).withOpacity(1.0);
-    canvas.drawPath(path_0, paint0Fill);
+    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
+    paint_0_fill.color = Color(0xff6164f2).withOpacity(1.0);
+    canvas.drawPath(path_0, paint_0_fill);
 
     Path path_1 = Path();
-    path_1.moveTo(324.68, 0.15);
-    path_1.cubicTo(320.2, -0.53, 315.42, 1.17, 312.49, 5.300000000000001);
-    path_1.lineTo(2.76, 442.17);
-    path_1.cubicTo(0.8399999999999999, 444.88, 3.9799999999999995,
-        448.28000000000003, 6.84, 446.59000000000003);
-    path_1.lineTo(324.69, 257.51);
-    path_1.lineTo(324.69, 0.15);
+    path_1.moveTo(100.08, 0.05);
+    path_1.cubicTo(
+        98.7, -0.15999999999999998, 97.23, 0.36, 96.32, 1.6400000000000001);
+    path_1.lineTo(0.85, 136.29);
+    path_1.cubicTo(0.26, 137.12, 1.23, 138.17, 2.11, 137.65);
+    path_1.lineTo(100.08, 79.37);
+    path_1.lineTo(100.08, 0.05);
     path_1.close();
 
-    Paint paint1Fill = Paint()..style = PaintingStyle.fill;
-    paint1Fill.color = const Color(0xff4b4f99).withOpacity(1.0);
-    canvas.drawPath(path_1, paint1Fill);
+    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
+    paint_1_fill.color = Color(0xff4b4f99).withOpacity(1.0);
+    canvas.drawPath(path_1, paint_1_fill);
 
     Path path_2 = Path();
-    path_2.moveTo(649.04, 607.78);
-    path_2.lineTo(326.53, 799.63);
-    path_2.lineTo(135.74999999999997, 614.36);
-    path_2.lineTo(355.88, 465.77);
-    path_2.lineTo(300.85, 375.88);
-    path_2.lineTo(0, 579.51);
-    path_2.lineTo(322.73, 1048.93);
-    path_2.cubicTo(
-        327.69, 1056.14, 338.31, 1056.22, 343.37, 1049.0800000000002);
-    path_2.lineTo(653.11, 612.2000000000002);
-    path_2.cubicTo(655.03, 609.4900000000001, 651.89, 606.0900000000001, 649.03,
-        607.7800000000002);
+    path_2.moveTo(200.05, 187.33);
+    path_2.lineTo(100.64000000000001, 246.46);
+    path_2.lineTo(41.84000000000002, 189.35000000000002);
+    path_2.lineTo(109.69000000000001, 143.55);
+    path_2.lineTo(92.73000000000002, 115.84);
+    path_2.lineTo(0, 178.62);
+    path_2.lineTo(99.47, 323.31);
+    path_2.cubicTo(101, 325.53000000000003, 104.27, 325.56, 105.83, 323.36);
+    path_2.lineTo(201.3, 188.70000000000002);
+    path_2.cubicTo(201.89000000000001, 187.87, 200.92000000000002,
+        186.82000000000002, 200.04000000000002, 187.34);
     path_2.close();
 
-    Paint paint2Fill = Paint()..style = PaintingStyle.fill;
-    paint2Fill.color = const Color(0xff6164f2).withOpacity(1.0);
-    canvas.drawPath(path_2, paint2Fill);
+    Paint paint_2_fill = Paint()..style = PaintingStyle.fill;
+    paint_2_fill.color = Color(0xff6164f2).withOpacity(1.0);
+    canvas.drawPath(path_2, paint_2_fill);
 
     Path path_3 = Path();
-    path_3.moveTo(331.19, 1054.24);
-    path_3.cubicTo(335.67, 1054.92, 340.45, 1053.22, 343.38, 1049.09);
-    path_3.lineTo(653.12, 612.2099999999999);
+    path_3.moveTo(102.08, 324.95);
     path_3.cubicTo(
-        655.04, 609.4999999999999, 651.9, 606.0999999999999, 649.04, 607.79);
-    path_3.lineTo(331.18999999999994, 796.87);
-    path_3.lineTo(331.18999999999994, 1054.23);
+        103.46, 325.15999999999997, 104.92999999999999, 324.64, 105.84, 323.36);
+    path_3.lineTo(201.31, 188.70000000000002);
+    path_3.cubicTo(201.9, 187.87, 200.93, 186.82000000000002, 200.05, 187.34);
+    path_3.lineTo(102.08000000000001, 245.62);
+    path_3.lineTo(102.08000000000001, 324.95);
     path_3.close();
 
-    Paint paint3Fill = Paint()..style = PaintingStyle.fill;
-    paint3Fill.color = const Color(0xff4b4f99).withOpacity(1.0);
-    canvas.drawPath(path_3, paint3Fill);
+    Paint paint_3_fill = Paint()..style = PaintingStyle.fill;
+    paint_3_fill.color = Color(0xff4b4f99).withOpacity(1.0);
+    canvas.drawPath(path_3, paint_3_fill);
   }
 
   @override

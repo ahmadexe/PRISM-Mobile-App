@@ -5,13 +5,13 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text(''),
-        ),
-        body: const Center(
-          child: Text(''),
+    App.init(context);
+    return Scaffold(
+      body: Center(
+        child: SvgPicture.asset(
+          'assets/logo/prism_logo.svg',
+          height: AppDimensions.normalize(55),
+          width: AppDimensions.normalize(55),
         ),
       ),
     );
