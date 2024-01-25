@@ -1,3 +1,4 @@
+import 'package:prism/screens/splash/splash.dart';
 import 'package:prism/screens/profile/profile.dart';
 import 'package:prism/screens/notifications/notifications.dart';
 import 'package:prism/screens/shout_outs/shout_outs.dart';
@@ -7,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
-final Map<String, Widget Function(dynamic)> appRoutes = {};
+final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.splash: (_) => const SplashScreen(),
+};
 
 Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {

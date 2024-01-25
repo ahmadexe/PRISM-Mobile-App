@@ -1,4 +1,5 @@
 abstract class AppRoutes {
+  static const splash = '/splash';
   static const profile = '/profile';
   static const notifications = '/notifications';
   static const shoutOuts = '/shout-outs';
