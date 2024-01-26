@@ -78,20 +78,26 @@ class _Body extends StatelessWidget {
                 ),
                 Center(
                   child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Don\'t have an account? ',
-                        style: AppText.b2!.cl(
-                          AppTheme.c.white!.withOpacity(0.5),
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Don\'t have an account? ',
+                          style: AppText.b2!.cl(
+                            AppTheme.c.white!.withOpacity(0.5),
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: 'Sign up',
-                        style: AppText.b2!.cl(
-                          AppTheme.c.white!,
+                        TextSpan(
+                          text: 'Sign up',
+                          style: AppText.b2!.cl(
+                            AppTheme.c.white!,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              AppRoutes.register.push(context);
+                            },
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                   ),
                 )
               ],
