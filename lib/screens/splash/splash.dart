@@ -2,9 +2,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';
-import 'package:provider/provider.dart';
-
-part '_state.dart';
+import 'package:prism/static/app_statics.dart';
 
 part 'widgets/_body.dart';
 
@@ -15,9 +13,6 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     App.init(context);
 
-    return ChangeNotifierProvider<_ScreenState>(
-      create: (_) => _ScreenState(),
-      child: const _Body(),
-    );
+    return const _Body();
   }
 }

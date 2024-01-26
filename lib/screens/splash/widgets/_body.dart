@@ -23,7 +23,7 @@ class _BodyState extends State<_Body> {
     return Scaffold(
       body: Center(
         child: SvgPicture.asset(
-          'assets/logo/prism_logo.svg',
+          AppStaticData.logoSvg,
           height: AppDimensions.normalize(55),
           width: AppDimensions.normalize(55),
         ),
