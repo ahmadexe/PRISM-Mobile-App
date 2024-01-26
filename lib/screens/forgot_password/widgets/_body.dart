@@ -12,6 +12,7 @@ class _Body extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: const Text('Forgot Password'),
+          centerTitle: true,
           actions: [
             SvgPicture.asset(
               AppStaticData.logoSvg,
