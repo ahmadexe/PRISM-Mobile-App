@@ -8,12 +8,11 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushReplacementNamed(context, AppRoutes.home);
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
     });
   }
 

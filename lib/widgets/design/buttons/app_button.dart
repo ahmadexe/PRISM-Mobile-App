@@ -45,11 +45,20 @@ class AppButton extends StatelessWidget {
                       width: 1,
                     ),
                   )
-                : BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(AppDimensions.ratio * 100),
-                    color: backgroundColor ?? AppTheme.c.primary,
-                  ),
+                : buttonType == ButtonType.borderedSecondary
+                    ? BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(AppDimensions.ratio * 5),
+                        border: Border.all(
+                          color: AppTheme.c.primary!,
+                          width: 1,
+                        )
+                      )
+                    : BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(AppDimensions.ratio * 100),
+                        color: backgroundColor ?? AppTheme.c.primary,
+                      ),
         child: Center(
           child: Text(
             label,
