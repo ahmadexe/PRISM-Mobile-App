@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:iconsax/iconsax.dart';
 
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
