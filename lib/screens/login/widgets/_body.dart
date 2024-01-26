@@ -55,7 +55,9 @@ class _Body extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppRoutes.forgotPassword.push(context);
+                      },
                       child: Text(
                         'Forgot password?',
                         style: AppText.b2!.cl(

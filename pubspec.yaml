@@ -51,6 +51,7 @@ dependencies:
 
   # state management
   provider: ^6.1.1
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,7 @@ flutter:
   assets:
     - assets/animated_icons/
     - assets/logo/prism_logo.svg
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
