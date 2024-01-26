@@ -90,7 +90,7 @@ class AppTextFieldState extends State<AppTextField> {
           Text(
             widget.label!,
             style: AppText.b2!.cl(
-              AppTheme.c.accent!,
+              AppTheme.c.white!,
             ),
           ),
           Space.y!,

@@ -34,13 +34,22 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  # icons
   cupertino_icons: ^1.0.2
+  iconsax: ^0.0.8
+  
+  # utils
   flutter_screenutil: ^5.9.0
   intl: ^0.18.1
   navigation_history_observer: ^1.1.0
-  flutter_form_builder: ^9.1.1
-  form_builder_validators: ^9.1.0
   rive: ^0.12.4
+  flutter_svg: ^2.0.9
+  
+  # forms
+  form_builder_validators: ^9.1.0
+  flutter_form_builder: ^9.1.1
+
+  # state management
   provider: ^6.1.1
 
 dev_dependencies:
@@ -68,6 +77,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/animated_icons/
+    - assets/logo/prism_logo.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

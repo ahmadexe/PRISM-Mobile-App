@@ -4,4 +4,5 @@ enum ButtonType {
   primary,
   secondary,
   bordered,
+  borderedSecondary,
 }
