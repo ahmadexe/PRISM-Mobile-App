@@ -93,7 +93,7 @@ class _Body extends StatelessWidget {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              AppRoutes.register.push(context);
+                              AppRoutes.register.pushReplace(context);
                             },
                         ),
                       ],

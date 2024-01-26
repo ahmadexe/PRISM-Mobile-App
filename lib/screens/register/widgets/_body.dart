@@ -34,8 +34,78 @@ class _Body extends StatelessWidget {
                   name: _FormKeys.name,
                   hint: 'Enter name',
                   textCapitalization: TextCapitalization.sentences,
-                  prefixIcon: const Icon(Icons.mail),
+                  prefixIcon: const Icon(Icons.person),
                   validator: FormBuilderValidators.required(),
+                ),
+                Space.y2!,
+                Autocomplete<String>(
+                  optionsBuilder: (TextEditingValue fruitTextEditingValue) {
+                    if (fruitTextEditingValue.text == '') {
+                      return const Iterable<String>.empty();
+                    }
+
+                    return AppConstants.kUserDomains.where((String option) {
+                      return option
+                          .toLowerCase()
+                          .contains(fruitTextEditingValue.text.toLowerCase());
+                    });
+                  },
+                  optionsViewBuilder: (context, onSelected, options) {
+                    return Align(
+                      alignment: Alignment.topLeft,
+                      child: Material(
+                        elevation: 4.0,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(8.0),
+                            itemCount: options.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final option = options.elementAt(index);
+                              return GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  onSelected(option);
+                                },
+                                child: ListTile(
+                                  title: Text(option),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  fieldViewBuilder: (BuildContext context,
+                      TextEditingController textEditingController,
+                      FocusNode focusNode,
+                      VoidCallback onFieldSubmitted) {
+                    return AppTextField(
+                      controller: textEditingController,
+                      node: focusNode,
+                      name: _FormKeys.domain,
+                      prefixIcon: const Icon(Icons.dynamic_feed_sharp),
+                      hint: 'Enter domain e.g. Technology',
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                          errorText: 'Domain cannot be empty',
+                        ),
+                        (value) {
+                          if (value != null) {
+                            if (!AppConstants.kUserDomains.contains(value)) {
+                              return "Please select a valid domain";
+                            }
+                            return null;
+                          } else {
+                            return "Please select a valid domain";
+                          }
+                        }
+                      ]),
+                      textInputType: TextInputType.text,
+                    );
+                  },
                 ),
                 Space.y2!,
                 AppTextField(
@@ -63,6 +133,9 @@ class _Body extends StatelessWidget {
                 AppButton(
                   label: 'Register',
                   onPressed: () {
+                    final form = screenState.formKey.currentState!;
+                    form.save();
+                    print(form.value);
                     AppRoutes.home.pushReplace(context);
                   },
                   buttonType: ButtonType.borderedSecondary,
