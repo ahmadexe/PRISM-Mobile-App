@@ -31,6 +31,14 @@ class _Body extends StatelessWidget {
                 ),
                 Space.yf(35),
                 AppTextField(
+                  name: _FormKeys.name,
+                  hint: 'Enter name',
+                  textCapitalization: TextCapitalization.sentences,
+                  prefixIcon: const Icon(Icons.mail),
+                  validator: FormBuilderValidators.required(),
+                ),
+                Space.y2!,
+                AppTextField(
                   name: _FormKeys.email,
                   hint: 'Enter email address',
                   textCapitalization: TextCapitalization.none,
