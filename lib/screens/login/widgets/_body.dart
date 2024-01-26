@@ -69,8 +69,7 @@ class _Body extends StatelessWidget {
                 AppButton(
                   label: 'Login',
                   onPressed: () {
-                    final form = screenState.formKey.currentState!;
-                    if (!form.saveAndValidate()) return;
+                    AppRoutes.home.pushReplace(context);
                   },
                   buttonType: ButtonType.borderedSecondary,
                 ),
