@@ -59,20 +59,6 @@ class _Body extends StatelessWidget {
                   prefixIcon: const Icon(Icons.lock),
                   validator: FormBuilderValidators.required(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot password?',
-                        style: AppText.b2!.cl(
-                          AppTheme.c.white!.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const Spacer(),
                 AppButton(
                   label: 'Register',
