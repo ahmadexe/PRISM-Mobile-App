@@ -133,9 +133,6 @@ class _Body extends StatelessWidget {
                 AppButton(
                   label: 'Register',
                   onPressed: () {
-                    final form = screenState.formKey.currentState!;
-                    form.save();
-                    print(form.value);
                     AppRoutes.home.pushReplace(context);
                   },
                   buttonType: ButtonType.borderedSecondary,
