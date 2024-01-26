@@ -75,7 +75,7 @@ class _Body extends StatelessWidget {
                 ),
                 const Spacer(),
                 AppButton(
-                  label: 'Login',
+                  label: 'Register',
                   onPressed: () {
                     AppRoutes.home.pushReplace(context);
                   },
@@ -88,16 +88,20 @@ class _Body extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: 'Don\'t have an account? ',
+                        text: 'Already have an account? ',
                         style: AppText.b2!.cl(
                           AppTheme.c.white!.withOpacity(0.5),
                         ),
                       ),
                       TextSpan(
-                        text: 'Sign up',
+                        text: 'Sign in',
                         style: AppText.b2!.cl(
                           AppTheme.c.white!,
                         ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            AppRoutes.login.pushReplace(context);
+                          },
                       ),
                     ]),
                   ),
