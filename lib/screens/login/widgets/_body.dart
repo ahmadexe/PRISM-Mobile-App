@@ -31,7 +31,7 @@ class _Body extends StatelessWidget {
                 ),
                 Space.yf(35),
                 AppTextField(
-                  name: 'email',
+                  name: _FormKeys.email,
                   hint: 'Enter email address',
                   textCapitalization: TextCapitalization.none,
                   prefixIcon: const Icon(Icons.mail),
@@ -44,7 +44,7 @@ class _Body extends StatelessWidget {
                 ),
                 Space.y2!,
                 AppTextField(
-                  name: 'password',
+                  name: _FormKeys.password,
                   hint: 'Enter password',
                   isPass: true,
                   textCapitalization: TextCapitalization.none,
@@ -71,7 +71,6 @@ class _Body extends StatelessWidget {
                   onPressed: () {
                     final form = screenState.formKey.currentState!;
                     if (!form.saveAndValidate()) return;
-                    print(form.value);
                   },
                   buttonType: ButtonType.borderedSecondary,
                 ),
