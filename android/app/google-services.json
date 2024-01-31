@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201518020960",
+    "project_id": "prism-dev-fc4c1",
+    "storage_bucket": "prism-dev-fc4c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201518020960:android:69e6c52140088210e34605",
+        "android_client_info": {
+          "package_name": "com.example.prism"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFC4WbOuM8Y1EeAZEbT8etYLKl5uBsE3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/firebase_options.dart';
 import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
 import 'configs/configs.dart' as theme;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
