@@ -7,6 +7,7 @@ class Api {
     receiveTimeout: const Duration(milliseconds: 60000),
   );
 
-  static final Dio _dio = Dio(_options);
-  static get client => _dio;
+  static Dio getClient(String baseUrl) {
+    return Dio(_options..baseUrl = baseUrl);
+  }
 }
