@@ -132,7 +132,22 @@ class _Body extends StatelessWidget {
                 ),
                 const Spacer(),
                 BlocConsumer<AuthBloc, AuthState>(
-                  listener: (context, state) {},
+                  listenWhen: AuthRegisterState.match,
+                  listener: (context, state) {
+                    if (state.register is AuthRegisterSuccess) {
+                      SnackBars.success(
+                        context,
+                        'Welcome to Prism!',
+                      );
+                      AppRoutes.home.pushReplace(context);
+                    } else if (state.register is AuthRegisterFailure) {
+                      final message = state.register.message;
+                      SnackBars.failure(
+                        context,
+                        message!,
+                      );
+                    }
+                  },
                   builder: (context, state) {
                     if (state.register is AuthRegisterLoading) {
                       return const Center(

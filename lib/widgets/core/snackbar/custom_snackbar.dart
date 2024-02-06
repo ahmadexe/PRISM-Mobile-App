@@ -67,7 +67,7 @@ class SnackBars {
       content: Container(
         padding: EdgeInsets.all(15.h),
         decoration: BoxDecoration(
-          color: color ?? const Color(0xff03902B),
+          color: color ?? AppTheme.c.accent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
