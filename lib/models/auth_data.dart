@@ -6,6 +6,7 @@ class AuthData {
   final String fullname;
   final String uid;
   final String id;
+  final DateTime createdAt;
 
   AuthData({
     required this.email,
@@ -13,6 +14,7 @@ class AuthData {
     required this.fullname,
     required this.uid,
     required this.id,
+    required this.createdAt,
   });
 
   AuthData copyWith({
@@ -21,6 +23,7 @@ class AuthData {
     String? fullname,
     String? uid,
     String? id,
+    DateTime? createdAt,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -28,6 +31,7 @@ class AuthData {
       fullname: fullname ?? this.fullname,
       uid: uid ?? this.uid,
       id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -38,6 +42,7 @@ class AuthData {
       'fullname': fullname,
       'uid': uid,
       'id': id,
+      'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
 
@@ -48,6 +53,7 @@ class AuthData {
       fullname: map['fullname'] as String,
       uid: map['uid'] as String,
       id: map['id'] as String,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
   }
 
@@ -57,7 +63,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt)';
   }
 
   @override
@@ -69,7 +75,8 @@ class AuthData {
       other.domain == domain &&
       other.fullname == fullname &&
       other.uid == uid &&
-      other.id == id;
+      other.id == id &&
+      other.createdAt == createdAt;
   }
 
   @override
@@ -78,6 +85,7 @@ class AuthData {
       domain.hashCode ^
       fullname.hashCode ^
       uid.hashCode ^
-      id.hashCode;
+      id.hashCode ^
+      createdAt.hashCode;
   }
 }
