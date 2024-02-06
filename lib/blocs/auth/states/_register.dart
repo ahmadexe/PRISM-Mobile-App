@@ -26,7 +26,7 @@ class AuthRegisterSuccess extends AuthRegisterState {
 }
 
 class AuthRegisterFailure extends AuthRegisterState {
-  final String message;
-
-  const AuthRegisterFailure(this.message);
+  const AuthRegisterFailure({
+    required String message,
+  }) : super(message: message);
 }

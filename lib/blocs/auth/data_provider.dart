@@ -13,7 +13,9 @@ class _AuthDataProvider {
       final token = await user.user!.getIdToken();
       _client.options.headers['Authorization'] = 'Bearer $token';
 
-      payload['createdAt'] = DateTime.now().millisecondsSinceEpoch;
+      final uid = user.user!.uid;
+      payload['uid'] = uid;
+      payload['email'] = email;
 
       final response = await _client.post('/users', data: json.encode(payload));
 
@@ -22,11 +24,10 @@ class _AuthDataProvider {
       }
 
       final raw = response.data as Map<String, dynamic>;
-      final uid = user.user!.uid;
-      final id = raw['insertedId'] as String;
-
-      payload['uid'] = uid;
+      final id = raw['id'] as String;
+      final createdAt = raw['createdAt'] as int;
       payload['id'] = id;
+      payload['createdAt'] = createdAt;
 
       final data = AuthData.fromMap(payload);
       return data;

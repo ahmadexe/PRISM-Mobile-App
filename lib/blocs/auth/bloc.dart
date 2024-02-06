@@ -16,14 +16,12 @@ part 'states/_register.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
-    on<AuthEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<AuthRegister>(_register);
   }
 
   final _repo = _AuthRepository();
 
-  void register(AuthRegister event, Emitter<AuthState> emit) async {
+  void _register(AuthRegister event, Emitter<AuthState> emit) async {
     emit(state.copyWith(register: const AuthRegisterLoading()));
     try {
       final user = await _repo.register(
@@ -42,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(
         state.copyWith(
           register: AuthRegisterFailure(
-            e.toString(),
+            message: e.toString(),
           ),
         ),
       );
