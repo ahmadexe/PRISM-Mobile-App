@@ -131,32 +131,43 @@ class _Body extends StatelessWidget {
                   validator: FormBuilderValidators.required(),
                 ),
                 const Spacer(),
-                AppButton(
-                  label: 'Register',
-                  onPressed: () {
-                    final isValid =
-                        screenState.formKey.currentState!.saveAndValidate();
-                    if (!isValid) return;
-                    
-                    final formData = screenState.formKey.currentState!.value;
-                    final email = formData[_FormKeys.email] as String;
-                    final password = formData[_FormKeys.password] as String;
-                    final name = formData[_FormKeys.name] as String;
-                    final domain = formData[_FormKeys.domain] as String;
-                    final Map<String, dynamic> payload = {
-                      'fullname': name,
-                      'domain': domain,
-                    };
+                BlocConsumer<AuthBloc, AuthState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    if (state.register is AuthRegisterLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return AppButton(
+                      label: 'Register',
+                      onPressed: () {
+                        final isValid =
+                            screenState.formKey.currentState!.saveAndValidate();
+                        if (!isValid) return;
 
-                    authBloc.add(
-                      AuthRegister(
-                        email: email,
-                        password: password,
-                        payload: payload,
-                      ),
+                        final formData =
+                            screenState.formKey.currentState!.value;
+                        final email = formData[_FormKeys.email] as String;
+                        final password = formData[_FormKeys.password] as String;
+                        final name = formData[_FormKeys.name] as String;
+                        final domain = formData[_FormKeys.domain] as String;
+                        final Map<String, dynamic> payload = {
+                          'fullname': name,
+                          'domain': domain,
+                        };
+
+                        authBloc.add(
+                          AuthRegister(
+                            email: email,
+                            password: password,
+                            payload: payload,
+                          ),
+                        );
+                      },
+                      buttonType: ButtonType.borderedSecondary,
                     );
                   },
-                  buttonType: ButtonType.borderedSecondary,
                 ),
                 const AppDivider(
                   text: 'OR',
