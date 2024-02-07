@@ -42,7 +42,7 @@ class AuthData {
       'fullname': fullname,
       'uid': uid,
       'id': id,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.microsecondsSinceEpoch,
     };
   }
 
@@ -53,7 +53,7 @@ class AuthData {
       fullname: map['fullname'] as String,
       uid: map['uid'] as String,
       id: map['id'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt'] as int),
     );
   }
 
