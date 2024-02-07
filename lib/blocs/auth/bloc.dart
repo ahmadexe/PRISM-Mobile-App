@@ -18,6 +18,7 @@ part 'states/_login.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
     on<AuthRegister>(_register);
+    on<AuthLogin>(_login);
   }
 
   final _repo = _AuthRepository();
@@ -41,6 +42,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(
         state.copyWith(
           register: AuthRegisterFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  void _login(AuthLogin event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(login: const AuthLoginLoading()));
+    try {
+      final user = await _repo.login(
+        event.email,
+        event.password,
+      );
+
+      emit(
+        state.copyWith(
+          user: user,
+          login: const AuthLoginSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          login: AuthLoginFailure(
             message: e.toString(),
           ),
         ),

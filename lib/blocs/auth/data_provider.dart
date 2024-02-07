@@ -37,4 +37,35 @@ class _AuthDataProvider {
       throw e.message!;
     }
   }
+
+  static Future<AuthData> login(Map<String, dynamic> payload) async {
+    try {
+      final user = await _auth.signInWithEmailAndPassword(
+        email: payload['email'] as String,
+        password: payload['password'] as String,
+      );
+
+      final token = await user.user!.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.get('/users/${user.user!.uid}');
+
+      if (response.statusCode != 200) {
+        throw 'Failed to fetch user';
+      }
+
+      final raw = response.data as Map<String, dynamic>;
+      final id = raw['id'] as String;
+      final createdAt = raw['createdAt'] as int;
+      payload['id'] = id;
+      payload['createdAt'] = createdAt;
+
+      final data = AuthData.fromMap(payload);
+      return data;
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(login): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }
