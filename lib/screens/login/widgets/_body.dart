@@ -6,6 +6,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -68,12 +69,43 @@ class _Body extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                AppButton(
-                  label: 'Login',
-                  onPressed: () {
-                    AppRoutes.home.pushReplace(context);
+                BlocConsumer<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state.login is AuthLoginFailure) {
+                      SnackBars.failure(
+                        context,
+                        "Looks like you've entered an incorrect email or password. Please try again.",
+                      );
+                    }
+                    if (state.login is AuthLoginSuccess) {
+                      SnackBars.success(
+                        context,
+                        "Welcome back!",
+                      );
+                      AppRoutes.home.pushReplace(context);
+                    }
                   },
-                  buttonType: ButtonType.borderedSecondary,
+                  builder: (context, state) {
+                    if (state.login is AuthLoginLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return AppButton(
+                      label: 'Login',
+                      onPressed: () {
+                        final form = screenState.formKey.currentState;
+                        final isValid = form!.saveAndValidate();
+                        if (!isValid) return;
+
+                        final email = form.value[_FormKeys.email] as String;
+                        final password = form.value[_FormKeys.password] as String;
+
+                        authBloc.add(AuthLogin(email: email, password: password));
+                      },
+                      buttonType: ButtonType.borderedSecondary,
+                    );
+                  },
                 ),
                 const AppDivider(
                   text: 'OR',

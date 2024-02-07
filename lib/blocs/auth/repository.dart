@@ -6,7 +6,7 @@ class _AuthRepository {
       _AuthDataProvider.register(email, password, payload);
 
   Future<AuthData> login(String email, String password) {
-    final payload = {
+    final Map<String, dynamic> payload = {
       'email': email,
       'password': password,
     };
