@@ -13,6 +13,7 @@ part 'state.dart';
 part 'repository.dart';
 part 'data_provider.dart';
 part 'states/_register.dart';
+part 'states/_login.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
