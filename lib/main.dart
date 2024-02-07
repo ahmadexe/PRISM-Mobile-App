@@ -1,11 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/firebase_options.dart';
 import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
 import 'configs/configs.dart' as theme;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -22,21 +30,26 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      navigatorObservers: [
-        ...observers,
-        NavigationHistoryObserver(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()),
       ],
-      theme: theme.themeDark,
-      initialRoute: AppRoutes.splash,
-      builder: (context, child) {
-        App.init(context);
-        return child!;
-      },
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: onGenerateRoutes,
-      routes: appRoutes,
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        navigatorObservers: [
+          ...observers,
+          NavigationHistoryObserver(),
+        ],
+        theme: theme.themeDark,
+        initialRoute: AppRoutes.splash,
+        builder: (context, child) {
+          App.init(context);
+          return child!;
+        },
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: onGenerateRoutes,
+        routes: appRoutes,
+      ),
     );
   }
 }

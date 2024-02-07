@@ -6,6 +6,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -130,12 +131,58 @@ class _Body extends StatelessWidget {
                   validator: FormBuilderValidators.required(),
                 ),
                 const Spacer(),
-                AppButton(
-                  label: 'Register',
-                  onPressed: () {
-                    AppRoutes.home.pushReplace(context);
+                BlocConsumer<AuthBloc, AuthState>(
+                  listenWhen: AuthRegisterState.match,
+                  listener: (context, state) {
+                    if (state.register is AuthRegisterSuccess) {
+                      SnackBars.success(
+                        context,
+                        'Welcome to Prism!',
+                      );
+                      AppRoutes.home.pushReplace(context);
+                    } else if (state.register is AuthRegisterFailure) {
+                      final message = state.register.message;
+                      SnackBars.failure(
+                        context,
+                        message!,
+                      );
+                    }
                   },
-                  buttonType: ButtonType.borderedSecondary,
+                  builder: (context, state) {
+                    if (state.register is AuthRegisterLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return AppButton(
+                      label: 'Register',
+                      onPressed: () {
+                        final isValid =
+                            screenState.formKey.currentState!.saveAndValidate();
+                        if (!isValid) return;
+
+                        final formData =
+                            screenState.formKey.currentState!.value;
+                        final email = formData[_FormKeys.email] as String;
+                        final password = formData[_FormKeys.password] as String;
+                        final name = formData[_FormKeys.name] as String;
+                        final domain = formData[_FormKeys.domain] as String;
+                        final Map<String, dynamic> payload = {
+                          'fullname': name,
+                          'domain': domain,
+                        };
+
+                        authBloc.add(
+                          AuthRegister(
+                            email: email,
+                            password: password,
+                            payload: payload,
+                          ),
+                        );
+                      },
+                      buttonType: ButtonType.borderedSecondary,
+                    );
+                  },
                 ),
                 const AppDivider(
                   text: 'OR',
