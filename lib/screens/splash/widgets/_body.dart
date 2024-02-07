@@ -11,20 +11,50 @@ class _BodyState extends State<_Body> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushReplacementNamed(context, AppRoutes.login);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     App.init(context);
-    return Scaffold(
-      body: Center(
-        child: SvgPicture.asset(
-          AppStaticData.logoSvg,
-          height: AppDimensions.normalize(55),
-          width: AppDimensions.normalize(55),
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) async {
+        if (state.init is AuthInitSuccess) {
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
+        } else if (state.init is AuthInitFailure) {
+          await Future.delayed(const Duration(seconds: 2));
+          if (!mounted) return;
+          Navigator.pushReplacementNamed(context, AppRoutes.login);
+        }
+      },
+      child: Scaffold(
+        body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: SvgPicture.asset(
+                  AppStaticData.logoSvg,
+                  height: AppDimensions.normalize(55),
+                  width: AppDimensions.normalize(55),
+                ),
+              );
+            } else {
+              authBloc.add(
+                AuthInit(
+                  user: snapshot.data,
+                ),
+              );
+            }
+            return Center(
+              child: SvgPicture.asset(
+                AppStaticData.logoSvg,
+                height: AppDimensions.normalize(55),
+                width: AppDimensions.normalize(55),
+              ),
+            );
+          },
         ),
       ),
     );
