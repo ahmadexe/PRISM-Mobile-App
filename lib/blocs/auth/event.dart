@@ -34,3 +34,11 @@ class AuthLogin extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+class AuthInit extends AuthEvent {
+  final User? user;
+
+  const AuthInit({
+    this.user,
+  });
+}

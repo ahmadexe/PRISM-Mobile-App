@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';

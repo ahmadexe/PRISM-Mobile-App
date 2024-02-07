@@ -13,4 +13,6 @@ class _AuthRepository {
 
     return _AuthDataProvider.login(payload);
   }
+
+  Future<AuthData> getUser(User? user) => _AuthDataProvider.getUser(user);
 }

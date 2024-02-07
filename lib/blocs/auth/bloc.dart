@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -14,14 +15,17 @@ part 'repository.dart';
 part 'data_provider.dart';
 part 'states/_register.dart';
 part 'states/_login.dart';
+part 'states/_init.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
     on<AuthRegister>(_register);
     on<AuthLogin>(_login);
+    on<AuthInit>(_init);
   }
 
   final _repo = _AuthRepository();
+  late StreamSubscription<User?> listener;
 
   void _register(AuthRegister event, Emitter<AuthState> emit) async {
     emit(state.copyWith(register: const AuthRegisterLoading()));
@@ -71,6 +75,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         ),
       );
+    }
+  }
+
+  Future<void> _init(AuthInit event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(init: const AuthInitLoading()));
+    try {
+      if (event.user == null) {
+        emit(state.copyWith(
+          init: const AuthInitFailure(message: 'User not found'),
+        ));
+        return;
+      }
+      final profile = await _repo.getUser(event.user);
+      emit(state.copyWith(
+        user: profile,
+        init: const AuthInitSuccess(),
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        init: AuthInitFailure(message: e.toString()),
+      ));
     }
   }
 }
