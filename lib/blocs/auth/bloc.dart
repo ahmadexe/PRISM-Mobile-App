@@ -109,6 +109,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.copyWith(
           user: null,
           logout: const AuthLogoutSuccess(),
+          login: const AuthLoginDefault(),
+          register: const AuthRegisterDefault(),
+          init: const AuthInitDefault()
         ),
       );
     } catch (e) {
