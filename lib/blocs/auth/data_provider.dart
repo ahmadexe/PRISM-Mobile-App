@@ -24,12 +24,8 @@ class _AuthDataProvider {
       }
 
       final raw = response.data as Map<String, dynamic>;
-      final id = raw['id'] as String;
-      final createdAt = raw['createdAt'] as int;
-      payload['id'] = id;
-      payload['createdAt'] = createdAt;
 
-      final data = AuthData.fromMap(payload);
+      final data = AuthData.fromMap(raw);
       return data;
     } on FirebaseAuthException catch (e) {
       debugPrint('Exception in Auth Data Provider(register): $e');

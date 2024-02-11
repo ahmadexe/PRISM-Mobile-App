@@ -84,14 +84,19 @@ class AuthData {
       bio: map['bio'] as String?,
       imageUrl: map['imageUrl'] as String?,
       bannerImageUrl: map['bannerImageUrl'] as String?,
-      followers: List<String>.from(map['followers'] as List<dynamic>),
-      following: List<String>.from(map['following'] as List<dynamic>),
+      followers: map['followers'] == null
+          ? []
+          : List<String>.from(map['followers'] as List<dynamic>),
+      following: map['following'] == null
+          ? []
+          : List<String>.from(map['following'] as List<dynamic>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory AuthData.fromJson(String source) => AuthData.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory AuthData.fromJson(String source) =>
+      AuthData.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -101,33 +106,32 @@ class AuthData {
   @override
   bool operator ==(covariant AuthData other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.email == email &&
-      other.domain == domain &&
-      other.fullname == fullname &&
-      other.uid == uid &&
-      other.id == id &&
-      other.createdAt == createdAt &&
-      other.bio == bio &&
-      other.imageUrl == imageUrl &&
-      other.bannerImageUrl == bannerImageUrl &&
-      listEquals(other.followers, followers) &&
-      listEquals(other.following, following);
+
+    return other.email == email &&
+        other.domain == domain &&
+        other.fullname == fullname &&
+        other.uid == uid &&
+        other.id == id &&
+        other.createdAt == createdAt &&
+        other.bio == bio &&
+        other.imageUrl == imageUrl &&
+        other.bannerImageUrl == bannerImageUrl &&
+        listEquals(other.followers, followers) &&
+        listEquals(other.following, following);
   }
 
   @override
   int get hashCode {
     return email.hashCode ^
-      domain.hashCode ^
-      fullname.hashCode ^
-      uid.hashCode ^
-      id.hashCode ^
-      createdAt.hashCode ^
-      bio.hashCode ^
-      imageUrl.hashCode ^
-      bannerImageUrl.hashCode ^
-      followers.hashCode ^
-      following.hashCode;
+        domain.hashCode ^
+        fullname.hashCode ^
+        uid.hashCode ^
+        id.hashCode ^
+        createdAt.hashCode ^
+        bio.hashCode ^
+        imageUrl.hashCode ^
+        bannerImageUrl.hashCode ^
+        followers.hashCode ^
+        following.hashCode;
   }
 }
