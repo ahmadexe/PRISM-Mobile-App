@@ -76,4 +76,14 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static Future<void> logout() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(logout): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

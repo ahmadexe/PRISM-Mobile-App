@@ -15,4 +15,6 @@ class _AuthRepository {
   }
 
   Future<AuthData> getUser(User? user) => _AuthDataProvider.getUser(user);
+
+  Future<void> logout() => _AuthDataProvider.logout();
 }
