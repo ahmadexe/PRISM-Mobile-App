@@ -34,6 +34,8 @@ class AppTextField extends StatefulWidget {
   final bool isDarkField;
   final void Function()? onTap;
 
+  final int? maxLines;
+
   const AppTextField({
     Key? key,
     this.node,
@@ -59,6 +61,7 @@ class AppTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.done,
     this.textCapitalization = TextCapitalization.sentences,
     this.isDarkField = false,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -96,6 +99,7 @@ class AppTextFieldState extends State<AppTextField> {
           Space.y!,
         ],
         FormBuilderTextField(
+          maxLines: widget.maxLines ?? 1,
           controller: widget.controller,
           inputFormatters: widget.inputformatters,
           style: AppText.b2!.cl(textColor),

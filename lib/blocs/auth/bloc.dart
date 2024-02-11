@@ -16,12 +16,14 @@ part 'data_provider.dart';
 part 'states/_register.dart';
 part 'states/_login.dart';
 part 'states/_init.dart';
+part 'states/_logout.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
     on<AuthRegister>(_register);
     on<AuthLogin>(_login);
     on<AuthInit>(_init);
+    on<AuthLogout>(_logout);
   }
 
   final _repo = _AuthRepository();
@@ -96,6 +98,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         init: AuthInitFailure(message: e.toString()),
       ));
+    }
+  }
+
+  Future<void> _logout(AuthLogout event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(logout: const AuthLogoutLoading()));
+    try {
+      await _repo.logout();
+      emit(
+        state.copyWith(
+          user: null,
+          logout: const AuthLogoutSuccess(),
+          login: const AuthLoginDefault(),
+          register: const AuthRegisterDefault(),
+          init: const AuthInitDefault()
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          logout: AuthLogoutFailure(message: e.toString()),
+        ),
+      );
     }
   }
 }

@@ -42,3 +42,7 @@ class AuthInit extends AuthEvent {
     this.user,
   });
 }
+
+class AuthLogout extends AuthEvent {
+  const AuthLogout();
+}
