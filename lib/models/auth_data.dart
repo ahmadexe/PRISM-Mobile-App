@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class AuthData {
   final String email;
   final String domain;
@@ -7,6 +9,11 @@ class AuthData {
   final String uid;
   final String id;
   final DateTime createdAt;
+  final String? bio;
+  final String? imageUrl;
+  final String? bannerImageUrl;
+  final List<String> followers;
+  final List<String> following;
 
   AuthData({
     required this.email,
@@ -15,6 +22,11 @@ class AuthData {
     required this.uid,
     required this.id,
     required this.createdAt,
+    this.bio,
+    this.imageUrl,
+    this.bannerImageUrl,
+    this.followers = const [],
+    this.following = const [],
   });
 
   AuthData copyWith({
@@ -24,6 +36,11 @@ class AuthData {
     String? uid,
     String? id,
     DateTime? createdAt,
+    String? bio,
+    String? imageUrl,
+    String? bannerImageUrl,
+    List<String>? followers,
+    List<String>? following,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -32,6 +49,11 @@ class AuthData {
       uid: uid ?? this.uid,
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
+      bio: bio ?? this.bio,
+      imageUrl: imageUrl ?? this.imageUrl,
+      bannerImageUrl: bannerImageUrl ?? this.bannerImageUrl,
+      followers: followers ?? this.followers,
+      following: following ?? this.following,
     );
   }
 
@@ -43,6 +65,11 @@ class AuthData {
       'uid': uid,
       'id': id,
       'createdAt': createdAt.microsecondsSinceEpoch,
+      'bio': bio,
+      'imageUrl': imageUrl,
+      'bannerImageUrl': bannerImageUrl,
+      'followers': followers,
+      'following': following,
     };
   }
 
@@ -54,6 +81,11 @@ class AuthData {
       uid: map['uid'] as String,
       id: map['id'] as String,
       createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt'] as int),
+      bio: map['bio'] as String?,
+      imageUrl: map['imageUrl'] as String?,
+      bannerImageUrl: map['bannerImageUrl'] as String?,
+      followers: List<String>.from(map['followers'] as List<dynamic>),
+      following: List<String>.from(map['following'] as List<dynamic>),
     );
   }
 
@@ -63,7 +95,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following)';
   }
 
   @override
@@ -76,7 +108,12 @@ class AuthData {
       other.fullname == fullname &&
       other.uid == uid &&
       other.id == id &&
-      other.createdAt == createdAt;
+      other.createdAt == createdAt &&
+      other.bio == bio &&
+      other.imageUrl == imageUrl &&
+      other.bannerImageUrl == bannerImageUrl &&
+      listEquals(other.followers, followers) &&
+      listEquals(other.following, following);
   }
 
   @override
@@ -86,6 +123,11 @@ class AuthData {
       fullname.hashCode ^
       uid.hashCode ^
       id.hashCode ^
-      createdAt.hashCode;
+      createdAt.hashCode ^
+      bio.hashCode ^
+      imageUrl.hashCode ^
+      bannerImageUrl.hashCode ^
+      followers.hashCode ^
+      following.hashCode;
   }
 }
