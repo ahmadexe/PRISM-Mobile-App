@@ -17,6 +17,7 @@ class _Body extends StatelessWidget {
             initialValue: _FormData.initialValues(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
                   AppStaticData.logoSvg,
@@ -129,6 +130,13 @@ class _Body extends StatelessWidget {
                   textCapitalization: TextCapitalization.none,
                   prefixIcon: const Icon(Icons.lock),
                   validator: FormBuilderValidators.required(),
+                ),
+                Space.y2!,
+                const AppTextField(
+                  name: _FormKeys.bio,
+                  hint: 'Tell the world about yourself',
+                  textCapitalization: TextCapitalization.none,
+                  maxLines: 4,
                 ),
                 const Spacer(),
                 BlocConsumer<AuthBloc, AuthState>(
