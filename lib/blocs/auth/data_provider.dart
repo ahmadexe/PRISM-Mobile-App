@@ -2,7 +2,7 @@ part of 'bloc.dart';
 
 class _AuthDataProvider {
   static final _auth = FirebaseAuth.instance;
-  static final Dio _client = Api.getClient('http://localhost:3000/auth');
+  static final Dio _client = Api.getClient('http://13.235.113.179:8080/auth');
 
   static Future<AuthData> register(
       String email, String password, Map<String, dynamic> payload) async {
