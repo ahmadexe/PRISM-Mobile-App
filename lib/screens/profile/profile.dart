@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_tab.dart';
+part 'widgets/_domain_tab.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

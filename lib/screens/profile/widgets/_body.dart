@@ -8,11 +8,11 @@ class _Body extends StatelessWidget {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
     return SafeArea(
+      top: false,
+      left: false,
+      right: false,
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),
-        appBar: AppBar(
-          title: const Text('Profile'),
-        ),
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state.logout is AuthLogoutSuccess) {
@@ -26,19 +26,19 @@ class _Body extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: AppDimensions.normalize(65),
+                height: AppDimensions.normalize(75),
                 child: Stack(
                   children: [
                     Image.asset(
                       AppStaticData.bannerDef,
-                      height: AppDimensions.normalize(55),
+                      height: AppDimensions.normalize(65),
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                     Positioned(
                       left: 16,
                       right: 16,
-                      top: 75,
+                      top: 105,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -59,7 +59,14 @@ class _Body extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(user.fullname, style: AppText.h3b),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(user.fullname, style: AppText.h3b),
+                        const _DomainTab()
+                      ],
+                    ),
+                    Space.y!,
                     Text(
                       user.bio,
                       style: AppText.b2,
@@ -92,6 +99,24 @@ class _Body extends StatelessWidget {
                     ),
                     Space.y2!,
                     _Tab(memberSince: DateTime.now())
+                  ],
+                ),
+              ),
+              Space.yf(70),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Iconsax.search_zoom_out,
+                      size: AppDimensions.normalize(30),
+                      color: AppTheme.c.textGrey,
+                    ),
+                    Space.y!,
+                    Text(
+                      'No posts yet',
+                      style: AppText.h3b!.cl(AppTheme.c.textGrey!),
+                    ),
                   ],
                 ),
               ),
