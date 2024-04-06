@@ -63,7 +63,9 @@ class _Body extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(user.fullname, style: AppText.h3b),
-                        const _DomainTab()
+                        _DomainTab(
+                          domain: user.domain,
+                        )
                       ],
                     ),
                     Space.y!,
@@ -85,20 +87,22 @@ class _Body extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            Text('273', style: AppText.h2b),
+                            Text(user.followers.length.toString(),
+                                style: AppText.h2b),
                             Text('Followers', style: AppText.b2),
                           ],
                         ),
                         Column(
                           children: [
-                            Text('1,116', style: AppText.h2b),
+                            Text(user.following.length.toString(),
+                                style: AppText.h2b),
                             Text('Following', style: AppText.b2),
                           ],
                         ),
                       ],
                     ),
                     Space.y2!,
-                    _Tab(memberSince: DateTime.now())
+                    _Tab(memberSince: user.createdAt)
                   ],
                 ),
               ),

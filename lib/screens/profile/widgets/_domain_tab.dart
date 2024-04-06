@@ -1,7 +1,8 @@
 part of '../profile.dart';
 
 class _DomainTab extends StatelessWidget {
-  const _DomainTab({super.key});
+  final String domain;
+  const _DomainTab({required this.domain});
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +18,13 @@ class _DomainTab extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(
-              Iconsax.code_circle,
+              getIcon(domain),
               size: 20,
               color: AppTheme.c.accent,
             ),
             Space.x!,
             Text(
-              'Software',
+              domain,
               style: AppText.l1bm,
             ),
           ],
