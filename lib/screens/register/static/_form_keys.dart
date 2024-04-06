@@ -6,4 +6,5 @@ class _FormKeys {
   static const name = "name";
   static const domain = "domain";
   static const bio = "bio";
+  static const isBusiness = "isBusiness";
 }

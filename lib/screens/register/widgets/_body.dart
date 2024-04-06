@@ -135,10 +135,18 @@ class _Body extends StatelessWidget {
                   Space.y2!,
                   AppTextField(
                     name: _FormKeys.bio,
-                    hint: 'Tell the world about yourself',
+                    hint: 'Tell the world about yourself/your business',
                     textCapitalization: TextCapitalization.none,
                     maxLines: 4,
                     validator: FormBuilderValidators.required(),
+                  ),
+                  FormBuilderCheckbox(
+                    name: _FormKeys.isBusiness,
+                    title: Text(
+                      'Are you a business?',
+                      style: AppText.b2,
+                    ),
+                    initialValue: false,
                   ),
                   Space.y2!,
                   BlocConsumer<AuthBloc, AuthState>(
@@ -178,9 +186,14 @@ class _Body extends StatelessWidget {
                               formData[_FormKeys.password] as String;
                           final name = formData[_FormKeys.name] as String;
                           final domain = formData[_FormKeys.domain] as String;
+                          final bio = formData[_FormKeys.bio] as String;
+                          final isBusiness = formData[_FormKeys.isBusiness] as bool;
+
                           final Map<String, dynamic> payload = {
                             'fullname': name,
                             'domain': domain,
+                            'bio': bio,
+                            'isBusinessAcc': isBusiness,
                           };
 
                           authBloc.add(

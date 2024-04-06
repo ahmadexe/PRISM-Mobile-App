@@ -9,7 +9,7 @@ class AuthData {
   final String uid;
   final String id;
   final DateTime createdAt;
-  final String? bio;
+  final String bio;
   final String? imageUrl;
   final String? bannerImageUrl;
   final List<String> followers;
@@ -24,7 +24,7 @@ class AuthData {
     required this.uid,
     required this.id,
     required this.createdAt,
-    this.bio,
+    required this.bio,
     this.imageUrl,
     this.bannerImageUrl,
     this.followers = const [],
@@ -91,7 +91,7 @@ class AuthData {
       uid: map['uid'] as String,
       id: map['id'] as String,
       createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt'] as int),
-      bio: map['bio'] as String?,
+      bio: map['bio'] as String,
       imageUrl: map['imageUrl'] as String?,
       bannerImageUrl: map['bannerImageUrl'] as String?,
       followers: map['followers'] == null
