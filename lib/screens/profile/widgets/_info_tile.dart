@@ -10,7 +10,7 @@ class _InfoTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (isEdit) {
-          // TODO: Implement edit route
+          AppRoutes.editProfile.push(context);
         }
       },
       child: Container(
