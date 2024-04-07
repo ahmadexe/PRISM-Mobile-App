@@ -13,7 +13,7 @@ part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_tab.dart';
-part 'widgets/_domain_tab.dart';
+part 'widgets/_info_tile.dart';
 
 part 'utils/_domain_utils.dart';
 

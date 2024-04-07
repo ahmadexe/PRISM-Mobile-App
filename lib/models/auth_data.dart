@@ -14,6 +14,7 @@ class AuthData {
   final String? bannerImageUrl;
   final List<String> followers;
   final List<String> following;
+  final bool isRanked;
   final bool isBusinessAcc;
   final bool isServiceProvider;
 
@@ -31,6 +32,7 @@ class AuthData {
     this.following = const [],
     required this.isBusinessAcc,
     required this.isServiceProvider,
+    required this.isRanked,
   });
 
   AuthData copyWith({
@@ -47,6 +49,7 @@ class AuthData {
     List<String>? following,
     bool? isBusinessAcc,
     bool? isServiceProvider,
+    bool? isRanked,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -62,6 +65,7 @@ class AuthData {
       following: following ?? this.following,
       isBusinessAcc: isBusinessAcc ?? this.isBusinessAcc,
       isServiceProvider: isServiceProvider ?? this.isServiceProvider,
+      isRanked: isRanked ?? this.isRanked,
     );
   }
 
@@ -80,6 +84,7 @@ class AuthData {
       'following': following,
       'isBusinessAcc': isBusinessAcc,
       'isServiceProvider': isServiceProvider,
+      'isRanked': isRanked,
     };
   }
 
@@ -102,6 +107,7 @@ class AuthData {
           : List<String>.from(map['following'] as List<dynamic>),
       isBusinessAcc: map['isBusinessAcc'] as bool,
       isServiceProvider: map['isServiceProvider'] as bool,
+      isRanked: map['isRanked'] as bool,
     );
   }
 
@@ -112,7 +118,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked)';
   }
 
   @override
@@ -131,7 +137,8 @@ class AuthData {
         listEquals(other.followers, followers) &&
         listEquals(other.following, following) &&
         other.isBusinessAcc == isBusinessAcc &&
-        other.isServiceProvider == isServiceProvider;
+        other.isServiceProvider == isServiceProvider &&
+        other.isRanked == isRanked;
   }
 
   @override
@@ -148,6 +155,7 @@ class AuthData {
         followers.hashCode ^
         following.hashCode ^
         isBusinessAcc.hashCode ^
-        isServiceProvider.hashCode;
+        isServiceProvider.hashCode ^
+        isRanked.hashCode;
   }
 }

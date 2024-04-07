@@ -29,28 +29,38 @@ class _Body extends StatelessWidget {
                 height: AppDimensions.normalize(75),
                 child: Stack(
                   children: [
-                    Image.asset(
-                      AppStaticData.bannerDef,
-                      height: AppDimensions.normalize(65),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      left: 16,
-                      right: 16,
-                      top: 105,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            radius: AppDimensions.normalize(17),
-                            backgroundImage: const AssetImage(
-                              AppStaticData.dpDef,
+                    user.bannerImageUrl == null
+                        ? Image.asset(
+                            AppStaticData.bannerDef,
+                            height: AppDimensions.normalize(65),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            user.bannerImageUrl!,
+                            height: AppDimensions.normalize(65),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                    user.imageUrl != null
+                        ? Positioned(
+                            left: 16,
+                            top: 105,
+                            child: CircleAvatar(
+                              radius: AppDimensions.normalize(17),
+                              backgroundImage: NetworkImage(user.imageUrl!),
+                            ),
+                          )
+                        : Positioned(
+                            left: 16,
+                            top: 105,
+                            child: CircleAvatar(
+                              radius: AppDimensions.normalize(17),
+                              backgroundImage: const AssetImage(
+                                AppStaticData.dpDef,
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -63,8 +73,16 @@ class _Body extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(user.fullname, style: AppText.h3b),
-                        _DomainTab(
-                          domain: user.domain,
+                        Row(
+                          children: [
+                            const _InfoTile(
+                              isEdit: true,
+                            ),
+                            Space.x!,
+                            _InfoTile(
+                              domain: user.domain,
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -79,12 +97,13 @@ class _Body extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          children: [
-                            const Icon(Iconsax.ranking, size: 30),
-                            Text('Ranked', style: AppText.b2),
-                          ],
-                        ),
+                        if (user.isRanked)
+                          Column(
+                            children: [
+                              const Icon(Iconsax.ranking, size: 30),
+                              Text('Ranked', style: AppText.b2),
+                            ],
+                          ),
                         Column(
                           children: [
                             Text(user.followers.length.toString(),
