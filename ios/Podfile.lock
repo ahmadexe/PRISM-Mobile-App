@@ -42,6 +42,8 @@ PODS:
   - GoogleUtilities/Reachability (7.12.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (3.2.0)
+  - image_picker_ios (0.0.1):
+    - Flutter
   - PromisesObjC (2.3.1)
   - RecaptchaInterop (100.0.0)
   - rive_common (0.0.1):
@@ -51,6 +53,7 @@ DEPENDENCIES:
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - rive_common (from `.symlinks/plugins/rive_common/ios`)
 
 SPEC REPOS:
@@ -72,6 +75,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   rive_common:
     :path: ".symlinks/plugins/rive_common/ios"
 
@@ -86,6 +91,7 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
   GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
+  image_picker_ios: b545a5f16c0fa88e3ecbbce3ed4de45567a8ec18
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   rive_common: 3a4c254c6e4db7e4b9e05daeb3d1f47ae4f7bf76

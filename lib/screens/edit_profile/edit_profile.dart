@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:prism/blocs/auth/bloc.dart';
@@ -17,6 +18,7 @@ part 'static/_form_keys.dart';
 part '_state.dart';
 
 part 'widgets/_body.dart';
+part 'widgets/_image_modal.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({Key? key}) : super(key: key);

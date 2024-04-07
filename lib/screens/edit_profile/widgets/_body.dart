@@ -24,25 +24,36 @@ class _Body extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (user.bannerImageUrl == null)
-                Stack(
-                  children: [
-                    Image.asset(
-                      AppStaticData.bannerDef,
-                      height: AppDimensions.normalize(65),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Container(
-                      height: AppDimensions.normalize(65),
-                      width: double.infinity,
-                      color: Colors.black.withOpacity(.5),
-                    ),
-                    Positioned(
-                      top: 60,
-                      bottom: 50,
-                      left: 130,
-                      right: 130,
+              Stack(
+                children: [
+                  user.bannerImageUrl == null
+                      ? Image.asset(
+                          AppStaticData.bannerDef,
+                          height: AppDimensions.normalize(65),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          user.bannerImageUrl!,
+                          height: AppDimensions.normalize(65),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                  Container(
+                    height: AppDimensions.normalize(65),
+                    width: double.infinity,
+                    color: Colors.black.withOpacity(.5),
+                  ),
+                  Positioned(
+                    top: 60,
+                    bottom: 50,
+                    left: 130,
+                    right: 130,
+                    child: GestureDetector(
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (_) => const _ImageModal(),
+                      ),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.black26,
@@ -59,76 +70,33 @@ class _Body extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
-                  ],
-                )
-              else
-                Stack(
-                  children: [
-                    Image.network(
-                      user.bannerImageUrl!,
-                      height: AppDimensions.normalize(65),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
                     ),
-                    Container(
-                      height: AppDimensions.normalize(65),
-                      width: double.infinity,
-                      color: Colors.black.withOpacity(.5),
-                    ),
-                    Positioned(
-                      top: 60,
-                      bottom: 50,
-                      left: 130,
-                      right: 130,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.black26,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 1,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Edit Banner Image',
-                            style: AppText.b1,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
+              ),
               Space.y2!,
-              if (user.imageUrl != null)
-                Stack(
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                  context: context,
+                  builder: (_) => const _ImageModal(),
+                ),
+                child: Stack(
                   children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: AppDimensions.normalize(17),
-                        backgroundImage: NetworkImage(user.imageUrl!),
-                      ),
-                    ),
-                    Center(
-                      child: CircleAvatar(
-                        radius: AppDimensions.normalize(17),
-                        backgroundColor: Colors.black.withOpacity(.5),
-                      ),
-                    ),
-                  ],
-                )
-              else
-                Stack(
-                  children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: AppDimensions.normalize(17),
-                        backgroundImage: const AssetImage(
-                          AppStaticData.dpDef,
-                        ),
-                      ),
-                    ),
+                    user.imageUrl != null
+                        ? Center(
+                            child: CircleAvatar(
+                              radius: AppDimensions.normalize(17),
+                              backgroundImage: NetworkImage(user.imageUrl!),
+                            ),
+                          )
+                        : Center(
+                            child: CircleAvatar(
+                              radius: AppDimensions.normalize(17),
+                              backgroundImage: const AssetImage(
+                                AppStaticData.dpDef,
+                              ),
+                            ),
+                          ),
                     Center(
                       child: CircleAvatar(
                         radius: AppDimensions.normalize(17),
@@ -137,6 +105,7 @@ class _Body extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
               Space.y2!,
               Center(
                 child: Text(
