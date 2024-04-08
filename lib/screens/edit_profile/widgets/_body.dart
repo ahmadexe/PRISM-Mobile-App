@@ -7,6 +7,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
+    final screenState = _ScreenState.s(context, true);
+
     return SafeArea(
       top: false,
       left: false,
@@ -26,19 +28,27 @@ class _Body extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  user.bannerImageUrl == null
-                      ? Image.asset(
-                          AppStaticData.bannerDef,
-                          height: AppDimensions.normalize(65),
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          user.bannerImageUrl!,
-                          height: AppDimensions.normalize(65),
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
+                  if (screenState.bannerImage != null)
+                    Image.file(
+                      File(screenState.bannerImage!.path),
+                      height: AppDimensions.normalize(65),
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    )
+                  else
+                    user.bannerImageUrl == null
+                        ? Image.asset(
+                            AppStaticData.bannerDef,
+                            height: AppDimensions.normalize(65),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            user.bannerImageUrl!,
+                            height: AppDimensions.normalize(65),
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
                   Container(
                     height: AppDimensions.normalize(65),
                     width: double.infinity,
@@ -52,7 +62,10 @@ class _Body extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () => showModalBottomSheet(
                         context: context,
-                        builder: (_) => const _ImageModal(),
+                        builder: (_) => _ImageModal(
+                          screenState: screenState,
+                          isBanner: true,
+                        ),
                       ),
                       child: Container(
                         decoration: BoxDecoration(
@@ -78,25 +91,37 @@ class _Body extends StatelessWidget {
               GestureDetector(
                 onTap: () => showModalBottomSheet(
                   context: context,
-                  builder: (_) => const _ImageModal(),
+                  builder: (_) => _ImageModal(
+                    screenState: screenState,
+                  ),
                 ),
                 child: Stack(
                   children: [
-                    user.imageUrl != null
-                        ? Center(
-                            child: CircleAvatar(
-                              radius: AppDimensions.normalize(17),
-                              backgroundImage: NetworkImage(user.imageUrl!),
-                            ),
-                          )
-                        : Center(
-                            child: CircleAvatar(
-                              radius: AppDimensions.normalize(17),
-                              backgroundImage: const AssetImage(
-                                AppStaticData.dpDef,
+                    if (screenState.profileImage != null)
+                      Center(
+                        child: CircleAvatar(
+                          radius: AppDimensions.normalize(17),
+                          backgroundImage: FileImage(
+                            File(screenState.profileImage!.path),
+                          ),
+                        ),
+                      )
+                    else
+                      user.imageUrl != null
+                          ? Center(
+                              child: CircleAvatar(
+                                radius: AppDimensions.normalize(17),
+                                backgroundImage: NetworkImage(user.imageUrl!),
+                              ),
+                            )
+                          : Center(
+                              child: CircleAvatar(
+                                radius: AppDimensions.normalize(17),
+                                backgroundImage: const AssetImage(
+                                  AppStaticData.dpDef,
+                                ),
                               ),
                             ),
-                          ),
                     Center(
                       child: CircleAvatar(
                         radius: AppDimensions.normalize(17),

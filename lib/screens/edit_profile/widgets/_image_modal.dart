@@ -1,11 +1,18 @@
 part of '../edit_profile.dart';
 
 class _ImageModal extends StatelessWidget {
-  const _ImageModal({super.key});
+  final _ScreenState screenState;
+  final bool isBanner;
+  const _ImageModal({
+    Key? key,
+    this.isBanner = false,
+    required this.screenState,
+  })  : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
+
     return Container(
       width: double.infinity,
       height: media.height * .3,
@@ -47,7 +54,11 @@ class _ImageModal extends StatelessWidget {
             Center(
               child: AppButton(
                 onPressed: () {
-                  ''.pop(context);
+                  if (isBanner) {
+                    screenState.pickBannerImage(ImageSource.camera);
+                    return;
+                  }
+                  screenState.pickProfileImage(ImageSource.camera);
                 },
                 label: 'Camera',
               ),
@@ -56,7 +67,11 @@ class _ImageModal extends StatelessWidget {
             AppButton(
               backgroundColor: AppTheme.c.accent,
               onPressed: () {
-                ''.pop(context);
+                if (isBanner) {
+                  screenState.pickBannerImage(ImageSource.gallery);
+                  return;
+                }
+                screenState.pickProfileImage(ImageSource.gallery);
               },
               label: 'Gallery',
             ),

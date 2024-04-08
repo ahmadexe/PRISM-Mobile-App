@@ -1,6 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 
 import 'package:prism/configs/configs.dart';
