@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:prism/configs/configs.dart';
 
 class SnackBars {
@@ -115,7 +114,7 @@ class SnackBars {
         width: double.infinity,
         padding: EdgeInsets.all(15.h),
         decoration: BoxDecoration(
-          color: color ?? const Color(0xff03902B),
+          color: color ?? AppTheme.c.accent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -154,56 +153,5 @@ class SnackBars {
     messenger.showMaterialBanner(materialBanner);
     await 1500.milliseconds.delay;
     messenger.hideCurrentMaterialBanner();
-  }
-
-  static comingSoon(
-    BuildContext context,
-  ) {
-    final messenger = ScaffoldMessenger.of(context);
-    final snackBar = SnackBar(
-      elevation: 0,
-      duration: const Duration(seconds: 4),
-      backgroundColor: Colors.transparent,
-      behavior: SnackBarBehavior.floating,
-      content: Container(
-        padding: EdgeInsets.all(15.h),
-        decoration: BoxDecoration(
-          color: AppTheme.c.ghostGrey,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Iconsax.warning_2,
-              color: Colors.white,
-              size: 34.h,
-            ),
-            SizedBox(
-              width: 14.w,
-            ),
-            Expanded(
-              child: Text(
-                'Feature coming soon!',
-                style: AppText.b1b!.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Space.x!,
-            GestureDetector(
-              onTap: () => messenger.hideCurrentSnackBar(),
-              child: const Icon(
-                Icons.close,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-
-    return messenger
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
   }
 }
