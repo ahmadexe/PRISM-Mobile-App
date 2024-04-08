@@ -36,8 +36,8 @@ class _Body extends StatelessWidget {
                             width: double.infinity,
                             fit: BoxFit.cover,
                           )
-                        : Image.network(
-                            user.bannerImageUrl!,
+                        : CachedNetworkImage(
+                            imageUrl: user.bannerImageUrl!,
                             height: AppDimensions.normalize(65),
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -104,7 +104,9 @@ class _Body extends StatelessWidget {
                           ? Center(
                               child: CircleAvatar(
                                 radius: AppDimensions.normalize(17),
-                                backgroundImage: NetworkImage(user.imageUrl!),
+                                backgroundImage: CachedNetworkImageProvider(
+                                  user.imageUrl!,
+                                )
                               ),
                             )
                           : Center(
