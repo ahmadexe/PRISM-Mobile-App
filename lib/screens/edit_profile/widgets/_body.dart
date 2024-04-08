@@ -14,15 +14,8 @@ class _Body extends StatelessWidget {
       left: false,
       right: false,
       child: Scaffold(
-        body: BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
-            if (state.logout is AuthLogoutSuccess) {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                AppRoutes.login,
-                (route) => false,
-              );
-            }
-          },
+        body: FormBuilder(
+          key: screenState.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -155,8 +148,8 @@ class _Body extends StatelessWidget {
                       name: _FormKeys.name,
                       hint: 'Name',
                       initialValue: user.fullname,
-                      validator: FormBuilderValidators.required(),
                       isDarkField: true,
+                      validator: FormBuilderValidators.required(),
                     ),
                     Space.y2!,
                     Text('Email', style: AppText.l1b),
@@ -165,8 +158,11 @@ class _Body extends StatelessWidget {
                       name: _FormKeys.email,
                       hint: 'Email',
                       initialValue: user.email,
-                      validator: FormBuilderValidators.required(),
                       isDarkField: true,
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.email(),
+                      ]),
                     ),
                     Space.y2!,
                     Text('About me', style: AppText.l1b),
@@ -175,15 +171,37 @@ class _Body extends StatelessWidget {
                       name: _FormKeys.bio,
                       hint: 'Bio',
                       initialValue: user.bio,
-                      validator: FormBuilderValidators.required(),
                       isDarkField: true,
                       maxLines: 4,
+                      validator: FormBuilderValidators.required(),
                     ),
                   ],
                 ),
               ),
               Space.y2!,
-              AppButton(label: 'Update Profile', onPressed: () {}),
+              AppButton(
+                label: 'Update Profile',
+                onPressed: () {
+                  final form = screenState.formKey.currentState!;
+                  final isValid = form.saveAndValidate();
+                  if (!isValid) return;
+
+                  final data = form.value;
+                  final updatedUser = user.copyWith(
+                    fullname: data[_FormKeys.name],
+                    email: data[_FormKeys.email],
+                    bio: data[_FormKeys.bio],
+                  );
+
+                  authBloc.add(
+                    AuthUpdate(
+                      userData: updatedUser,
+                      bannerImage: screenState.bannerImage,
+                      profileImage: screenState.profileImage,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

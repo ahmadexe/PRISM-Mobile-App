@@ -5,7 +5,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
     final user = authBloc.state.user!;
     return SafeArea(
       top: false,
