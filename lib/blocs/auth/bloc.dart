@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:prism/models/auth_data.dart';
 import 'package:prism/services/api.dart';
 
@@ -13,10 +16,12 @@ part 'event.dart';
 part 'state.dart';
 part 'repository.dart';
 part 'data_provider.dart';
+
 part 'states/_register.dart';
 part 'states/_login.dart';
 part 'states/_init.dart';
 part 'states/_logout.dart';
+part 'states/_update.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -24,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLogin>(_login);
     on<AuthInit>(_init);
     on<AuthLogout>(_logout);
+    on<AuthUpdate>(_update);
   }
 
   final _repo = _AuthRepository();
@@ -118,6 +124,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(
         state.copyWith(
           logout: AuthLogoutFailure(message: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<void> _update(AuthUpdate event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(update: const AuthUpdateLoading()));
+    try {
+      final user = await _repo.update(
+        event.userData,
+        event.bannerImage,
+        event.profileImage,
+      );
+
+      emit(
+        state.copyWith(
+          user: user,
+          update: const AuthUpdateSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          update: AuthUpdateFailure(
+            message: e.toString(),
+          ),
         ),
       );
     }

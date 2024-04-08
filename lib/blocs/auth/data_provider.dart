@@ -2,7 +2,9 @@ part of 'bloc.dart';
 
 class _AuthDataProvider {
   static final _auth = FirebaseAuth.instance;
-  static final Dio _client = Api.getClient('http://localhost:3000/auth');
+  static final Dio _client = Api.getClient('http://13.235.113.179:8080/auth');
+  static final _storage = FirebaseStorage.instance;
+  static final _ref = _storage.ref();
 
   static Future<AuthData> register(
       String email, String password, Map<String, dynamic> payload) async {
@@ -78,6 +80,43 @@ class _AuthDataProvider {
       await _auth.signOut();
     } catch (e) {
       debugPrint('Exception in Auth Data Provider(logout): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  static Future<AuthData> update(Map<String, dynamic> payload,
+      [File? banner, File? profile]) async {
+    try {
+      if (banner != null) {
+        final ref = _ref.child('banners/${payload['uid']}');
+        await ref.putFile(banner);
+        final url = await ref.getDownloadURL();
+        payload['bannerImageUrl'] = url;
+      }
+
+      if (profile != null) {
+        final ref = _ref.child('profiles/${payload['uid']}');
+        await ref.putFile(profile);
+        final url = await ref.getDownloadURL();
+        payload['imageUrl'] = url;
+      }
+
+      final user = _auth.currentUser;
+
+      final token = await user?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.put('/users', data: json.encode(payload));
+
+      if (response.statusCode != 200) {
+        throw 'Failed to update user';
+      }
+
+      final data = AuthData.fromMap(payload);
+      return data;
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(update): $e');
       debugPrint('--------------------------');
       rethrow;
     }

@@ -1,3 +1,4 @@
+import 'package:prism/screens/edit_profile/edit_profile.dart';
 import 'package:prism/screens/forgot_password/forgot_password.dart';
 import 'package:prism/screens/register/register.dart';
 import 'package:prism/screens/login/login.dart';
@@ -12,6 +13,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.editProfile: (_) => const EditProfileScreen(),
   AppRoutes.forgotPassword: (_) => const ForgotPasswordScreen(),
   AppRoutes.register: (_) => const RegisterScreen(),
   AppRoutes.login: (_) => const LoginScreen(),

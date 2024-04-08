@@ -24,7 +24,7 @@ class _BodyState extends State<_Body> {
           Navigator.pushReplacementNamed(context, AppRoutes.home);
         } else if (state.init is AuthInitFailure) {
           await Future.delayed(const Duration(seconds: 2));
-          if (!mounted) return;
+          if (!context.mounted) return;
           Navigator.pushReplacementNamed(context, AppRoutes.login);
         }
       },

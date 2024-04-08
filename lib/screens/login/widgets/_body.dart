@@ -10,6 +10,7 @@ class _Body extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: Space.all(),
           child: FormBuilder(
@@ -99,9 +100,11 @@ class _Body extends StatelessWidget {
                         if (!isValid) return;
 
                         final email = form.value[_FormKeys.email] as String;
-                        final password = form.value[_FormKeys.password] as String;
+                        final password =
+                            form.value[_FormKeys.password] as String;
 
-                        authBloc.add(AuthLogin(email: email, password: password));
+                        authBloc
+                            .add(AuthLogin(email: email, password: password));
                       },
                       buttonType: ButtonType.borderedSecondary,
                     );

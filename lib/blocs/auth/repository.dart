@@ -14,6 +14,24 @@ class _AuthRepository {
     return _AuthDataProvider.login(payload);
   }
 
+  Future<AuthData> update(AuthData userData,
+      [XFile? bannerImage, XFile? profileImage]) async {
+    Map<String, dynamic> payload = userData.toMap();
+    File? bannerFile;
+    File? profileFile;
+
+    if (bannerImage != null) {
+      bannerFile = File(bannerImage.path);
+    }
+
+    if (profileImage != null) {
+      profileFile = File(profileImage.path);
+    }
+
+    final res = _AuthDataProvider.update(payload, bannerFile, profileFile);
+    return res;
+  }
+
   Future<AuthData> getUser(User? user) => _AuthDataProvider.getUser(user);
 
   Future<void> logout() => _AuthDataProvider.logout();

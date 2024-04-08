@@ -43,6 +43,18 @@ class AuthInit extends AuthEvent {
   });
 }
 
+class AuthUpdate extends AuthEvent {
+  final AuthData userData;
+  final XFile? bannerImage;
+  final XFile? profileImage;
+
+  const AuthUpdate({
+    required this.userData,
+    this.bannerImage,
+    this.profileImage,
+  });
+}
+
 class AuthLogout extends AuthEvent {
   const AuthLogout();
 }

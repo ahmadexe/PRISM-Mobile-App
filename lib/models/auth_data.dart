@@ -9,11 +9,14 @@ class AuthData {
   final String uid;
   final String id;
   final DateTime createdAt;
-  final String? bio;
+  final String bio;
   final String? imageUrl;
   final String? bannerImageUrl;
   final List<String> followers;
   final List<String> following;
+  final bool isRanked;
+  final bool isBusinessAcc;
+  final bool isServiceProvider;
 
   AuthData({
     required this.email,
@@ -22,11 +25,14 @@ class AuthData {
     required this.uid,
     required this.id,
     required this.createdAt,
-    this.bio,
+    required this.bio,
     this.imageUrl,
     this.bannerImageUrl,
     this.followers = const [],
     this.following = const [],
+    required this.isBusinessAcc,
+    required this.isServiceProvider,
+    required this.isRanked,
   });
 
   AuthData copyWith({
@@ -41,6 +47,9 @@ class AuthData {
     String? bannerImageUrl,
     List<String>? followers,
     List<String>? following,
+    bool? isBusinessAcc,
+    bool? isServiceProvider,
+    bool? isRanked,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -54,6 +63,9 @@ class AuthData {
       bannerImageUrl: bannerImageUrl ?? this.bannerImageUrl,
       followers: followers ?? this.followers,
       following: following ?? this.following,
+      isBusinessAcc: isBusinessAcc ?? this.isBusinessAcc,
+      isServiceProvider: isServiceProvider ?? this.isServiceProvider,
+      isRanked: isRanked ?? this.isRanked,
     );
   }
 
@@ -70,6 +82,9 @@ class AuthData {
       'bannerImageUrl': bannerImageUrl,
       'followers': followers,
       'following': following,
+      'isBusinessAcc': isBusinessAcc,
+      'isServiceProvider': isServiceProvider,
+      'isRanked': isRanked,
     };
   }
 
@@ -81,7 +96,7 @@ class AuthData {
       uid: map['uid'] as String,
       id: map['id'] as String,
       createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt'] as int),
-      bio: map['bio'] as String?,
+      bio: map['bio'] as String,
       imageUrl: map['imageUrl'] as String?,
       bannerImageUrl: map['bannerImageUrl'] as String?,
       followers: map['followers'] == null
@@ -90,6 +105,9 @@ class AuthData {
       following: map['following'] == null
           ? []
           : List<String>.from(map['following'] as List<dynamic>),
+      isBusinessAcc: map['isBusinessAcc'] as bool,
+      isServiceProvider: map['isServiceProvider'] as bool,
+      isRanked: map['isRanked'] as bool,
     );
   }
 
@@ -100,7 +118,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked)';
   }
 
   @override
@@ -117,7 +135,10 @@ class AuthData {
         other.imageUrl == imageUrl &&
         other.bannerImageUrl == bannerImageUrl &&
         listEquals(other.followers, followers) &&
-        listEquals(other.following, following);
+        listEquals(other.following, following) &&
+        other.isBusinessAcc == isBusinessAcc &&
+        other.isServiceProvider == isServiceProvider &&
+        other.isRanked == isRanked;
   }
 
   @override
@@ -132,6 +153,9 @@ class AuthData {
         imageUrl.hashCode ^
         bannerImageUrl.hashCode ^
         followers.hashCode ^
-        following.hashCode;
+        following.hashCode ^
+        isBusinessAcc.hashCode ^
+        isServiceProvider.hashCode ^
+        isRanked.hashCode;
   }
 }
