@@ -91,7 +91,7 @@ class _Body extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         Space.y2!,
