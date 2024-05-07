@@ -13,12 +13,14 @@ import 'package:prism/widgets/core/error/error.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'package:prism/widgets/info_tile.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_post.dart';
 part 'widgets/_meta_data_counter.dart';
+part 'widgets/_posts_placeholder.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

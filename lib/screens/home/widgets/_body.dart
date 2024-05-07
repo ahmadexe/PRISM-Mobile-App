@@ -60,9 +60,7 @@ class _Body extends StatelessWidget {
                   builder: (context, state) {
                     if (state.fetch is PostsfetchLoading ||
                         state.fetch is PostsfetchDefault) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const _PostPlaceHolder();
                     } else if (state.fetch is PostsfetchSuccess) {
                       final posts = state.data!;
                       return ListView.separated(
