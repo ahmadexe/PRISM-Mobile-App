@@ -10,6 +10,10 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   @override
   void initState() {
+    final postsProvider = BlocProvider.of<PostsBloc>(context);
+    postsProvider.add(
+      const PostsFetchEvent(),
+    );
     super.initState();
   }
 
