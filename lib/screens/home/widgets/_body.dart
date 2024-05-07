@@ -24,6 +24,14 @@ class _Body extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width * .7,
           color: AppTheme.c.fieldDark,
         ),
+        floatingActionButton: GestureDetector(
+          onTap: () {},
+          child: Image.asset(
+            AppStaticData.lensIcon,
+            height: AppDimensions.normalize(22),
+            width: AppDimensions.normalize(22),
+          ),
+        ),
         body: Padding(
           padding: Space.all(),
           child: SingleChildScrollView(
