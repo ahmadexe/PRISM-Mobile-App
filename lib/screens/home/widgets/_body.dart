@@ -13,6 +13,16 @@ class _Body extends StatelessWidget {
         bottomNavigationBar: const BottomBar(),
         appBar: AppBar(
           title: const Text('Home'),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Iconsax.sms_tracking),
+            ),
+          ],
+        ),
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * .7,
+          color: AppTheme.c.fieldDark,
         ),
         body: Padding(
           padding: Space.all(),
@@ -25,8 +35,10 @@ class _Body extends StatelessWidget {
                       imageUrl: user.imageUrl,
                     ),
                     Space.x1!,
-                    const Expanded(
+                    Expanded(
                       child: AppTextField(
+                        enabled: false,
+                        onTap: () {},
                         name: 'Post',
                         isDarkField: true,
                         type: FieldType.secondary,
