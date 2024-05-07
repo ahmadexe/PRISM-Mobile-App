@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
@@ -14,6 +17,7 @@ part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_post.dart';
+part 'widgets/_meta_data_counter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

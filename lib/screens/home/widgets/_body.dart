@@ -7,7 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
-    
+
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),
@@ -16,32 +16,35 @@ class _Body extends StatelessWidget {
         ),
         body: Padding(
           padding: Space.all(),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Avatar(
-                    imageUrl: user.imageUrl,
-                  ),
-                  Space.x1!,
-                  const Expanded(
-                    child: AppTextField(
-                      name: 'Post',
-                      isDarkField: true,
-                      type: FieldType.secondary,
-                      hint: 'Tell the world a story',
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Avatar(
+                      imageUrl: user.imageUrl,
                     ),
-                  )
-                ],
-              ),
-              Space.y2!,
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (context, index) => _Post(post: posts[index]),
-                separatorBuilder: (context, index) => Space.y1!,
-                itemCount: posts.length,
-              )
-            ],
+                    Space.x1!,
+                    const Expanded(
+                      child: AppTextField(
+                        name: 'Post',
+                        isDarkField: true,
+                        type: FieldType.secondary,
+                        hint: 'Tell the world a story',
+                      ),
+                    )
+                  ],
+                ),
+                Space.y2!,
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => _Post(post: posts[index]),
+                  separatorBuilder: (context, index) => Space.y1!,
+                  itemCount: posts.length,
+                )
+              ],
+            ),
           ),
         ),
       ),

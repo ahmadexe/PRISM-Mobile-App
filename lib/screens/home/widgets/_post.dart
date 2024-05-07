@@ -10,7 +10,6 @@ class _Post extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Row(
@@ -47,13 +46,20 @@ class _Post extends StatelessWidget {
         if (post.imageUrl != null)
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              post.imageUrl!,
+            child: CachedNetworkImage(
+              imageUrl: post.imageUrl!,
               width: double.infinity,
               height: AppDimensions.normalize(150),
               fit: BoxFit.cover,
             ),
           ),
+        Space.y1!,
+        _MetaDataCounter(
+          post: post,
+        ),
+        const Divider(
+          thickness: 0.5,
+        )
       ],
     );
   }
