@@ -10,24 +10,31 @@ class _Post extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Avatar(
-                  imageUrl: post.userProfilePic,
-                ),
-                Space.x2!,
-                Text(
-                  post.userName,
-                  style: AppText.b1bm,
-                ),
-              ],
+            Expanded(
+              child: Row(
+                children: [
+                  Avatar(
+                    imageUrl: post.userProfilePic,
+                  ),
+                  Space.x2!,
+                  Text(
+                    post.userName,
+                    style: AppText.b1bm,
+                  ),
+                ],
+              ),
             ),
             InfoTile(
               domain: post.category,
               iconOnly: true,
             ),
+            Space.x!,
+            GestureDetector(
+              onTap: () {},
+              child: const Icon(Icons.more_vert),
+            )
           ],
         ),
         Space.y1!,
@@ -38,11 +45,14 @@ class _Post extends StatelessWidget {
           ),
         Space.y1!,
         if (post.imageUrl != null)
-          Image.network(
-            post.imageUrl!,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              post.imageUrl!,
+              width: double.infinity,
+              height: AppDimensions.normalize(150),
+              fit: BoxFit.cover,
+            ),
           ),
       ],
     );

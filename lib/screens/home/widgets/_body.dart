@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
+    
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),

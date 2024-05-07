@@ -29,7 +29,7 @@ class InfoTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: Space.all(10),
+          padding: Space.all(10, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
