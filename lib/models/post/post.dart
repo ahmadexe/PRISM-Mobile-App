@@ -7,14 +7,13 @@ class Post {
   final String? caption;
   final String userName;
   final String category;
-  final String userProfilePic;
+  final String? userProfilePic;
   int noOfViews;
   int upVotes;
   int downVotes;
   int noOfComments;
-  final bool isBanned;
-  final int createdAt;
-  
+  final DateTime createdAt;
+
   Post({
     required this.id,
     required this.userId,
@@ -22,12 +21,11 @@ class Post {
     this.caption,
     required this.userName,
     required this.category,
-    required this.userProfilePic,
+    this.userProfilePic,
     required this.noOfViews,
     required this.upVotes,
     required this.downVotes,
     required this.noOfComments,
-    required this.isBanned,
     required this.createdAt,
   });
 
@@ -43,8 +41,7 @@ class Post {
     int? upVotes,
     int? downVotes,
     int? noOfComments,
-    bool? isBanned,
-    int? createdAt,
+    DateTime? createdAt,
   }) {
     return Post(
       id: id ?? this.id,
@@ -58,7 +55,6 @@ class Post {
       upVotes: upVotes ?? this.upVotes,
       downVotes: downVotes ?? this.downVotes,
       noOfComments: noOfComments ?? this.noOfComments,
-      isBanned: isBanned ?? this.isBanned,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -76,8 +72,7 @@ class Post {
       'upVotes': upVotes,
       'downVotes': downVotes,
       'noOfComments': noOfComments,
-      'isBanned': isBanned,
-      'createdAt': createdAt,
+      'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
 
@@ -85,63 +80,60 @@ class Post {
     return Post(
       id: map['id'] as String,
       userId: map['userId'] as String,
-      imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
-      caption: map['caption'] != null ? map['caption'] as String : null,
+      imageUrl: map['imageUrl'] as String?,
+      caption: map['caption'] as String?,
       userName: map['userName'] as String,
       category: map['category'] as String,
-      userProfilePic: map['userProfilePic'] as String,
+      userProfilePic: map['userProfilePic'] as String?,
       noOfViews: map['noOfViews'] as int,
       upVotes: map['upVotes'] as int,
       downVotes: map['downVotes'] as int,
       noOfComments: map['noOfComments'] as int,
-      isBanned: map['isBanned'] as bool,
-      createdAt: map['createdAt'] as int,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Post.fromJson(String source) => Post.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Post.fromJson(String source) =>
+      Post.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Post(id: $id, userId: $userId, imageUrl: $imageUrl, caption: $caption, userName: $userName, category: $category, userProfilePic: $userProfilePic, noOfViews: $noOfViews, upVotes: $upVotes, downVotes: $downVotes, noOfComments: $noOfComments, isBanned: $isBanned, createdAt: $createdAt)';
+    return 'Post(id: $id, userId: $userId, imageUrl: $imageUrl, caption: $caption, userName: $userName, category: $category, userProfilePic: $userProfilePic, noOfViews: $noOfViews, upVotes: $upVotes, downVotes: $downVotes, noOfComments: $noOfComments, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(covariant Post other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.userId == userId &&
-      other.imageUrl == imageUrl &&
-      other.caption == caption &&
-      other.userName == userName &&
-      other.category == category &&
-      other.userProfilePic == userProfilePic &&
-      other.noOfViews == noOfViews &&
-      other.upVotes == upVotes &&
-      other.downVotes == downVotes &&
-      other.noOfComments == noOfComments &&
-      other.isBanned == isBanned &&
-      other.createdAt == createdAt;
+
+    return other.id == id &&
+        other.userId == userId &&
+        other.imageUrl == imageUrl &&
+        other.caption == caption &&
+        other.userName == userName &&
+        other.category == category &&
+        other.userProfilePic == userProfilePic &&
+        other.noOfViews == noOfViews &&
+        other.upVotes == upVotes &&
+        other.downVotes == downVotes &&
+        other.noOfComments == noOfComments &&
+        other.createdAt == createdAt;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      userId.hashCode ^
-      imageUrl.hashCode ^
-      caption.hashCode ^
-      userName.hashCode ^
-      category.hashCode ^
-      userProfilePic.hashCode ^
-      noOfViews.hashCode ^
-      upVotes.hashCode ^
-      downVotes.hashCode ^
-      noOfComments.hashCode ^
-      isBanned.hashCode ^
-      createdAt.hashCode;
+        userId.hashCode ^
+        imageUrl.hashCode ^
+        caption.hashCode ^
+        userName.hashCode ^
+        category.hashCode ^
+        userProfilePic.hashCode ^
+        noOfViews.hashCode ^
+        upVotes.hashCode ^
+        downVotes.hashCode ^
+        noOfComments.hashCode ^
+        createdAt.hashCode;
   }
 }

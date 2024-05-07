@@ -34,7 +34,12 @@ class _Body extends StatelessWidget {
                 ],
               ),
               Space.y2!,
-              
+              ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => _Post(post: posts[index]),
+                separatorBuilder: (context, index) => Space.y1!,
+                itemCount: posts.length,
+              )
             ],
           ),
         ),

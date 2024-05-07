@@ -8,15 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
+import 'package:prism/widgets/info_tile.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_tab.dart';
-part 'widgets/_info_tile.dart';
-
-part 'utils/_domain_utils.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

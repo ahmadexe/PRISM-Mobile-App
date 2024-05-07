@@ -77,11 +77,11 @@ class _Body extends StatelessWidget {
                         Text(user.fullname, style: AppText.h3b),
                         Row(
                           children: [
-                            const _InfoTile(
+                            const InfoTile(
                               isEdit: true,
                             ),
                             Space.x!,
-                            _InfoTile(
+                            InfoTile(
                               domain: user.domain,
                             ),
                           ],

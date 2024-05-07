@@ -1,9 +1,18 @@
-part of '../profile.dart';
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:prism/configs/configs.dart';
+import 'package:prism/router/routes.dart';
+import 'package:prism/utils/domain/domain_icon.dart';
 
-class _InfoTile extends StatelessWidget {
+class InfoTile extends StatelessWidget {
   final String domain;
   final bool isEdit;
-  const _InfoTile({this.isEdit = false, this.domain = ''});
+  final bool iconOnly;
+  const InfoTile(
+      {super.key,
+      this.isEdit = false,
+      this.domain = '',
+      this.iconOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +38,13 @@ class _InfoTile extends StatelessWidget {
                 size: 20,
                 color: AppTheme.c.accent,
               ),
-              Space.x!,
-              Text(
-                isEdit ? 'Edit' : domain,
-                style: AppText.l1bm,
-              ),
+              if (!iconOnly) ...[
+                Space.x!,
+                Text(
+                  isEdit ? 'Edit' : domain,
+                  style: AppText.l1bm,
+                ),
+              ]
             ],
           ),
         ),
