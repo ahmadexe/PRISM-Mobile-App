@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
+import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';
 
 part 'widgets/_body.dart';
+part 'widgets/_post.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

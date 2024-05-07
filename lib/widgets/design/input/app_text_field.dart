@@ -5,6 +5,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:prism/configs/configs.dart';
 
+part 'enums.dart';
+
 class AppTextField extends StatefulWidget {
   final String name;
   final TextEditingController? controller;
@@ -36,6 +38,8 @@ class AppTextField extends StatefulWidget {
 
   final int? maxLines;
 
+  final FieldType? type;
+
   const AppTextField({
     Key? key,
     this.node,
@@ -62,6 +66,7 @@ class AppTextField extends StatefulWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.isDarkField = false,
     this.maxLines,
+    this.type = FieldType.primary,
   }) : super(key: key);
 
   @override
@@ -142,14 +147,18 @@ class AppTextFieldState extends State<AppTextField> {
             hintText: widget.hint,
             hintStyle: AppText.b2!.cl(AppTheme.c.textGrey!),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: widget.type == FieldType.primary
+                  ? BorderRadius.circular(12)
+                  : BorderRadius.circular(100),
               borderSide: const BorderSide(
                 width: 0,
                 color: Colors.transparent,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: widget.type == FieldType.primary
+                  ? BorderRadius.circular(12)
+                  : BorderRadius.circular(100),
               borderSide: BorderSide(
                 color: widget.isDarkField
                     ? AppTheme.c.grey!
@@ -158,21 +167,27 @@ class AppTextFieldState extends State<AppTextField> {
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: widget.type == FieldType.primary
+                  ? BorderRadius.circular(12)
+                  : BorderRadius.circular(100),
               borderSide: BorderSide(
                 color: Colors.red.withAlpha(200),
                 width: AppDimensions.normalize(0.5),
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: widget.type == FieldType.primary
+                  ? BorderRadius.circular(12)
+                  : BorderRadius.circular(100),
               borderSide: BorderSide(
                 color: Colors.red.withAlpha(200),
                 width: AppDimensions.normalize(0.5),
               ),
             ),
             disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: widget.type == FieldType.primary
+                  ? BorderRadius.circular(12)
+                  : BorderRadius.circular(100),
               borderSide: BorderSide(
                 width: AppDimensions.normalize(0.75),
                 color: AppTheme.c.textLight!.withAlpha(100),

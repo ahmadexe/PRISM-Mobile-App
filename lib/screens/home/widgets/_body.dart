@@ -5,11 +5,38 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),
         appBar: AppBar(
           title: const Text('Home'),
+        ),
+        body: Padding(
+          padding: Space.all(),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Avatar(
+                    imageUrl: user.imageUrl,
+                  ),
+                  Space.x1!,
+                  const Expanded(
+                    child: AppTextField(
+                      name: 'Post',
+                      isDarkField: true,
+                      type: FieldType.secondary,
+                      hint: 'Tell the world a story',
+                    ),
+                  )
+                ],
+              ),
+              Space.y2!,
+              
+            ],
+          ),
         ),
       ),
     );
