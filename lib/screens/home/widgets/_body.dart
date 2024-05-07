@@ -56,12 +56,28 @@ class _Body extends StatelessWidget {
                   ],
                 ),
                 Space.y2!,
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) => _Post(post: posts[index]),
-                  separatorBuilder: (context, index) => Space.y1!,
-                  itemCount: posts.length,
+                BlocBuilder<PostsBloc, PostsState>(
+                  builder: (context, state) {
+                    if (state.fetch is PostsfetchLoading ||
+                        state.fetch is PostsfetchDefault) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state.fetch is PostsfetchSuccess) {
+                      final posts = state.data!;
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) =>
+                            _Post(post: posts[index]),
+                        separatorBuilder: (context, index) => Space.y1!,
+                        itemCount: posts.length,
+                      );
+                    }
+                    return const Center(
+                      child: Text('Failed to fetch posts'),
+                    );
+                  },
                 )
               ],
             ),
