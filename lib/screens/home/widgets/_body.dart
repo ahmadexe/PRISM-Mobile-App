@@ -75,7 +75,11 @@ class _Body extends StatelessWidget {
                       );
                     }
                     return const Center(
-                      child: Text('Failed to fetch posts'),
+                      child: ErrorWarning(
+                        title: "Failed to load posts",
+                        message:
+                            "Looks like there was an error fetching posts.",
+                      ),
                     );
                   },
                 )
