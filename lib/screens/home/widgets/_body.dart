@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
+    final screenState = _ScreenState.s(context, true);
 
     return SafeArea(
       child: Scaffold(
@@ -44,15 +45,48 @@ class _Body extends StatelessWidget {
                     ),
                     Space.x1!,
                     Expanded(
-                      child: AppTextField(
-                        enabled: false,
-                        onTap: () {},
-                        name: 'Post',
-                        isDarkField: true,
-                        type: FieldType.secondary,
-                        hint: 'Tell the world a story',
+                      child: FormBuilder(
+                        key: screenState.formKey,
+                        child: AppTextField(
+                          onTap: () {
+                            final form = screenState.formKey.currentState!;
+                            form.save();
+                            final initialText = form.value[_FormKeys.post];
+
+                            AppRoutes.createPost.push(context,
+                                arguments: {'initialText': initialText});
+                          },
+                          onChanged: (val) {
+                            if (val != null && val.isNotEmpty) {
+                              screenState.setPostArrow(true);
+                            } else {
+                              screenState.setPostArrow(false);
+                            }
+                          },
+                          name: _FormKeys.post,
+                          isDarkField: true,
+                          type: FieldType.secondary,
+                          hint: 'Tell the world a story',
+                        ),
                       ),
-                    )
+                    ),
+                    if (screenState.showPostArrow) ...[
+                      Space.x!,
+                      GestureDetector(
+                        onTap: () {
+                          final form = screenState.formKey.currentState!;
+                          form.save();
+                          final initialText = form.value[_FormKeys.post];
+
+                          AppRoutes.createPost.push(context,
+                              arguments: {'initialText': initialText});
+                        },
+                        child: const Icon(
+                          Iconsax.send_2,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ]
                   ],
                 ),
                 Space.y2!,
