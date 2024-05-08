@@ -25,7 +25,6 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
     try {
       final posts = await _PostProvider.getPosts();
-      print(posts.length);
       emit(
         state.copyWith(
           fetch: const PostsfetchSuccess(),
