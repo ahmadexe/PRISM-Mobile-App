@@ -9,4 +9,6 @@ class AppStaticData {
   static const lensIcon = 'assets/lens.png';
 
   static const errorIcon = 'assets/error.png';
+
+  static const noMediaIcon = 'assets/noData.png';
 }

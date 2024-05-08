@@ -37,6 +37,7 @@ class AppTextField extends StatefulWidget {
   final void Function()? onTap;
 
   final int? maxLines;
+  final int? minLines;
 
   final FieldType? type;
 
@@ -66,6 +67,7 @@ class AppTextField extends StatefulWidget {
     this.textCapitalization = TextCapitalization.sentences,
     this.isDarkField = false,
     this.maxLines,
+    this.minLines = 1,
     this.type = FieldType.primary,
   }) : super(key: key);
 
@@ -104,6 +106,7 @@ class AppTextFieldState extends State<AppTextField> {
           Space.y!,
         ],
         FormBuilderTextField(
+          minLines: widget.minLines,
           maxLines: widget.maxLines ?? 1,
           controller: widget.controller,
           inputFormatters: widget.inputformatters,

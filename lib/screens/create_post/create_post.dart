@@ -1,12 +1,20 @@
-import 'package:flutter/foundation.dart';
+import 'dart:io';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/providers/media_provider.dart';
+import 'package:prism/static/app_statics.dart';
+import 'package:prism/widgets/avatar.dart';
+import 'package:prism/widgets/design/buttons/app_button.dart';
+import 'package:prism/widgets/design/input/app_text_field.dart';
+import 'package:prism/widgets/pick_image_modal.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-part 'static/_form_data.dart';
 part 'static/_form_keys.dart';
 
 part '_state.dart';

@@ -6,8 +6,10 @@ import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/firebase_options.dart';
+import 'package:prism/providers/media_provider.dart';
 import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
+import 'package:provider/provider.dart';
 import 'configs/configs.dart' as theme;
 
 void main() async {
@@ -31,8 +33,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
+        ChangeNotifierProvider<MediaProvider>(
+            create: (context) => MediaProvider()),
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => PostsBloc()),
       ],
