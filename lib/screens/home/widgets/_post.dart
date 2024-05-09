@@ -37,11 +37,10 @@ class _Post extends StatelessWidget {
           ],
         ),
         Space.y1!,
-        if (post.caption != null)
-          Text(
-            post.caption!,
-            style: AppText.b1,
-          ),
+        Text(
+          post.title,
+          style: AppText.b1b,
+        ),
         Space.y1!,
         if (post.imageUrl != null)
           ClipRRect(
