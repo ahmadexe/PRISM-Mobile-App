@@ -11,4 +11,5 @@ class AppStaticData {
   static const errorIcon = 'assets/error.png';
 
   static const noMediaIcon = 'assets/noData.png';
+  static const noPostsIcon = 'assets/noPosts.png';
 }

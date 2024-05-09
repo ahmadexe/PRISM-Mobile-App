@@ -15,7 +15,7 @@ class _PostProvider {
         throw 'Failed to fetch posts';
       }
 
-      final raw = response.data as List<dynamic>;
+      final raw = response.data == null ? [] : response.data as List<dynamic>;
 
       final data = raw.map((e) => Post.fromMap(e)).toList();
       return data;

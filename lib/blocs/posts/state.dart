@@ -1,5 +1,6 @@
 part of 'bloc.dart';
 
+@immutable
 class PostsState extends Equatable {
   final List<Post>? data;
   final PostsfetchState? fetch;
@@ -20,9 +21,13 @@ class PostsState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [
+        data,
+        fetch,
+      ];
 }
 
+@immutable
 final class PostsDefault extends PostsState {
   const PostsDefault()
       : super(

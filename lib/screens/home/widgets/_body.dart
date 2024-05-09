@@ -97,6 +97,27 @@ class _Body extends StatelessWidget {
                       return const _PostPlaceHolder();
                     } else if (state.fetch is PostsfetchSuccess) {
                       final posts = state.data!;
+                      if (posts.isEmpty) {
+                        return Column(
+                          children: [
+                            Image.asset(
+                              AppStaticData.noPostsIcon,
+                              height: AppDimensions.normalize(55),
+                              width: AppDimensions.normalize(55),
+                            ),
+                            Space.y1!,
+                            Text(
+                              'No Posts',
+                              style: AppText.h2b,
+                            ),
+                            Space.y!,
+                            Text(
+                              'Looks like there are no posts to show.',
+                              style: AppText.b2,
+                            ),
+                          ],
+                        );
+                      }
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
