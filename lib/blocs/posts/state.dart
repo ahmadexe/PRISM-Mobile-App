@@ -4,19 +4,23 @@ part of 'bloc.dart';
 class PostsState extends Equatable {
   final List<Post>? data;
   final PostsfetchState? fetch;
+  final CreatePostState? post;
 
   const PostsState({
     this.data,
     this.fetch,
+    this.post,
   });
 
   PostsState copyWith({
     List<Post>? data,
     PostsfetchState? fetch,
+    CreatePostState? post,
   }) {
     return PostsState(
       data: data ?? this.data,
       fetch: fetch ?? this.fetch,
+      post: post ?? this.post,
     );
   }
 
@@ -24,6 +28,7 @@ class PostsState extends Equatable {
   List<Object?> get props => [
         data,
         fetch,
+        post,
       ];
 }
 
@@ -31,7 +36,8 @@ class PostsState extends Equatable {
 final class PostsDefault extends PostsState {
   const PostsDefault()
       : super(
-          fetch: const PostsfetchDefault(),
           data: null,
+          fetch: const PostsfetchDefault(),
+          post: const CreatePostDefault(),
         );
 }

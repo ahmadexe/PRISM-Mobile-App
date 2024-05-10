@@ -3,6 +3,8 @@ part of 'bloc.dart';
 class _PostProvider {
   static final Dio _client = Api.getClient('http://3.111.196.231:3001/v1');
   static final _auth = FirebaseAuth.instance;
+  static final _storage = FirebaseStorage.instance;
+  static final _ref = _storage.ref();
 
   static Future<List<Post>> getPosts() async {
     try {
@@ -21,6 +23,34 @@ class _PostProvider {
       return data;
     } catch (e) {
       debugPrint('Exception in Post Data Provider(getPosts): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  static Future<void> createPost(
+      Map<String, dynamic> payload, File? file) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      if (file != null) {
+        final time = payload['createdAt'] as int;
+        final userId = payload['userId'] as String;
+
+        final ref = _ref.child('posts/$userId/$time');
+        final res = await ref.putFile(file);
+        final url = await res.ref.getDownloadURL();
+
+        payload['imageUrl'] = url;
+      }
+
+      final response = await _client.post('/posts', data: payload);
+      if (response.statusCode != 201) {
+        throw 'Failed to create post';
+      }
+    } catch (e) {
+      debugPrint('Exception in Post Data Provider(createPost): $e');
       debugPrint('--------------------------');
       rethrow;
     }
