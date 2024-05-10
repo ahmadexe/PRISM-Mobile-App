@@ -47,11 +47,10 @@ class _Body extends StatelessWidget {
                             left: 16,
                             top: 105,
                             child: CircleAvatar(
-                              radius: AppDimensions.normalize(17),
-                              backgroundImage: CachedNetworkImageProvider(
-                                user.imageUrl!,
-                              )
-                            ),
+                                radius: AppDimensions.normalize(17),
+                                backgroundImage: CachedNetworkImageProvider(
+                                  user.imageUrl!,
+                                )),
                           )
                         : Positioned(
                             left: 16,
@@ -132,10 +131,10 @@ class _Body extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Iconsax.search_zoom_out,
-                      size: AppDimensions.normalize(30),
-                      color: AppTheme.c.textGrey,
+                    Image.asset(
+                      AppStaticData.noPostsIcon,
+                      height: AppDimensions.normalize(70),
+                      width: AppDimensions.normalize(70),
                     ),
                     Space.y!,
                     Text(

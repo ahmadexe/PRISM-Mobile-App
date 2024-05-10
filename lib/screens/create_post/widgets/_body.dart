@@ -98,19 +98,32 @@ class _Body extends StatelessWidget {
                         );
                       },
                       child: Center(
-                        child: Image.asset(
-                          AppStaticData.noMediaIcon,
-                          height: AppDimensions.normalize(60),
-                          width: AppDimensions.normalize(60),
+                          child: Container(
+                        width: double.infinity,
+                        height: AppDimensions.normalize(150),
+                        decoration: BoxDecoration(
+                          color: AppTheme.c.fieldDark,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                    ),
-                    Space.y!,
-                    Center(
-                      child: Text(
-                        'Add media',
-                        style: AppText.h1bm,
-                      ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Iconsax.image,
+                                size: 50,
+                              ),
+                              Space.y2!,
+                              Center(
+                                child: Text(
+                                  'Add media',
+                                  style: AppText.b1bm,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
                     ),
                   ],
                   // const Spacer(),
