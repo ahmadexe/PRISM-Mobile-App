@@ -9,6 +9,9 @@ class _PostsRepo {
         file = File(image.path);
       }
 
+      final createdAt = DateTime.now().microsecondsSinceEpoch;
+      payload['createdAt'] = createdAt;
+
       await _PostProvider.createPost(payload, file);
     } catch (e) {
       rethrow;

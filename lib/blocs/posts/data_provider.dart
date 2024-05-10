@@ -1,7 +1,7 @@
 part of 'bloc.dart';
 
 class _PostProvider {
-  static final Dio _client = Api.getClient('http://3.111.196.231:3001/v1');
+  static final Dio _client = Api.getClient(ClientType.post);
   static final _auth = FirebaseAuth.instance;
   static final _storage = FirebaseStorage.instance;
   static final _ref = _storage.ref();
@@ -45,7 +45,8 @@ class _PostProvider {
         payload['imageUrl'] = url;
       }
 
-      final response = await _client.post('/posts', data: payload);
+      final response = await _client.post('/posts', data: json.encode(payload));
+
       if (response.statusCode != 201) {
         throw 'Failed to create post';
       }

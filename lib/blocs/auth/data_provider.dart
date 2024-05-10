@@ -2,7 +2,7 @@ part of 'bloc.dart';
 
 class _AuthDataProvider {
   static final _auth = FirebaseAuth.instance;
-  static final Dio _client = Api.getClient('http://3.111.196.231:3000/v1');
+  static final Dio _client = Api.getClient(ClientType.auth);
   static final _storage = FirebaseStorage.instance;
   static final _ref = _storage.ref();
 

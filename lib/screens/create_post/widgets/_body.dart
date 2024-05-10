@@ -7,8 +7,10 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final postsBloc = BlocProvider.of<PostsBloc>(context);
     final mediaProvider = MediaProvider.s(context, true);
     final screenState = _ScreenState.s(context, true);
+    final user = authBloc.state.user!;
 
     return SafeArea(
       child: Scaffold(
@@ -29,10 +31,11 @@ class _Body extends StatelessWidget {
                     radius: AppDimensions.normalize(9),
                   ),
                   Space.yf(30),
-                  const AppTextField(
+                  AppTextField(
                     name: _FormKeys.title,
                     hint: 'Title',
                     isDarkField: true,
+                    validator: FormBuilderValidators.required(),
                   ),
                   Space.y!,
                   AppTextField(
@@ -111,8 +114,46 @@ class _Body extends StatelessWidget {
                     ),
                   ],
                   // const Spacer(),
-                  Space.yf(30),
-                  AppButton(label: 'Post', onPressed: () {})
+                  Space.yf(50),
+                  AppButton(
+                      label: 'Post',
+                      onPressed: () {
+                        final form = screenState.formKey.currentState!;
+                        final isValid = form.saveAndValidate();
+                        if (!isValid) return;
+
+                        final media = mediaProvider.media;
+                        final description =
+                            form.value[_FormKeys.description] as String?;
+
+                        if (media == null && description == null) {
+                          SnackBars.failure(
+                              context, 'Please add media or description.');
+                          return;
+                        }
+
+                        final title = form.value[_FormKeys.title] as String;
+                        final userId = user.id;
+                        final category = user.domain;
+                        final userName = user.fullname;
+                        final userProfilePic = user.imageUrl;
+
+                        final Map<String, dynamic> payload = {
+                          'title': title,
+                          'description': description,
+                          'userId': userId,
+                          'category': category,
+                          'userName': userName,
+                          'userProfilePic': userProfilePic,
+                        };
+
+                        postsBloc.add(
+                          PostCreateEvent(
+                            payload: payload,
+                            image: media,
+                          ),
+                        );
+                      })
                 ],
               ),
             ),

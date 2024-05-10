@@ -15,7 +15,7 @@ class PostCreateEvent extends PostsEvent {
   final Map<String, dynamic> payload;
   final XFile? image;
 
-  const PostCreateEvent(this.payload, this.image);
+  const PostCreateEvent({required this.payload, this.image});
 
   @override
   List<Object> get props => [payload];
