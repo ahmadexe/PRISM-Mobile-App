@@ -20,6 +20,7 @@ class _Body extends StatelessWidget {
               icon: const Icon(Iconsax.sms_tracking),
             ),
           ],
+          scrolledUnderElevation: 0,
         ),
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * .7,

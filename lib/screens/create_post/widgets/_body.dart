@@ -16,6 +16,7 @@ class _Body extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Create Post'),
+          scrolledUnderElevation: 0,
         ),
         body: Padding(
           padding: Space.all(),
