@@ -12,6 +12,7 @@ import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
+import 'package:prism/widgets/headless/full_screen_loader.dart';
 import 'package:prism/widgets/pick_image_modal.dart';
 import 'package:provider/provider.dart';
 
