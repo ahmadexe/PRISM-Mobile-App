@@ -15,7 +15,7 @@ part 'event.dart';
 part 'state.dart';
 
 part 'data_provider.dart';
-part 'repository.dart';
+part 'adaptor.dart';
 
 part 'states/_fetch.dart';
 part 'states/_post.dart';
@@ -28,7 +28,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<PostVoteEvent>(_votePost);
   }
 
-  final _repo = _PostsRepo();
+  final _adaptor = _PostAdaptor();
 
   Future<void> _fetchPosts(
       PostsFetchEvent event, Emitter<PostsState> emit) async {
@@ -60,7 +60,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       final payload = event.payload;
       final image = event.image;
 
-      await _repo.createPost(payload, image);
+      await _adaptor.createPost(payload, image);
 
       emit(
         state.copyWith(

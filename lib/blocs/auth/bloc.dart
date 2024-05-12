@@ -14,7 +14,7 @@ import 'package:prism/services/api.dart';
 
 part 'event.dart';
 part 'state.dart';
-part 'repository.dart';
+part 'adaptor.dart';
 part 'data_provider.dart';
 
 part 'states/_register.dart';
@@ -32,13 +32,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUpdate>(_update);
   }
 
-  final _repo = _AuthRepository();
+  final _adaptor = _AuthAdaptor();
   late StreamSubscription<User?> listener;
 
   void _register(AuthRegister event, Emitter<AuthState> emit) async {
     emit(state.copyWith(register: const AuthRegisterLoading()));
     try {
-      final user = await _repo.register(
+      final user = await _adaptor.register(
         event.email,
         event.password,
         event.payload,
@@ -64,7 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _login(AuthLogin event, Emitter<AuthState> emit) async {
     emit(state.copyWith(login: const AuthLoginLoading()));
     try {
-      final user = await _repo.login(
+      final user = await _adaptor.login(
         event.email,
         event.password,
       );
@@ -95,7 +95,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
         return;
       }
-      final profile = await _repo.getUser(event.user);
+      final profile = await _adaptor.getUser(event.user);
       emit(state.copyWith(
         user: profile,
         init: const AuthInitSuccess(),
@@ -110,15 +110,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _logout(AuthLogout event, Emitter<AuthState> emit) async {
     emit(state.copyWith(logout: const AuthLogoutLoading()));
     try {
-      await _repo.logout();
+      await _adaptor.logout();
       emit(
         state.copyWith(
-          user: null,
-          logout: const AuthLogoutSuccess(),
-          login: const AuthLoginDefault(),
-          register: const AuthRegisterDefault(),
-          init: const AuthInitDefault()
-        ),
+            user: null,
+            logout: const AuthLogoutSuccess(),
+            login: const AuthLoginDefault(),
+            register: const AuthRegisterDefault(),
+            init: const AuthInitDefault()),
       );
     } catch (e) {
       emit(
@@ -132,7 +131,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _update(AuthUpdate event, Emitter<AuthState> emit) async {
     emit(state.copyWith(update: const AuthUpdateLoading()));
     try {
-      final user = await _repo.update(
+      final user = await _adaptor.update(
         event.userData,
         event.bannerImage,
         event.profileImage,
