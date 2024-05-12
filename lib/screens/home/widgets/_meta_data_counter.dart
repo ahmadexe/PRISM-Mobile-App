@@ -109,25 +109,36 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
           ),
         ),
         Space.x2!,
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.withOpacity(.5)),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          padding: Space.all(10, 6),
-          child: Row(
-            children: [
-              const Icon(
-                Iconsax.messages,
-                color: Colors.white,
-                size: 20,
-              ),
-              Space.x!,
-              Text(
-                '$comments Comments',
-                style: AppText.b2bm,
-              ),
-            ],
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return _CommentsSheet(post: widget.post);
+              },
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey.withOpacity(.5)),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            padding: Space.all(10, 6),
+            child: Row(
+              children: [
+                const Icon(
+                  Iconsax.messages,
+                  color: Colors.white,
+                  size: 20,
+                ),
+                Space.x!,
+                Text(
+                  '$comments Comments',
+                  style: AppText.b2bm,
+                ),
+              ],
+            ),
           ),
         ),
       ],
