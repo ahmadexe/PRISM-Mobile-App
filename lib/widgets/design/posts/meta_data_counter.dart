@@ -1,15 +1,22 @@
-part of '../home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/posts/bloc.dart';
+import 'package:prism/configs/configs.dart';
+import 'package:prism/models/post/post.dart';
+import 'package:prism/widgets/design/posts/comments_sheet.dart';
 
-class _MetaDataCounter extends StatefulWidget {
-  final Post post;
+class MetaDataCounter extends StatefulWidget {
+  final PostData post;
   final int index;
-  const _MetaDataCounter({required this.post, required this.index});
+  const MetaDataCounter({super.key, required this.post, required this.index});
 
   @override
-  State<_MetaDataCounter> createState() => _MetaDataCounterState();
+  State<MetaDataCounter> createState() => _MetaDataCounterState();
 }
 
-class _MetaDataCounterState extends State<_MetaDataCounter> {
+class _MetaDataCounterState extends State<MetaDataCounter> {
   late int upVotes;
   late bool isUpVoted;
   late bool isDownVoted;
@@ -30,7 +37,6 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
   Widget build(BuildContext context) {
     final postBloc = BlocProvider.of<PostsBloc>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
-    final screenState = _ScreenState.s(context);
     final user = authBloc.state.user!;
 
     return Row(
@@ -111,17 +117,22 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
         ),
         Space.x2!,
         GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
+          onTap: () async {
+            final res = await showModalBottomSheet<int>(
               isScrollControlled: true,
-              context: context,
+              enableDrag: false,
               builder: (context) {
-                return _CommentsSheet(
+                return CommentsSheet(
                   post: widget.post,
-                  screenState: screenState,
                 );
               },
+              context: context,
             );
+            if (res != null && res > 0) {
+              setState(() {
+                comments += res;
+              });
+            }
           },
           child: Container(
             decoration: BoxDecoration(
@@ -137,19 +148,9 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
                   size: 20,
                 ),
                 Space.x!,
-                BlocListener<CommentsBloc, CommentsState>(
-                  listenWhen: CreateCommentState.match,
-                  listener: (context, state) {
-                    if (state.create is CreateCommentSuccess) {
-                      setState(() {
-                        comments++;
-                      });
-                    }
-                  },
-                  child: Text(
-                    '$comments Comments',
-                    style: AppText.b2bm,
-                  ),
+                Text(
+                  '$comments Comments',
+                  style: AppText.b2bm,
                 ),
               ],
             ),

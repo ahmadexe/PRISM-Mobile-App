@@ -2,7 +2,7 @@ part of 'bloc.dart';
 
 @immutable
 class PostsState extends Equatable {
-  final List<Post>? data;
+  final List<PostData>? data;
   final PostsfetchState? fetch;
   final CreatePostState? post;
   final VotePostState? vote;
@@ -15,7 +15,7 @@ class PostsState extends Equatable {
   });
 
   PostsState copyWith({
-    List<Post>? data,
+    List<PostData>? data,
     PostsfetchState? fetch,
     CreatePostState? post,
     VotePostState? vote,

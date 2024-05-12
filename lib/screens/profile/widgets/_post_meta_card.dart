@@ -1,7 +1,7 @@
 part of '../profile.dart';
 
 class _PostMetaCard extends StatelessWidget {
-  final Post post;
+  final PostData post;
   const _PostMetaCard({required this.post});
 
   @override

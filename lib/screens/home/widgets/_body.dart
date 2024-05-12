@@ -95,7 +95,7 @@ class _Body extends StatelessWidget {
                   builder: (context, state) {
                     if (state.fetch is PostsfetchLoading ||
                         state.fetch is PostsfetchDefault) {
-                      return const _PostPlaceHolder();
+                      return const PostPlaceHolder();
                     } else if (state.fetch is PostsfetchSuccess) {
                       final posts = state.data!;
                       if (posts.isEmpty) {
@@ -122,7 +122,7 @@ class _Body extends StatelessWidget {
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => _Post(
+                        itemBuilder: (context, index) => Post(
                           post: posts[index],
                           index: index,
                         ),

@@ -88,7 +88,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
 
       final updatedPost = await _PostProvider.vote(postId, userId, isUpVote);
 
-      List<Post> posts = state.data!;
+      List<PostData> posts = state.data!;
       final index = event.index;
 
       posts[index] = updatedPost;

@@ -1,7 +1,9 @@
-part of '../home.dart';
+import 'package:flutter/material.dart';
+import 'package:prism/configs/configs.dart';
+import 'package:shimmer/shimmer.dart';
 
-class _PostPlaceHolder extends StatelessWidget {
-  const _PostPlaceHolder();
+class PostPlaceHolder extends StatelessWidget {
+  const PostPlaceHolder();
 
   @override
   Widget build(BuildContext context) {

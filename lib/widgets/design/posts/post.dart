@@ -1,9 +1,15 @@
-part of '../home.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:prism/configs/configs.dart';
+import 'package:prism/models/post/post.dart';
+import 'package:prism/widgets/avatar.dart';
+import 'package:prism/widgets/design/posts/meta_data_counter.dart';
+import 'package:prism/widgets/info_tile.dart';
 
-class _Post extends StatelessWidget {
-  final Post post;
+class Post extends StatelessWidget {
+  final PostData post;
   final int index;
-  const _Post({required this.post, required this.index});
+  const Post({super.key, required this.post, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class _Post extends StatelessWidget {
             ),
           ),
         Space.y1!,
-        _MetaDataCounter(
+        MetaDataCounter(
           post: post,
           index: index,
         ),

@@ -6,7 +6,7 @@ class _PostProvider {
   static final _storage = FirebaseStorage.instance;
   static final _ref = _storage.ref();
 
-  static Future<List<Post>> getPosts() async {
+  static Future<List<PostData>> getPosts() async {
     try {
       final token = await _auth.currentUser?.getIdToken();
       _client.options.headers['Authorization'] = 'Bearer $token';
@@ -19,7 +19,7 @@ class _PostProvider {
 
       final raw = response.data == null ? [] : response.data as List<dynamic>;
 
-      final data = raw.map((e) => Post.fromMap(e)).toList();
+      final data = raw.map((e) => PostData.fromMap(e)).toList();
       return data;
     } catch (e) {
       debugPrint('Exception in Post Data Provider(getPosts): $e');
@@ -87,7 +87,8 @@ class _PostProvider {
     }
   }
 
-  static Future<Post> vote(String postId, String userId, bool isUpVote) async {
+  static Future<PostData> vote(
+      String postId, String userId, bool isUpVote) async {
     try {
       final token = await _auth.currentUser?.getIdToken();
       _client.options.headers['Authorization'] = 'Bearer $token';
@@ -106,7 +107,7 @@ class _PostProvider {
 
       final raw = response.data! as Map<String, dynamic>;
 
-      final data = Post.fromMap(raw['data']);
+      final data = PostData.fromMap(raw['data']);
       return data;
     } catch (e) {
       debugPrint('Exception in Post Data Provider(vote): $e');

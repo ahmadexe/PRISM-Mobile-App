@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class Post {
+class PostData {
   final String id;
   final String userId;
   final String? imageUrl;
@@ -19,8 +19,8 @@ class Post {
   List<String> downVotedBy;
   List<String> commentedBy;
   final String title;
-  
-  Post({
+
+  PostData({
     required this.id,
     required this.userId,
     this.imageUrl,
@@ -39,8 +39,7 @@ class Post {
     required this.title,
   });
 
-
-  Post copyWith({
+  PostData copyWith({
     String? id,
     String? userId,
     String? imageUrl,
@@ -58,7 +57,7 @@ class Post {
     List<String>? commentedBy,
     String? title,
   }) {
-    return Post(
+    return PostData(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       imageUrl: imageUrl ?? this.imageUrl,
@@ -99,15 +98,18 @@ class Post {
     };
   }
 
-  factory Post.fromMap(Map<String, dynamic> map) {
-    return Post(
+  factory PostData.fromMap(Map<String, dynamic> map) {
+    return PostData(
       id: map['id'] as String,
       userId: map['userId'] as String,
       imageUrl: map['imageUrl'] != null ? map['imageUrl'] as String : null,
-      description: map['description'] != null ? map['description'] as String : null,
+      description:
+          map['description'] != null ? map['description'] as String : null,
       userName: map['userName'] as String,
       category: map['category'] as String,
-      userProfilePic: map['userProfilePic'] != null ? map['userProfilePic'] as String : null,
+      userProfilePic: map['userProfilePic'] != null
+          ? map['userProfilePic'] as String
+          : null,
       noOfViews: map['noOfViews'] as int,
       upVotes: map['upVotes'] as int,
       downVotes: map['downVotes'] as int,
@@ -122,7 +124,8 @@ class Post {
 
   String toJson() => json.encode(toMap());
 
-  factory Post.fromJson(String source) => Post.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PostData.fromJson(String source) =>
+      PostData.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -130,45 +133,44 @@ class Post {
   }
 
   @override
-  bool operator ==(covariant Post other) {
+  bool operator ==(covariant PostData other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.userId == userId &&
-      other.imageUrl == imageUrl &&
-      other.description == description &&
-      other.userName == userName &&
-      other.category == category &&
-      other.userProfilePic == userProfilePic &&
-      other.noOfViews == noOfViews &&
-      other.upVotes == upVotes &&
-      other.downVotes == downVotes &&
-      other.noOfComments == noOfComments &&
-      other.createdAt == createdAt &&
-      listEquals(other.upVotedBy, upVotedBy) &&
-      listEquals(other.downVotedBy, downVotedBy) &&
-      listEquals(other.commentedBy, commentedBy) &&
-      other.title == title;
+
+    return other.id == id &&
+        other.userId == userId &&
+        other.imageUrl == imageUrl &&
+        other.description == description &&
+        other.userName == userName &&
+        other.category == category &&
+        other.userProfilePic == userProfilePic &&
+        other.noOfViews == noOfViews &&
+        other.upVotes == upVotes &&
+        other.downVotes == downVotes &&
+        other.noOfComments == noOfComments &&
+        other.createdAt == createdAt &&
+        listEquals(other.upVotedBy, upVotedBy) &&
+        listEquals(other.downVotedBy, downVotedBy) &&
+        listEquals(other.commentedBy, commentedBy) &&
+        other.title == title;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      userId.hashCode ^
-      imageUrl.hashCode ^
-      description.hashCode ^
-      userName.hashCode ^
-      category.hashCode ^
-      userProfilePic.hashCode ^
-      noOfViews.hashCode ^
-      upVotes.hashCode ^
-      downVotes.hashCode ^
-      noOfComments.hashCode ^
-      createdAt.hashCode ^
-      upVotedBy.hashCode ^
-      downVotedBy.hashCode ^
-      commentedBy.hashCode ^
-      title.hashCode;
+        userId.hashCode ^
+        imageUrl.hashCode ^
+        description.hashCode ^
+        userName.hashCode ^
+        category.hashCode ^
+        userProfilePic.hashCode ^
+        noOfViews.hashCode ^
+        upVotes.hashCode ^
+        downVotes.hashCode ^
+        noOfComments.hashCode ^
+        createdAt.hashCode ^
+        upVotedBy.hashCode ^
+        downVotedBy.hashCode ^
+        commentedBy.hashCode ^
+        title.hashCode;
   }
 }

@@ -1,21 +1,37 @@
-part of '../home.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/comments/bloc.dart';
+import 'package:prism/configs/configs.dart';
+import 'package:prism/models/post/post.dart';
+import 'package:prism/widgets/avatar.dart';
+import 'package:prism/widgets/core/error/error.dart';
+import 'package:prism/widgets/design/input/app_text_field.dart';
+import 'package:prism/widgets/design/posts/posts_placeholder.dart';
 
-class _CommentsSheet extends StatefulWidget {
-  final Post post;
-  final _ScreenState screenState;
-  const _CommentsSheet({required this.post, required this.screenState});
+class CommentsSheet extends StatefulWidget {
+  final PostData post;
+  const CommentsSheet({super.key, required this.post});
 
   @override
-  State<_CommentsSheet> createState() => _CommentsSheetState();
+  State<CommentsSheet> createState() => _CommentsSheetState();
 }
 
-class _CommentsSheetState extends State<_CommentsSheet> {
+class _CommentsSheetState extends State<CommentsSheet> {
   @override
   void initState() {
     super.initState();
     final commentsBloc = BlocProvider.of<CommentsBloc>(context);
     commentsBloc.add(FetchCommentsEvent(postId: widget.post.id));
   }
+
+  static final _formKey = GlobalKey<FormBuilderState>();
+  int comments = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +55,25 @@ class _CommentsSheetState extends State<_CommentsSheet> {
         padding: Space.all(),
         child: Column(
           children: [
-            Container(
-              width: media.width * .1,
-              height: AppDimensions.normalize(3),
-              decoration: BoxDecoration(
-                color: AppTheme.c.grey,
-                borderRadius: BorderRadius.circular(
-                  AppDimensions.normalize(5),
+            Row(
+              children: [
+                GestureDetector(
+                    onTap: () => ''.pop(context, comments),
+                    child: const Icon(Icons.keyboard_arrow_down_rounded)),
+                Padding(
+                  padding: Space.hf(155),
+                  child: Container(
+                    width: media.width * .1,
+                    height: AppDimensions.normalize(3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.c.grey,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.normalize(5),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             Space.y!,
             Text(
@@ -59,7 +85,7 @@ class _CommentsSheetState extends State<_CommentsSheet> {
                 if (state.fetch is FetchCommentsLoading ||
                     state.fetch is FetchCommentsDefault) {
                   return const Expanded(
-                    child: _PostPlaceHolder(),
+                    child: PostPlaceHolder(),
                   );
                 } else if (state.fetch is FetchCommentsSuccess) {
                   final data = state.data!;
@@ -119,17 +145,23 @@ class _CommentsSheetState extends State<_CommentsSheet> {
                 children: [
                   Expanded(
                     child: FormBuilder(
-                      key: widget.screenState.commentFormKey,
+                      key: _formKey,
                       child: AppTextField(
                         hint: 'Add a comment',
-                        name: _FormKeys.comment,
+                        name: 'comment',
                         type: FieldType.secondary,
                         validator: FormBuilderValidators.required(),
                       ),
                     ),
                   ),
                   Space.x1!,
-                  BlocBuilder<CommentsBloc, CommentsState>(
+                  BlocConsumer<CommentsBloc, CommentsState>(
+                    listenWhen: CreateCommentState.match,
+                    listener: (context, state) {
+                      if (state.create is CreateCommentSuccess) {
+                        comments++;
+                      }
+                    },
                     builder: (context, state) {
                       if (state.create is CreateCommentLoading) {
                         return Icon(
@@ -140,11 +172,9 @@ class _CommentsSheetState extends State<_CommentsSheet> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          final form =
-                              widget.screenState.commentFormKey.currentState!;
+                          final form = _formKey.currentState!;
                           if (!form.saveAndValidate()) return;
-                          final content =
-                              form.value[_FormKeys.comment] as String;
+                          final content = form.value['comment'] as String;
 
                           commentBloc.add(
                             CreateCommentEvent(
