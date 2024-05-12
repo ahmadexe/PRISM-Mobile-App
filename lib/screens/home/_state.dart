@@ -5,6 +5,7 @@ class _ScreenState extends ChangeNotifier {
       Provider.of<_ScreenState>(context, listen: listen);
 
   final formKey = GlobalKey<FormBuilderState>();
+  final commentFormKey = GlobalKey<FormBuilderState>();
 
   bool showPostArrow = false;
   void setPostArrow(bool val) {

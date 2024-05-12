@@ -30,6 +30,7 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
   Widget build(BuildContext context) {
     final postBloc = BlocProvider.of<PostsBloc>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final screenState = _ScreenState.s(context);
     final user = authBloc.state.user!;
 
     return Row(
@@ -115,7 +116,10 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return _CommentsSheet(post: widget.post);
+                return _CommentsSheet(
+                  post: widget.post,
+                  screenState: screenState,
+                );
               },
             );
           },
@@ -133,9 +137,19 @@ class _MetaDataCounterState extends State<_MetaDataCounter> {
                   size: 20,
                 ),
                 Space.x!,
-                Text(
-                  '$comments Comments',
-                  style: AppText.b2bm,
+                BlocListener<CommentsBloc, CommentsState>(
+                  listenWhen: CreateCommentState.match,
+                  listener: (context, state) {
+                    if (state.create is CreateCommentSuccess) {
+                      setState(() {
+                        comments++;
+                      });
+                    }
+                  },
+                  child: Text(
+                    '$comments Comments',
+                    style: AppText.b2bm,
+                  ),
                 ),
               ],
             ),
