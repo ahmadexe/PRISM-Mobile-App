@@ -58,8 +58,8 @@ class _CommentsSheetState extends State<_CommentsSheet> {
               builder: (context, state) {
                 if (state.fetch is FetchCommentsLoading ||
                     state.fetch is FetchCommentsDefault) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return const Expanded(
+                    child: _PostPlaceHolder(),
                   );
                 } else if (state.fetch is FetchCommentsSuccess) {
                   final data = state.data!;
@@ -129,27 +129,42 @@ class _CommentsSheetState extends State<_CommentsSheet> {
                     ),
                   ),
                   Space.x1!,
-                  GestureDetector(
-                    onTap: () {
-                      final form = widget.screenState.commentFormKey.currentState!;
-                      if (!form.saveAndValidate()) return;
-                      final content = form.value[_FormKeys.comment] as String;
+                  BlocBuilder<CommentsBloc, CommentsState>(
+                    builder: (context, state) {
+                      if (state.create is CreateCommentLoading) {
+                        return Icon(
+                          Iconsax.send_2,
+                          size: AppDimensions.normalize(10),
+                          color: Colors.grey,
+                        );
+                      }
+                      return GestureDetector(
+                        onTap: () {
+                          final form =
+                              widget.screenState.commentFormKey.currentState!;
+                          if (!form.saveAndValidate()) return;
+                          final content =
+                              form.value[_FormKeys.comment] as String;
 
-                      commentBloc.add(
-                        CreateCommentEvent(
-                          postId: widget.post.id,
-                          userId: user.id,
-                          content: content,
-                          userName: user.fullname,
-                          userProfilePic: user.imageUrl,
-                          createdAt: DateTime.now(),
+                          commentBloc.add(
+                            CreateCommentEvent(
+                              postId: widget.post.id,
+                              userId: user.id,
+                              content: content,
+                              userName: user.fullname,
+                              userProfilePic: user.imageUrl,
+                              createdAt: DateTime.now(),
+                            ),
+                          );
+
+                          form.reset();
+                        },
+                        child: Icon(
+                          Iconsax.send_2,
+                          size: AppDimensions.normalize(10),
                         ),
                       );
                     },
-                    child: Icon(
-                      Iconsax.send_2,
-                      size: AppDimensions.normalize(10),
-                    ),
                   ),
                 ],
               ),
