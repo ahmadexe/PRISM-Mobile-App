@@ -19,11 +19,13 @@ part 'repository.dart';
 
 part 'states/_fetch.dart';
 part 'states/_post.dart';
+part 'states/_vote.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(const PostsDefault()) {
     on<PostsFetchEvent>(_fetchPosts);
     on<PostCreateEvent>(_createPost);
+    on<PostVoteEvent>(_votePost);
   }
 
   final _repo = _PostsRepo();
@@ -69,6 +71,38 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       emit(
         state.copyWith(
           post: CreatePostFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _votePost(PostVoteEvent event, Emitter<PostsState> emit) async {
+    emit(state.copyWith(vote: const VotePostLoading()));
+
+    try {
+      final userId = event.userId;
+      final postId = event.postId;
+      final isUpVote = event.isUpVote;
+
+      final updatedPost = await _PostProvider.vote(postId, userId, isUpVote);
+
+      List<Post> posts = state.data!;
+      final index = event.index;
+
+      posts[index] = updatedPost;
+
+      emit(
+        state.copyWith(
+          vote: const VotePostSuccess(),
+          data: posts,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          vote: VotePostFailure(
             message: e.toString(),
           ),
         ),

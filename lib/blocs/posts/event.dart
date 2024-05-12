@@ -20,3 +20,20 @@ class PostCreateEvent extends PostsEvent {
   @override
   List<Object> get props => [payload];
 }
+
+class PostVoteEvent extends PostsEvent {
+  final String postId;
+  final String userId;
+  final bool isUpVote;
+  final int index;
+
+  const PostVoteEvent({
+    required this.postId,
+    required this.userId,
+    required this.isUpVote,
+    required this.index,
+  });
+
+  @override
+  List<Object> get props => [postId, isUpVote];
+}

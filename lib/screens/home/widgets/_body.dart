@@ -122,8 +122,10 @@ class _Body extends StatelessWidget {
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) =>
-                            _Post(post: posts[index]),
+                        itemBuilder: (context, index) => _Post(
+                          post: posts[index],
+                          index: index,
+                        ),
                         separatorBuilder: (context, index) => Space.y1!,
                         itemCount: posts.length,
                       );

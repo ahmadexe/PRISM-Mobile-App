@@ -2,7 +2,8 @@ part of '../home.dart';
 
 class _Post extends StatelessWidget {
   final Post post;
-  const _Post({required this.post});
+  final int index;
+  const _Post({required this.post, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,7 @@ class _Post extends StatelessWidget {
         Space.y1!,
         _MetaDataCounter(
           post: post,
+          index: index,
         ),
         const Divider(
           thickness: 0.5,

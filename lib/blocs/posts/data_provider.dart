@@ -56,4 +56,62 @@ class _PostProvider {
       rethrow;
     }
   }
+
+  // ignore: unused_element
+  static Future<void> updatePost(
+      Map<String, dynamic> payload, File? file) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      if (file != null) {
+        final time = payload['createdAt'] as int;
+        final userId = payload['userId'] as String;
+
+        final ref = _ref.child('posts/$userId/$time');
+        final res = await ref.putFile(file);
+        final url = await res.ref.getDownloadURL();
+
+        payload['imageUrl'] = url;
+      }
+
+      final response = await _client.put('/posts', data: json.encode(payload));
+
+      if (response.statusCode != 200) {
+        throw 'Failed to update post';
+      }
+    } catch (e) {
+      debugPrint('Exception in Post Data Provider(updatePost): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  static Future<Post> vote(String postId, String userId, bool isUpVote) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final Response response;
+
+      if (isUpVote) {
+        response = await _client.put('/posts/upvote/$postId/$userId');
+      } else {
+        response = await _client.put('/posts/downvote/$postId/$userId');
+      }
+
+      if (response.statusCode != 200) {
+        throw 'Failed to upvote post';
+      }
+
+      final raw = response.data! as Map<String, dynamic>;
+
+      final data = Post.fromMap(raw['data']);
+      return data;
+    } catch (e) {
+      debugPrint('Exception in Post Data Provider(vote): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

@@ -1,11 +1,37 @@
 part of '../home.dart';
 
-class _MetaDataCounter extends StatelessWidget {
+class _MetaDataCounter extends StatefulWidget {
   final Post post;
-  const _MetaDataCounter({required this.post});
+  final int index;
+  const _MetaDataCounter({required this.post, required this.index});
+
+  @override
+  State<_MetaDataCounter> createState() => _MetaDataCounterState();
+}
+
+class _MetaDataCounterState extends State<_MetaDataCounter> {
+  late int upVotes;
+  late bool isUpVoted;
+  late bool isDownVoted;
+  late int comments;
+
+  @override
+  void initState() {
+    super.initState();
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
+    upVotes = widget.post.upVotes;
+    isUpVoted = widget.post.upVotedBy.contains(user.id);
+    isDownVoted = widget.post.downVotedBy.contains(user.id);
+    comments = widget.post.noOfComments;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final postBloc = BlocProvider.of<PostsBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
+
     return Row(
       children: [
         Container(
@@ -16,21 +42,68 @@ class _MetaDataCounter extends StatelessWidget {
           padding: Space.all(4, 4),
           child: Row(
             children: [
-              Icon(
-                Iconsax.arrow_up,
-                color: AppTheme.c.primary,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (isUpVoted) {
+                      upVotes--;
+                      isUpVoted = false;
+                    } else {
+                      upVotes++;
+                      isUpVoted = true;
+                      isDownVoted = false;
+                    }
+                  });
+
+                  postBloc.add(
+                    PostVoteEvent(
+                      postId: widget.post.id,
+                      userId: user.id,
+                      isUpVote: true,
+                      index: widget.index,
+                    ),
+                  );
+                },
+                child: Icon(
+                  Iconsax.arrow_up,
+                  color: isUpVoted ? AppTheme.c.primary : Colors.white,
+                ),
               ),
               Space.x!,
               Text(
-                post.upVotes.toString(),
+                upVotes.toString(),
                 style: AppText.b2,
               ),
               Space.x1!,
               Text('|', style: AppText.b2!.cl(Colors.grey)),
               Space.x!,
-              Icon(
-                Iconsax.arrow_bottom,
-                color: AppTheme.c.accent,
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (isDownVoted) {
+                      isDownVoted = false;
+                    } else {
+                      isDownVoted = true;
+                      if (isUpVoted) {
+                        isUpVoted = false;
+                        upVotes--;
+                      }
+                    }
+                  });
+
+                  postBloc.add(
+                    PostVoteEvent(
+                      postId: widget.post.id,
+                      userId: user.id,
+                      isUpVote: false,
+                      index: widget.index,
+                    ),
+                  );
+                },
+                child: Icon(
+                  Iconsax.arrow_bottom,
+                  color: isDownVoted ? AppTheme.c.accent : Colors.white,
+                ),
               ),
             ],
           ),
@@ -51,7 +124,7 @@ class _MetaDataCounter extends StatelessWidget {
               ),
               Space.x!,
               Text(
-                '${post.noOfComments} Comments',
+                '$comments Comments',
                 style: AppText.b2bm,
               ),
             ],

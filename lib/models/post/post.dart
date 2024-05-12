@@ -15,10 +15,11 @@ class Post {
   int downVotes;
   int noOfComments;
   final DateTime createdAt;
-  final List<String> upVotedBy;
-  final List<String> downVotedBy;
-  final List<String> commentedBy;
+  List<String> upVotedBy;
+  List<String> downVotedBy;
+  List<String> commentedBy;
   final String title;
+  
   Post({
     required this.id,
     required this.userId,
