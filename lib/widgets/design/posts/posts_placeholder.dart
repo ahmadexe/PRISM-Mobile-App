@@ -3,7 +3,7 @@ import 'package:prism/configs/configs.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PostPlaceHolder extends StatelessWidget {
-  const PostPlaceHolder();
+  const PostPlaceHolder({super.key});
 
   @override
   Widget build(BuildContext context) {
