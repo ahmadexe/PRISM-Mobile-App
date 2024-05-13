@@ -9,7 +9,11 @@ import 'package:prism/widgets/info_tile.dart';
 class Post extends StatelessWidget {
   final PostData post;
   final int index;
-  const Post({super.key, required this.post, required this.index});
+  const Post({
+    super.key,
+    required this.post,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +29,12 @@ class Post extends StatelessWidget {
                     imageUrl: post.userProfilePic,
                   ),
                   Space.x2!,
-                  Text(
-                    post.userName,
-                    style: AppText.b1bm,
+                  GestureDetector(
+                    onTap: () => debugPrint('username tapped'),
+                    child: Text(
+                      post.userName,
+                      style: AppText.b1bm,
+                    ),
                   ),
                 ],
               ),
@@ -48,6 +55,8 @@ class Post extends StatelessWidget {
           post.title,
           style: AppText.b1b,
         ),
+        if (post.description != null && post.description!.isNotEmpty)
+          TextExpander(displayText: post.description!),
         Space.y1!,
         if (post.imageUrl != null)
           ClipRRect(
@@ -68,6 +77,32 @@ class Post extends StatelessWidget {
           thickness: 0.5,
         )
       ],
+    );
+  }
+}
+
+class TextExpander extends StatefulWidget {
+  final String displayText;
+  const TextExpander({super.key, required this.displayText});
+
+  @override
+  State<TextExpander> createState() => _TextExpanderState();
+}
+
+class _TextExpanderState extends State<TextExpander> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      child: Text(
+        isExpanded ? widget.displayText : 'Read more...',
+      ),
     );
   }
 }
