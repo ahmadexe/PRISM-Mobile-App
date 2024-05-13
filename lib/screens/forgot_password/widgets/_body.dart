@@ -13,6 +13,7 @@ class _Body extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Forgot Password'),
           centerTitle: true,
+          scrolledUnderElevation: 0,
           actions: [
             SvgPicture.asset(
               AppStaticData.logoSvg,

@@ -64,6 +64,7 @@ dependencies:
   dio: ^5.4.0
   firebase_storage: ^11.7.0
   cached_network_image: ^3.3.1
+  shimmer: ^3.0.0
 
 
 dev_dependencies:

@@ -10,6 +10,7 @@ class _Body extends StatelessWidget {
         bottomNavigationBar: const BottomBar(),
         appBar: AppBar(
           title: const Text('Notifications'),
+          scrolledUnderElevation: 0,
         ),
         body: const Center(
           child: Text('Notifications'),

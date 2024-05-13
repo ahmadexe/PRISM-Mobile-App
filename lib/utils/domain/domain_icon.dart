@@ -1,4 +1,5 @@
-part of '../profile.dart';
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 IconData getIcon(String domain) {
   switch (domain) {
