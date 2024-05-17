@@ -67,16 +67,28 @@ class _Body extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final convo = conversations[index];
+                    final otherUser =
+                        isCurrentUser(currentUser.id, convo.user1Id)
+                            ? {
+                                'id': convo.user2Id,
+                                'name': convo.user2Name,
+                                'pic': convo.user2Pic
+                              }
+                            : {
+                                'id': convo.user1Id,
+                                'name': convo.user1Name,
+                                'pic': convo.user1Pic
+                              };
                     return ListTile(
                       leading: Avatar(
-                        imageUrl: isCurrentUser(currentUser.id, convo.user1Id)
-                            ? convo.user2Pic
-                            : convo.user1Pic,
+                        imageUrl: otherUser['pic'],
                       ),
-                      title: isCurrentUser(currentUser.id, convo.user1Id)
-                          ? Text(convo.user2Name)
-                          : Text(convo.user1Name),
-                      onTap: () {},
+                      title: Text(otherUser['name'] as String),
+                      onTap: () => AppRoutes.chat.push(context, arguments: {
+                        'receiverId': otherUser['id'],
+                        'receiverName': otherUser['name'],
+                        'receiverPic': otherUser['pic'],
+                      }),
                     );
                   },
                   separatorBuilder: (context, index) => Space.y2!,
