@@ -16,7 +16,7 @@ class _Body extends StatelessWidget {
           title: const Text('Home'),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => AppRoutes.conversations.push(context),
               icon: const Icon(Iconsax.sms_tracking),
             ),
           ],
