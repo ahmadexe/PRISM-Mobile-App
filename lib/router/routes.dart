@@ -1,4 +1,5 @@
 abstract class AppRoutes {
+  static const settings = '/settings';
   static const chat = '/chat';
   static const conversations = '/conversations';
   static const createPost = '/create-post';

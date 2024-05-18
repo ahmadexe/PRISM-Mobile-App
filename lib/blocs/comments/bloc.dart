@@ -20,6 +20,11 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
   CommentsBloc() : super(const CommentsDefault()) {
     on<CreateCommentEvent>(_createComment);
     on<FetchCommentsEvent>(_fetchComments);
+    on<ClearCommentsBlocEvent>(_clearBloc);
+  }
+
+  void _clearBloc(ClearCommentsBlocEvent event, Emitter<CommentsState> emit) {
+    emit(const CommentsDefault());
   }
 
   final _adaptor = _CommentAdaptor();

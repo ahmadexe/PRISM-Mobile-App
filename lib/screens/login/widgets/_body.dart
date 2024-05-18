@@ -79,6 +79,8 @@ class _Body extends StatelessWidget {
                       );
                     }
                     if (state.login is AuthLoginSuccess) {
+                      final postBloc = BlocProvider.of<PostsBloc>(context);
+                      postBloc.add(const PostsFetchEvent());
                       SnackBars.success(
                         context,
                         "Welcome back!",

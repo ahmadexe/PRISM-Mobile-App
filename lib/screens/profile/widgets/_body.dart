@@ -7,7 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
     final user = authBloc.state.user!;
-    final postsBloc = BlocProvider.of<PostsBloc>(context, listen: true);
+    final postsBloc = BlocProvider.of<PostsBloc>(context);
     final usersPost =
         postsBloc.state.data!.where((post) => post.userId == user.id).toList();
 
@@ -67,6 +67,26 @@ class _Body extends StatelessWidget {
                                 ),
                               ),
                             ),
+                      Positioned(
+                        right: AppDimensions.normalize(7),
+                        top: AppDimensions.normalize(15),
+                        child: GestureDetector(
+                          onTap: () {
+                            AppRoutes.settings.push(context);
+                          },
+                          child: Container(
+                            padding: Space.all(),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Icon(
+                              Iconsax.setting_2,
+                              size: AppDimensions.normalize(8),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
