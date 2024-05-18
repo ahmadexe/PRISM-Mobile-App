@@ -61,3 +61,7 @@ class ConvoInit extends ChatsEvent {
     this.user2Pic,
   });
 }
+
+class CloseConvo extends ChatsEvent {
+  const CloseConvo();
+}

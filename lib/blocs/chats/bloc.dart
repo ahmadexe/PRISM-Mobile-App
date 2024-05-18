@@ -25,9 +25,23 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<SocketInit>(_initSocket);
     on<SubscribeToMessges>(_subscribeToMessges);
     on<SendMessage>(_sendMessage);
+    on<CloseConvo>(_closeConvo);
   }
 
   final _adaptor = _ChatsAdaptor();
+
+  void _closeConvo(CloseConvo event, Emitter<ChatsState> emit) {
+    state.channel?.sink.close();
+    emit(state.copyWith(
+      channel: null,
+      messages: null,
+      convo: null,
+      error: null,
+      socketInit: const SocketInitDefault(),
+      convoInit: const ConvoInitDefault(),
+      send: const SendMessageDefault(),
+    ));
+  }
 
   Future<void> _convoInit(ConvoInit event, Emitter<ChatsState> emit) async {
     emit(state.copyWith(
