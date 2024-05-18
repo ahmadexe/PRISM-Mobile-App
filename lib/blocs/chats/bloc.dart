@@ -20,12 +20,6 @@ part 'states/_send_message.dart';
 part 'states/_convo_init.dart';
 
 class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
-  late StreamSubscription chatstream;
-
-  void closeChatStream() {
-    chatstream.cancel();
-  }
-
   ChatsBloc() : super(const ChatsDefault()) {
     on<ConvoInit>(_convoInit);
     on<SocketInit>(_initSocket);
