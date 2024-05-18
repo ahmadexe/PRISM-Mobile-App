@@ -10,20 +10,15 @@ class Avatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        debugPrint('Avatar tapped');
-      },
-      child: CircleAvatar(
-        radius: radius ?? AppDimensions.normalize(7),
-        backgroundImage: imageUrl != null
-            ? CachedNetworkImageProvider(
-                imageUrl!,
-              )
-            : const AssetImage(
-                AppStaticData.dpDef,
-              ) as ImageProvider<Object>,
-      ),
+    return CircleAvatar(
+      radius: radius ?? AppDimensions.normalize(7),
+      backgroundImage: imageUrl != null
+          ? CachedNetworkImageProvider(
+              imageUrl!,
+            )
+          : const AssetImage(
+              AppStaticData.dpDef,
+            ) as ImageProvider<Object>,
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
+import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/design/posts/meta_data_counter.dart';
 import 'package:prism/widgets/info_tile.dart';
@@ -17,6 +20,9 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final currentProfile = authBloc.state.user!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,8 +31,22 @@ class Post extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  Avatar(
-                    imageUrl: post.userProfilePic,
+                  GestureDetector(
+                    onTap: () {
+                      if (currentProfile.id == post.userId) {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          AppRoutes.profile,
+                        );
+                      } else {
+                        // AppRoutes.userProfile.push(context, arguments: {
+                        //   'userId': post.userId,
+                        // });
+                      }
+                    },
+                    child: Avatar(
+                      imageUrl: post.userProfilePic,
+                    ),
                   ),
                   Space.x2!,
                   GestureDetector(

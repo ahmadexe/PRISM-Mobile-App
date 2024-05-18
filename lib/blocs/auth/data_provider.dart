@@ -121,4 +121,28 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static Future<AuthData> getUserById(String id) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.get('/users/$id');
+
+      if (response.statusCode != 200) {
+        throw 'Failed to fetch user';
+      }
+
+      final raw = response.data as Map<String, dynamic>;
+
+      final data = AuthData.fromMap(raw);
+
+      return data;
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(getUserById): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }
