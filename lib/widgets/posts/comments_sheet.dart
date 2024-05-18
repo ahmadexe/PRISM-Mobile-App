@@ -10,7 +10,7 @@ import 'package:prism/models/post/post.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/error/error.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
-import 'package:prism/widgets/design/posts/posts_placeholder.dart';
+import 'package:prism/widgets/posts/posts_placeholder.dart';
 
 class CommentsSheet extends StatefulWidget {
   final PostData post;

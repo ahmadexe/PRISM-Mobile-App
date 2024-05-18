@@ -5,7 +5,7 @@ import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
-import 'package:prism/widgets/design/posts/comments_sheet.dart';
+import 'package:prism/widgets/posts/comments_sheet.dart';
 
 class MetaDataCounter extends StatefulWidget {
   final PostData post;

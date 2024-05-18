@@ -6,7 +6,7 @@ import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
-import 'package:prism/widgets/design/posts/meta_data_counter.dart';
+import 'package:prism/widgets/posts/meta_data_counter.dart';
 import 'package:prism/widgets/info_tile.dart';
 
 class Post extends StatelessWidget {
