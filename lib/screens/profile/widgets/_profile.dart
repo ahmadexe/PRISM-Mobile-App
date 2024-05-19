@@ -51,26 +51,27 @@ class _Profile extends StatelessWidget {
                           ),
                         ),
                       ),
-                Positioned(
-                  right: AppDimensions.normalize(7),
-                  top: AppDimensions.normalize(15),
-                  child: GestureDetector(
-                    onTap: () {
-                      AppRoutes.settings.push(context);
-                    },
-                    child: Container(
-                      padding: Space.all(),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Icon(
-                        Iconsax.setting_2,
-                        size: AppDimensions.normalize(8),
+                if (isMe)
+                  Positioned(
+                    right: AppDimensions.normalize(7),
+                    top: AppDimensions.normalize(15),
+                    child: GestureDetector(
+                      onTap: () {
+                        AppRoutes.settings.push(context);
+                      },
+                      child: Container(
+                        padding: Space.all(),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Icon(
+                          Iconsax.setting_2,
+                          size: AppDimensions.normalize(8),
+                        ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -83,17 +84,22 @@ class _Profile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(user.fullname, style: AppText.h3b),
-                    Row(
-                      children: [
-                        const InfoTile(
-                          isEdit: true,
-                        ),
-                        Space.x!,
-                        InfoTile(
-                          domain: user.domain,
-                        ),
-                      ],
-                    )
+                    if (isMe)
+                      Row(
+                        children: [
+                          const InfoTile(
+                            isEdit: true,
+                          ),
+                          Space.x!,
+                          InfoTile(
+                            domain: user.domain,
+                          ),
+                        ],
+                      ),
+                    if (!isMe)
+                      InfoTile(
+                        domain: user.domain,
+                      ),
                   ],
                 ),
                 Space.y!,
