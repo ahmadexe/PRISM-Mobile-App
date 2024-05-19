@@ -20,6 +20,8 @@ class _BodyState extends State<_Body> {
 
   @override
   Widget build(BuildContext context) {
+    final isMe = widget.userId == null;
+
     return SafeArea(
       top: false,
       left: false,
@@ -40,9 +42,9 @@ class _BodyState extends State<_Body> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state.get is GetUserSuccess) {
+            } else if (state.get is GetUserSuccess && !isMe) {
               final user = state.get.user!;
-              return _Profile(user: user, isMe: false);
+              return _Profile(user: user, isMe: isMe);
             } else if (state.get is GetUserFailure) {
               return const Center(
                 child: ErrorWarning(

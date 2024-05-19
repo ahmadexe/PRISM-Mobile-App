@@ -12,7 +12,7 @@ class Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius ?? AppDimensions.normalize(7),
-      backgroundImage: imageUrl != null
+      backgroundImage: imageUrl != null && imageUrl!.isNotEmpty
           ? CachedNetworkImageProvider(
               imageUrl!,
             )
