@@ -1,10 +1,12 @@
 part of 'bloc.dart';
 
 class _ChatsProvider {
+  static final Dio _client = Api.getClient(ClientType.chat);
+
   static WebSocketChannel initChatChannel(String senderId, String receiverId) {
     final channel = WebSocketChannel.connect(
       Uri.parse(
-          'ws://192.168.3.113:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId'),
+          'ws://3.111.196.231:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId'),
     );
 
     return channel;
@@ -18,8 +20,10 @@ class _ChatsProvider {
   static Future<Map<String, dynamic>> initConvo(
       Map<String, dynamic> payload) async {
     try {
-      final response = await Dio()
-          .post('http://localhost:3002/v1/chats/convo', data: payload);
+      print(payload);
+
+      final response = await _client
+          .post('/chats/convo', data: payload);
 
       if (response.statusCode == 200) {
         final Conversation convo;

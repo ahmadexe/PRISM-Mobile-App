@@ -13,10 +13,16 @@ class Api {
         final authOptions =
             _options.copyWith(baseUrl: 'http://3.111.196.231:3000/v1');
         return Dio(authOptions);
+
       case ClientType.post:
         final postOptions =
             _options.copyWith(baseUrl: 'http://3.111.196.231:3001/v1');
         return Dio(postOptions);
+
+      case ClientType.chat:
+        final chatOptions =
+            _options.copyWith(baseUrl: 'http://3.111.196.231:3002/v1');
+        return Dio(chatOptions);
     }
   }
 }
@@ -24,4 +30,5 @@ class Api {
 enum ClientType {
   auth,
   post,
+  chat,
 }

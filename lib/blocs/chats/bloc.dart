@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/chat/conversation.dart';
 import 'package:prism/models/chat/message.dart';
+import 'package:prism/services/api.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'event.dart';
