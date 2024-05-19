@@ -29,6 +29,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     on<SubscribeToMessges>(_subscribeToMessges);
     on<SendMessage>(_sendMessage);
     on<CloseConvo>(_closeConvo);
+    on<FetchAllConvos>(_fetchAllConvos);
   }
 
   final _adaptor = _ChatsAdaptor();
@@ -38,11 +39,12 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     emit(state.copyWith(
       channel: null,
       messages: null,
-      convo: null,
+      currentConvo: null,
       error: null,
       socketInit: const SocketInitDefault(),
       convoInit: const ConvoInitDefault(),
       send: const SendMessageDefault(),
+      fetchAllConvos: const FetchAllConvosDefault(),
     ));
   }
 
@@ -66,7 +68,7 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       emit(state.copyWith(
         convoInit: const ConvoInitSuccess(),
         messages: convo['messages'] as List<Message>,
-        convo: convo['convo'] as Conversation,
+        currentConvo: convo['convo'] as Conversation,
         channel: channel,
       ));
       add(const SubscribeToMessges());
@@ -154,6 +156,26 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     } catch (e) {
       emit(state.copyWith(
         send: SendMessageFailure(message: e.toString()),
+      ));
+    }
+  }
+
+  void _fetchAllConvos(
+    FetchAllConvos event,
+    Emitter<ChatsState> emit,
+  ) async {
+    emit(state.copyWith(
+      fetchAllConvos: const FetchAllConvosLoading(),
+    ));
+    try {
+      final convos = await _ChatsProvider.fetchAllConvo(event.id);
+      emit(state.copyWith(
+        fetchAllConvos: const FetchAllConvosSuccess(),
+        convos: convos,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        fetchAllConvos: FetchAllConvosFailure(message: e.toString()),
       ));
     }
   }

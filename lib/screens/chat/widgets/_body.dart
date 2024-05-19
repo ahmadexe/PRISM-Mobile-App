@@ -130,7 +130,7 @@ class _BodyState extends State<_Body> {
                                 senderId: sender.id,
                                 receiverId: widget.receiver.id,
                                 createdAt: DateTime.now(),
-                                conversationId: state.convo!.id,
+                                conversationId: state.currentConvo!.id,
                                 senderName: sender.fullname,
                                 receiverName: widget.receiver.fullname,
                                 senderImage: sender.imageUrl,

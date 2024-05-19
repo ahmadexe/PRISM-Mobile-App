@@ -62,6 +62,11 @@ class ConvoInit extends ChatsEvent {
   });
 }
 
+class FetchAllConvos extends ChatsEvent {
+  final String id;
+  const FetchAllConvos({required this.id});
+}
+
 class CloseConvo extends ChatsEvent {
   const CloseConvo();
 }

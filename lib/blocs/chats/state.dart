@@ -4,55 +4,60 @@ part of 'bloc.dart';
 class ChatsState extends Equatable {
   final WebSocketChannel? channel;
   final List<Message>? messages;
-  final Conversation? convo;
+  final List<Conversation>? convos;
+  final Conversation? currentConvo;
   final String? error;
   final SocketInitState socketInit;
   final ConvoInitState convoInit;
   final SendMessageState send;
-  final FetchAllConvoState fetchAllConvo;
+  final FetchAllConvosState fetchAllConvos;
 
   const ChatsState({
     this.channel,
     this.messages,
-    this.convo,
+    this.convos,
+    this.currentConvo,
     this.error,
     required this.socketInit,
     required this.convoInit,
     required this.send,
-    required this.fetchAllConvo,
+    required this.fetchAllConvos,
   });
 
   @override
   List<Object?> get props => [
         channel,
         messages,
-        convo,
+        convos,
+        currentConvo,
         error,
         convoInit,
         socketInit,
         send,
-        fetchAllConvo,
+        fetchAllConvos,
       ];
 
   ChatsState copyWith({
     WebSocketChannel? channel,
     List<Message>? messages,
-    Conversation? convo,
+    List<Conversation>? convos,
+    Conversation? currentConvo,
     String? error,
     SocketInitState? socketInit,
     ConvoInitState? convoInit,
     SendMessageState? send,
-    FetchAllConvoState? fetchAllConvo,
+    FetchAllConvosState? fetchAllConvos,
   }) {
     return ChatsState(
       channel: channel ?? this.channel,
       messages: messages ?? this.messages,
-      convo: convo ?? this.convo,
+      convos: convos ?? this.convos,
+      currentConvo: currentConvo ?? this.currentConvo,
       error: error ?? this.error,
       socketInit: socketInit ?? this.socketInit,
       convoInit: convoInit ?? this.convoInit,
       send: send ?? this.send,
-      fetchAllConvo: fetchAllConvo ?? this.fetchAllConvo,
+      fetchAllConvos: fetchAllConvos ?? this.fetchAllConvos,
     );
   }
 }
@@ -62,11 +67,12 @@ class ChatsDefault extends ChatsState {
       : super(
           channel: null,
           messages: null,
-          convo: null,
+          convos: null,
+          currentConvo: null,
           error: null,
           socketInit: const SocketInitDefault(),
           send: const SendMessageDefault(),
           convoInit: const ConvoInitDefault(),
-          fetchAllConvo: const FetchAllConvoDefault(),
+          fetchAllConvos: const FetchAllConvosDefault(),
         );
 }

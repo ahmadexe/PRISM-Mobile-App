@@ -52,4 +52,28 @@ class _ChatsProvider {
       throw Exception('Failed to load convo');
     }
   }
+
+  static Future<List<Conversation>> fetchAllConvo(String id) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.get('/chats/convo/$id');
+
+      if (response.statusCode == 200) {
+        final List<Conversation> convos = [];
+        for (final convo in response.data) {
+          convos.add(Conversation.fromMap(convo as Map<String, dynamic>));
+        }
+
+        return convos;
+      } else {
+        throw Exception('Failed to load convo');
+      }
+    } catch (e) {
+      debugPrint('Error fetching convo in chats bloc');
+      debugPrint(e.toString());
+      throw Exception('Failed to load convo');
+    }
+  }
 }

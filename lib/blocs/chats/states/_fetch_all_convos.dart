@@ -1,11 +1,12 @@
 part of '../bloc.dart';
 
-class FetchAllConvoState extends Equatable {
-  static bool match(ChatsState a, ChatsState b) => a.fetchAllConvo != b.fetchAllConvo;
+class FetchAllConvosState extends Equatable {
+  static bool match(ChatsState a, ChatsState b) =>
+      a.fetchAllConvos != b.fetchAllConvos;
 
   final String? message;
 
-  const FetchAllConvoState({
+  const FetchAllConvosState({
     this.message,
   });
 
@@ -13,20 +14,20 @@ class FetchAllConvoState extends Equatable {
   List<Object?> get props => [message];
 }
 
-class FetchAllConvoDefault extends FetchAllConvoState {
-  const FetchAllConvoDefault();
+class FetchAllConvosDefault extends FetchAllConvosState {
+  const FetchAllConvosDefault();
 }
 
-class FetchAllConvoLoading extends FetchAllConvoState {
-  const FetchAllConvoLoading();
+class FetchAllConvosLoading extends FetchAllConvosState {
+  const FetchAllConvosLoading();
 }
 
-class FetchAllConvoSuccess extends FetchAllConvoState {
-  const FetchAllConvoSuccess();
+class FetchAllConvosSuccess extends FetchAllConvosState {
+  const FetchAllConvosSuccess();
 }
 
-class FetchAllConvoFailure extends FetchAllConvoState {
-  const FetchAllConvoFailure({
+class FetchAllConvosFailure extends FetchAllConvosState {
+  const FetchAllConvosFailure({
     required String message,
   }) : super(message: message);
 }
