@@ -123,6 +123,7 @@ class _BodyState extends State<_Body> {
                         Space.x!,
                         GestureDetector(
                           onTap: () {
+                            if (!screenState.isWriting) return;
                             final form = screenState.formKey.currentState!;
                             form.save();
                             final message =
@@ -141,6 +142,8 @@ class _BodyState extends State<_Body> {
                                 receiverPic: widget.receiverPic,
                               ),
                             );
+
+                            form.reset();
                           },
                           child: Icon(
                             Iconsax.send_2,
