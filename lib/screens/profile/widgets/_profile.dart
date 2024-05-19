@@ -133,6 +133,7 @@ class _Profile extends StatelessWidget {
                 if (!isMe) ...[
                   Space.y2!,
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       AppButton(
                         label: 'Message',
@@ -142,12 +143,18 @@ class _Profile extends StatelessWidget {
                           'receiverName': user.fullname,
                           'receiverPic': user.imageUrl,
                         }),
-                        width: 190,
+                        width: AppDimensions.normalize(75),
+                        height: AppDimensions.normalize(15),
+                        buttonType: ButtonType.secondary,
+                        backgroundColor: AppTheme.c.grey,
                       ),
                       AppButton(
                         label: 'Follow',
                         onPressed: () {},
-                        width: 190,
+                        width: AppDimensions.normalize(75),
+                        height: AppDimensions.normalize(15),
+                        buttonType: ButtonType.secondary,
+                        backgroundColor: AppTheme.c.grey,
                       ),
                     ],
                   )
