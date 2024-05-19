@@ -42,7 +42,7 @@ class _BodyState extends State<_Body> {
               );
             } else if (state.get is GetUserSuccess) {
               final user = state.get.user!;
-              return _Profile(user: user);
+              return _Profile(user: user, isMe: false);
             } else if (state.get is GetUserFailure) {
               return const Center(
                 child: ErrorWarning(

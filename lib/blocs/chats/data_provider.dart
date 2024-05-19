@@ -4,8 +4,7 @@ class _ChatsProvider {
   static WebSocketChannel initChatChannel(String senderId, String receiverId) {
     final channel = WebSocketChannel.connect(
       Uri.parse(
-        'ws://192.168.3.113:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId',
-      ),
+          'ws://192.168.3.113:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId'),
     );
 
     return channel;
@@ -13,7 +12,7 @@ class _ChatsProvider {
 
   static void sendMessage(
       WebSocketChannel channel, Map<String, dynamic> payload) {
-    channel.sink.add(jsonEncode(payload));
+    channel.sink.add(json.encode(payload));
   }
 
   static Future<Map<String, dynamic>> initConvo(
@@ -25,9 +24,11 @@ class _ChatsProvider {
       if (response.statusCode == 200) {
         final Conversation convo;
         final List<Message> messages = [];
-
-        for (final message in response.data['messages']) {
-          messages.add(Message.fromMap(message as Map<String, dynamic>));
+        if (response.data['messages'] != null) {
+          for (final message in response.data['messages']) {
+            messages.insert(
+                0, Message.fromMap(message as Map<String, dynamic>));
+          }
         }
 
         convo = Conversation.fromMap(

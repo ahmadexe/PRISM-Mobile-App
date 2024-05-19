@@ -13,6 +13,7 @@ import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
 import 'package:prism/widgets/core/error/error.dart';
+import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/info_tile.dart';
 import 'package:provider/provider.dart';
 

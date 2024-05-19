@@ -128,7 +128,7 @@ class _AuthDataProvider {
 
       _client.options.headers['Authorization'] = 'Bearer $token';
 
-      final response = await _client.get('/users/$id');
+      final response = await _client.get('/users/ZYC7lz7ZbUYJxKxYeN8wIXjWiAB3');
 
       if (response.statusCode != 200) {
         throw 'Failed to fetch user';

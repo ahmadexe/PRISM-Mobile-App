@@ -2,7 +2,8 @@ part of '../profile.dart';
 
 class _Profile extends StatelessWidget {
   final AuthData user;
-  const _Profile({required this.user});
+  final bool isMe;
+  const _Profile({required this.user, this.isMe = true});
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +130,27 @@ class _Profile extends StatelessWidget {
                     ),
                   ],
                 ),
+                if (!isMe) ...[
+                  Space.y2!,
+                  Row(
+                    children: [
+                      AppButton(
+                        label: 'Message',
+                        onPressed: () {
+                          AppRoutes.chat.push(context, arguments: {
+                            'receiver': user,
+                          });
+                        },
+                        width: 190,
+                      ),
+                      AppButton(
+                        label: 'Follow',
+                        onPressed: () {},
+                        width: 190,
+                      ),
+                    ],
+                  )
+                ],
                 Space.y2!,
                 _Tab(memberSince: user.createdAt)
               ],

@@ -2,9 +2,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/chats/bloc.dart';
 
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/models/auth/auth_data.dart';
 import 'package:prism/models/chat/message.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
@@ -29,16 +31,12 @@ class ChatScreen extends StatelessWidget {
 
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final receiverName = args['receiverName'] as String;
-    final receiverId = args['receiverId'] as String;
-    final receiverPic = args['receiverPic'] as String;
+    final receiver = args['receiver'] as AuthData;
 
     return ChangeNotifierProvider<_ScreenState>(
       create: (_) => _ScreenState(),
       child: _Body(
-        receiverName: receiverName,
-        receiverId: receiverId,
-        receiverPic: receiverPic,
+        receiver: receiver,
       ),
     );
   }

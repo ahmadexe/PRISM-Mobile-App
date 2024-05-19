@@ -13,7 +13,7 @@ class _ChatsAdaptor {
   String? senderImage,
   String? receiverPic,
   ) {
-    final payload = {
+    final Map<String, dynamic> payload = {
       'createdAt': createdAt.millisecondsSinceEpoch,
       'message': message,
       'senderId': senderId,
@@ -21,9 +21,10 @@ class _ChatsAdaptor {
       'conversationId': conversationId,
       'senderName': senderName,
       'receiverName': receiverName,
-      'senderImage': senderImage,
+      'senderPic': senderImage,
       'receiverPic': receiverPic,
     };
+
     _ChatsProvider.sendMessage(channel, payload);
   }
 

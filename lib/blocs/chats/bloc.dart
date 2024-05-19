@@ -61,6 +61,9 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         messages: convo['messages'] as List<Message>,
         convo: convo['convo'] as Conversation,
       ));
+      add(
+        SocketInit(senderId: event.user1Id, receiverId: event.user2Id),
+      );
     } catch (e) {
       emit(state.copyWith(
         convoInit: ConvoInitFailure(message: e.toString()),
@@ -77,10 +80,12 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         event.senderId,
         event.receiverId,
       );
+
       emit(state.copyWith(
         channel: channel,
         socketInit: const SocketInitSuccess(),
       ));
+      add(const SubscribeToMessges());
     } catch (e) {
       emit(state.copyWith(
         socketInit: SocketInitFailure(message: e.toString()),
@@ -94,14 +99,15 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   ) async {
     try {
       await emit.forEach(
-        state.channel!.stream,
+        state.channel!.stream.asBroadcastStream(),
         onData: (data) {
-          final json = data as Map<String, dynamic>;
-          final message = Message.fromMap(json);
+          final raw = data as String;
+          final normalized = json.decode(raw) as Map<String, dynamic>;
+          final message = Message.fromMap(normalized);
           return state.copyWith(
             messages: state.messages == null
                 ? [message]
-                : [...state.messages!, message],
+                : [message, ...state.messages!],
           );
         },
       );
@@ -143,4 +149,3 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     }
   }
 }
-

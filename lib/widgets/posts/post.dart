@@ -39,9 +39,9 @@ class Post extends StatelessWidget {
                           AppRoutes.profile,
                         );
                       } else {
-                        // AppRoutes.userProfile.push(context, arguments: {
-                        //   'userId': post.userId,
-                        // });
+                        AppRoutes.profile.push(context, arguments: {
+                          'userId': post.userId,
+                        });
                       }
                     },
                     child: Avatar(
