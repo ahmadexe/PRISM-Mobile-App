@@ -1,3 +1,6 @@
+import 'package:prism/screens/settings/settings.dart';
+import 'package:prism/screens/chat/chat.dart';
+import 'package:prism/screens/conversations/conversations.dart';
 import 'package:prism/screens/create_post/create_post.dart';
 import 'package:prism/screens/edit_profile/edit_profile.dart';
 import 'package:prism/screens/forgot_password/forgot_password.dart';
@@ -14,6 +17,9 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.settings: (_) => const SettingsScreen(),
+  AppRoutes.chat: (_) => const ChatScreen(),
+  AppRoutes.conversations: (_) => const ConversationsScreen(),
   AppRoutes.createPost: (_) => const CreatePostScreen(),
   AppRoutes.editProfile: (_) => const EditProfileScreen(),
   AppRoutes.forgotPassword: (_) => const ForgotPasswordScreen(),

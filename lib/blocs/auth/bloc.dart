@@ -22,6 +22,7 @@ part 'states/_login.dart';
 part 'states/_init.dart';
 part 'states/_logout.dart';
 part 'states/_update.dart';
+part 'states/_get_user.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -30,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthInit>(_init);
     on<AuthLogout>(_logout);
     on<AuthUpdate>(_update);
+    on<GetUserByIdEvent>(_getById);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -113,11 +115,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await _adaptor.logout();
       emit(
         state.copyWith(
-            user: null,
-            logout: const AuthLogoutSuccess(),
-            login: const AuthLoginDefault(),
-            register: const AuthRegisterDefault(),
-            init: const AuthInitDefault()),
+          user: null,
+          logout: const AuthLogoutSuccess(),
+          login: const AuthLoginDefault(),
+          register: const AuthRegisterDefault(),
+          init: const AuthInitDefault(),
+          get: const GetUserDefault(),
+        ),
       );
     } catch (e) {
       emit(
@@ -151,6 +155,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ),
         ),
       );
+    }
+  }
+
+  Future<void> _getById(GetUserByIdEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(get: const GetUserLoading()));
+    try {
+      final user = await _AuthDataProvider.getUserById(event.id);
+      emit(state.copyWith(
+        get: GetUserSuccess(user: user),
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        get: GetUserFailure(message: e.toString()),
+      ));
     }
   }
 }

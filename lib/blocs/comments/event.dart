@@ -32,3 +32,7 @@ class FetchCommentsEvent extends CommentsEvent {
     required this.postId,
   });
 }
+
+class ClearCommentsBlocEvent extends CommentsEvent {
+  const ClearCommentsBlocEvent();
+}

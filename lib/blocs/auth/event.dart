@@ -55,6 +55,14 @@ class AuthUpdate extends AuthEvent {
   });
 }
 
+class GetUserByIdEvent extends AuthEvent {
+  final String id;
+
+  const GetUserByIdEvent({
+    required this.id,
+  });
+}
+
 class AuthLogout extends AuthEvent {
   const AuthLogout();
 }

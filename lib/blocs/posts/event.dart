@@ -37,3 +37,7 @@ class PostVoteEvent extends PostsEvent {
   @override
   List<Object> get props => [postId, isUpVote];
 }
+
+class ClearPostBlocEvent extends PostsEvent {
+  const ClearPostBlocEvent();
+}

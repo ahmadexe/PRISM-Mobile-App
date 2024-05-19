@@ -16,7 +16,7 @@ class _Body extends StatelessWidget {
           title: const Text('Home'),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => AppRoutes.conversations.push(context),
               icon: const Icon(Iconsax.sms_tracking),
             ),
           ],
@@ -92,7 +92,6 @@ class _Body extends StatelessWidget {
                 ),
                 Space.y2!,
                 BlocBuilder<PostsBloc, PostsState>(
-                  buildWhen: VotePostState.match,
                   builder: (context, state) {
                     if (state.fetch is PostsfetchLoading ||
                         state.fetch is PostsfetchDefault) {

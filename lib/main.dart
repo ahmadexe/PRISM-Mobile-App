@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/chats/bloc.dart';
 import 'package:prism/blocs/comments/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => PostsBloc()),
         BlocProvider(create: (context) => CommentsBloc()),
+        BlocProvider(create: (context) => ChatsBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

@@ -26,9 +26,14 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<PostsFetchEvent>(_fetchPosts);
     on<PostCreateEvent>(_createPost);
     on<PostVoteEvent>(_votePost);
+    on<ClearPostBlocEvent>(_clearBloc);
   }
 
   final _adaptor = _PostAdaptor();
+
+  void _clearBloc(ClearPostBlocEvent event, Emitter<PostsState> emit) {
+    emit(const PostsDefault());
+  }
 
   Future<void> _fetchPosts(
       PostsFetchEvent event, Emitter<PostsState> emit) async {

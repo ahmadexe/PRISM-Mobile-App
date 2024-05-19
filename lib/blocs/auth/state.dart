@@ -7,6 +7,7 @@ class AuthState extends Equatable {
   final AuthLoginState login;
   final AuthLogoutState logout;
   final AuthUpdateState update;
+  final GetUserState get;
 
   const AuthState({
     this.user,
@@ -15,6 +16,7 @@ class AuthState extends Equatable {
     required this.login,
     required this.logout,
     required this.update,
+    required this.get,
   });
 
   AuthState copyWith({
@@ -24,6 +26,7 @@ class AuthState extends Equatable {
     AuthLoginState? login,
     AuthLogoutState? logout,
     AuthUpdateState? update,
+    GetUserState? get,
   }) {
     return AuthState(
       user: user ?? this.user,
@@ -32,6 +35,7 @@ class AuthState extends Equatable {
       login: login ?? this.login,
       logout: logout ?? this.logout,
       update: update ?? this.update,
+      get: get ?? this.get,
     );
   }
 
@@ -43,6 +47,7 @@ class AuthState extends Equatable {
         login,
         logout,
         update,
+        get,
       ];
 }
 
@@ -54,5 +59,6 @@ final class AuthDefault extends AuthState {
           login: const AuthLoginDefault(),
           logout: const AuthLogoutDefault(),
           update: const AuthUpdateDefault(),
+          get: const GetUserDefault(),
         );
 }
