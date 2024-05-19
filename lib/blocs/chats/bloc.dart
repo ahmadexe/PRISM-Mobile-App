@@ -49,6 +49,10 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       convoInit: const ConvoInitLoading(),
     ));
     try {
+      final channel = _ChatsProvider.initChatChannel(
+        event.user1Id,
+        event.user2Id,
+      );
       final convo = await _adaptor.initConvo(
         event.user1Id,
         event.user2Id,
@@ -61,10 +65,13 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         convoInit: const ConvoInitSuccess(),
         messages: convo['messages'] as List<Message>,
         convo: convo['convo'] as Conversation,
+        channel: channel,
       ));
-      add(
-        SocketInit(senderId: event.user1Id, receiverId: event.user2Id),
-      );
+      add(const SubscribeToMessges());
+
+      // add(
+      //   SocketInit(senderId: event.user1Id, receiverId: event.user2Id),
+      // );
     } catch (e) {
       emit(state.copyWith(
         convoInit: ConvoInitFailure(message: e.toString()),
@@ -86,7 +93,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         channel: channel,
         socketInit: const SocketInitSuccess(),
       ));
-      add(const SubscribeToMessges());
     } catch (e) {
       emit(state.copyWith(
         socketInit: SocketInitFailure(message: e.toString()),

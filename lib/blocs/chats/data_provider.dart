@@ -20,8 +20,6 @@ class _ChatsProvider {
   static Future<Map<String, dynamic>> initConvo(
       Map<String, dynamic> payload) async {
     try {
-      print(payload);
-
       final response = await _client
           .post('/chats/convo', data: payload);
 
