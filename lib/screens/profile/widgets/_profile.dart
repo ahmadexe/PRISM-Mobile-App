@@ -136,11 +136,12 @@ class _Profile extends StatelessWidget {
                     children: [
                       AppButton(
                         label: 'Message',
-                        onPressed: () {
-                          AppRoutes.chat.push(context, arguments: {
-                            'receiver': user,
-                          });
-                        },
+                        onPressed: () =>
+                            AppRoutes.chat.push(context, arguments: {
+                          'receiverId': user.id,
+                          'receiverName': user.fullname,
+                          'receiverPic': user.imageUrl,
+                        }),
                         width: 190,
                       ),
                       AppButton(

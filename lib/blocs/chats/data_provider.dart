@@ -62,8 +62,10 @@ class _ChatsProvider {
 
       if (response.statusCode == 200) {
         final List<Conversation> convos = [];
-        for (final convo in response.data) {
-          convos.add(Conversation.fromMap(convo as Map<String, dynamic>));
+        if (response.data['conversations'] != null) {
+          for (final convo in response.data['conversations']) {
+            convos.add(Conversation.fromMap(convo as Map<String, dynamic>));
+          }
         }
 
         return convos;

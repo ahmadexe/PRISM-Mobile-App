@@ -46,12 +46,13 @@ class _BodyState extends State<_Body> {
               ),
               type: FieldType.secondary,
             ),
+            Space.yf(30),
             BlocBuilder<ChatsBloc, ChatsState>(
               builder: (context, state) {
                 if (state.fetchAllConvos is FetchAllConvosLoading ||
                     state.fetchAllConvos is FetchAllConvosDefault) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state.fetchAllConvos is FetchAllConvosFailure) {
+                } else if (state.fetchAllConvos is FetchAllConvosSuccess) {
                   final convos = state.convos;
                   if (convos == null || convos.isEmpty) {
                     return Expanded(
@@ -81,12 +82,12 @@ class _BodyState extends State<_Body> {
                       ),
                     );
                   } else {
-                    ListView.separated(
-                      itemCount: conversations.length,
+                    return ListView.separated(
+                      itemCount: convos.length,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        final convo = conversations[index];
+                        final convo = convos[index];
                         final otherUser =
                             isCurrentUser(currentUser.id, convo.user1Id)
                                 ? {
@@ -114,12 +115,14 @@ class _BodyState extends State<_Body> {
                       separatorBuilder: (context, index) => Space.y2!,
                     );
                   }
+                } else {
+                  return const ErrorWarning(
+                    title: 'Hmmmmmmm..',
+                    message:
+                        'Looks like there was a problem fetching conversations.',
+                  );
                 }
-                return const ErrorWarning(
-                  title: 'Hmmmmmmm..',
-                  message:
-                      'Looks like there was a problem fetching conversations.',
-                );
+                // return const SizedBox.shrink();
               },
             ),
             Space.yf(30),

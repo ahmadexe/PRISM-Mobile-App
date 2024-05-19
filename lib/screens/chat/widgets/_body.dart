@@ -1,10 +1,14 @@
 part of '../chat.dart';
 
 class _Body extends StatefulWidget {
-  final AuthData receiver;
+  final String receiverId;
+  final String receiverName;
+  final String? receiverPic;
   const _Body({
     Key? key,
-    required this.receiver,
+    required this.receiverId,
+    required this.receiverName,
+    this.receiverPic,
   }) : super(key: key);
 
   @override
@@ -21,11 +25,11 @@ class _BodyState extends State<_Body> {
     chatBloc.add(
       ConvoInit(
         user1Id: sender.id,
-        user2Id: widget.receiver.id,
+        user2Id: widget.receiverId,
         user1Name: sender.fullname,
-        user2Name: widget.receiver.fullname,
+        user2Name: widget.receiverId,
         user1Pic: sender.imageUrl,
-        user2Pic: widget.receiver.imageUrl,
+        user2Pic: widget.receiverPic,
       ),
     );
   }
@@ -49,15 +53,15 @@ class _BodyState extends State<_Body> {
           appBar: AppBar(
             title: Row(
               children: [
-                if (widget.receiver.imageUrl != null &&
-                    widget.receiver.imageUrl!.isNotEmpty) ...[
+                if (widget.receiverPic != null &&
+                    widget.receiverPic!.isNotEmpty) ...[
                   Avatar(
-                    imageUrl: widget.receiver.imageUrl!,
+                    imageUrl: widget.receiverPic!,
                     radius: AppDimensions.normalize(6),
                   ),
                   Space.x1!,
                 ],
-                Text(widget.receiver.fullname, style: AppText.h3b),
+                Text(widget.receiverName, style: AppText.h3b),
               ],
             ),
             scrolledUnderElevation: 0,
@@ -103,7 +107,7 @@ class _BodyState extends State<_Body> {
                             key: screenState.formKey,
                             child: AppTextField(
                               name: _FormKeys.message,
-                              hint: 'Message @${widget.receiver.fullname}',
+                              hint: 'Message @${widget.receiverName}',
                               type: FieldType.secondary,
                               isDarkField: true,
                               onChanged: (v) {
@@ -128,13 +132,13 @@ class _BodyState extends State<_Body> {
                               SendMessage(
                                 message: message,
                                 senderId: sender.id,
-                                receiverId: widget.receiver.id,
+                                receiverId: widget.receiverId,
                                 createdAt: DateTime.now(),
                                 conversationId: state.currentConvo!.id,
                                 senderName: sender.fullname,
-                                receiverName: widget.receiver.fullname,
+                                receiverName: widget.receiverName,
                                 senderImage: sender.imageUrl,
-                                receiverPic: widget.receiver.imageUrl,
+                                receiverPic: widget.receiverPic,
                               ),
                             );
                           },

@@ -44,7 +44,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
       socketInit: const SocketInitDefault(),
       convoInit: const ConvoInitDefault(),
       send: const SendMessageDefault(),
-      fetchAllConvos: const FetchAllConvosDefault(),
     ));
   }
 
