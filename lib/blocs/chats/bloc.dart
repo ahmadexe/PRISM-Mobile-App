@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/chat/conversation.dart';
@@ -19,6 +20,7 @@ part 'adaptor.dart';
 part 'states/_socket_init.dart';
 part 'states/_send_message.dart';
 part 'states/_convo_init.dart';
+part 'states/_fetch_all_convos.dart';
 
 class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
   ChatsBloc() : super(const ChatsDefault()) {

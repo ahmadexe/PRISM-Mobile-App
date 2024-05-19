@@ -2,6 +2,7 @@ part of 'bloc.dart';
 
 class _ChatsProvider {
   static final Dio _client = Api.getClient(ClientType.chat);
+  static final _auth = FirebaseAuth.instance;
 
   static WebSocketChannel initChatChannel(String senderId, String receiverId) {
     final channel = WebSocketChannel.connect(
@@ -20,8 +21,10 @@ class _ChatsProvider {
   static Future<Map<String, dynamic>> initConvo(
       Map<String, dynamic> payload) async {
     try {
-      final response = await _client
-          .post('/chats/convo', data: payload);
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.post('/chats/convo', data: payload);
 
       if (response.statusCode == 200) {
         final Conversation convo;

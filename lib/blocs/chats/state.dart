@@ -9,6 +9,7 @@ class ChatsState extends Equatable {
   final SocketInitState socketInit;
   final ConvoInitState convoInit;
   final SendMessageState send;
+  final FetchAllConvoState fetchAllConvo;
 
   const ChatsState({
     this.channel,
@@ -18,6 +19,7 @@ class ChatsState extends Equatable {
     required this.socketInit,
     required this.convoInit,
     required this.send,
+    required this.fetchAllConvo,
   });
 
   @override
@@ -29,6 +31,7 @@ class ChatsState extends Equatable {
         convoInit,
         socketInit,
         send,
+        fetchAllConvo,
       ];
 
   ChatsState copyWith({
@@ -39,6 +42,7 @@ class ChatsState extends Equatable {
     SocketInitState? socketInit,
     ConvoInitState? convoInit,
     SendMessageState? send,
+    FetchAllConvoState? fetchAllConvo,
   }) {
     return ChatsState(
       channel: channel ?? this.channel,
@@ -48,6 +52,7 @@ class ChatsState extends Equatable {
       socketInit: socketInit ?? this.socketInit,
       convoInit: convoInit ?? this.convoInit,
       send: send ?? this.send,
+      fetchAllConvo: fetchAllConvo ?? this.fetchAllConvo,
     );
   }
 }
@@ -62,5 +67,6 @@ class ChatsDefault extends ChatsState {
           socketInit: const SocketInitDefault(),
           send: const SendMessageDefault(),
           convoInit: const ConvoInitDefault(),
+          fetchAllConvo: const FetchAllConvoDefault(),
         );
 }
