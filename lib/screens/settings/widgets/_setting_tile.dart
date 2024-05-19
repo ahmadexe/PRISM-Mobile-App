@@ -20,7 +20,7 @@ class _SettingsTile extends StatelessWidget {
         Space.y!,
         Container(
           decoration: BoxDecoration(
-            color: AppTheme.c.fieldLight!.withOpacity(.7),
+            color: AppTheme.c.fieldDark,
             borderRadius: BorderRadius.circular(20),
           ),
           width: double.infinity,
