@@ -12,6 +12,7 @@ part 'event.dart';
 part 'state.dart';
 part 'adaptor.dart';
 part 'data_provider.dart';
+part '_static.dart';
 
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
@@ -54,10 +55,13 @@ class LensBloc extends Bloc<LensEvent, LensState> {
         time: DateTime.now(),
       );
       emit(state.copyWith(messages: [message, ...state.messages ?? []]));
-      debugPrint('LensBloc success $content');
       emit(state.copyWith(response: const LensSuccess()));
     } catch (e) {
-      debugPrint('LensBloc error: $e');
+      emit(
+        state.copyWith(
+          messages: [defaulrErrorMessage, ...state.messages ?? []],
+        ),
+      );
       emit(state.copyWith(
         response: LensFailure(error: e.toString()),
       ));
