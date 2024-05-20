@@ -2,8 +2,7 @@ part of '../chatbot.dart';
 
 class _MessageBubble extends StatelessWidget {
   final LensMessage message;
-  final bool isLoading;
-  const _MessageBubble({required this.message, this.isLoading = false});
+  const _MessageBubble({required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,6 @@ class _MessageBubble extends StatelessWidget {
             width: AppDimensions.normalize(14),
           ),
           Space.x1!,
-          if (isLoading) const CircularProgressIndicator(),
           Expanded(child: Text(message.message)),
         ],
       );
