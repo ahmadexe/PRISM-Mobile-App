@@ -1,3 +1,4 @@
+import 'package:prism/screens/chatbot/chatbot.dart';
 import 'package:prism/screens/settings/settings.dart';
 import 'package:prism/screens/chat/chat.dart';
 import 'package:prism/screens/conversations/conversations.dart';
@@ -17,6 +18,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.chatbot: (_) => const ChatbotScreen(),
   AppRoutes.settings: (_) => const SettingsScreen(),
   AppRoutes.chat: (_) => const ChatScreen(),
   AppRoutes.conversations: (_) => const ConversationsScreen(),
