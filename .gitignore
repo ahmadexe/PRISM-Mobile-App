@@ -48,3 +48,4 @@ app.*.map.json
 
 # app keys
 /env_var/app_keys.json
+*.env
