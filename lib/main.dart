@@ -5,6 +5,7 @@ import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/chats/bloc.dart';
 import 'package:prism/blocs/comments/bloc.dart';
+import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/firebase_options.dart';
@@ -45,6 +46,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => PostsBloc()),
         BlocProvider(create: (context) => CommentsBloc()),
         BlocProvider(create: (context) => ChatsBloc()),
+        BlocProvider(create: (context) => LensBloc()..init()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
