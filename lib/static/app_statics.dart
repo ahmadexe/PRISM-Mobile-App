@@ -14,4 +14,6 @@ class AppStaticData {
   static const noPostsIcon = 'assets/noPosts.png';
 
   static const noMessages = 'assets/requests.png';
+
+  static const chatbot = 'assets/chatbot.png';
 }

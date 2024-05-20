@@ -6,4 +6,11 @@ class _ScreenState extends ChangeNotifier {
       Provider.of<_ScreenState>(context, listen: listen);
 
   final formKey = GlobalKey<FormBuilderState>();
+
+  bool isWriting = false;
+
+  void setWriting(bool value) {
+    isWriting = value;
+    notifyListeners();
+  }
 }

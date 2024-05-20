@@ -1,7 +1,8 @@
-import 'package:flutter/foundation.dart';
-
+import 'package:iconsax/iconsax.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/static/app_statics.dart';
+import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -9,8 +10,13 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 part 'static/_form_keys.dart';
 
 part '_state.dart';
+part '_data.dart';
 
 part 'widgets/_body.dart';
+part 'widgets/_no_messages.dart';
+part 'widgets/_message_bubble.dart';
+
+part 'models/_bot_message.dart';
 
 class ChatbotScreen extends StatelessWidget {
   const ChatbotScreen({Key? key}) : super(key: key);

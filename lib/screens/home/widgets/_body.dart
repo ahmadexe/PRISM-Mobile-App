@@ -27,7 +27,9 @@ class _Body extends StatelessWidget {
           color: AppTheme.c.fieldDark,
         ),
         floatingActionButton: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            AppRoutes.chatbot.push(context);
+          },
           child: Image.asset(
             AppStaticData.lensIcon,
             height: AppDimensions.normalize(22),
