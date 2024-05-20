@@ -13,8 +13,10 @@ import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
 import 'package:provider/provider.dart';
 import 'configs/configs.dart' as theme;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

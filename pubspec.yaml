@@ -66,6 +66,8 @@ dependencies:
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
   web_socket_channel: ^3.0.0
+  google_generative_ai: ^0.4.0
+  flutter_dotenv: ^5.1.0
 
 
 dev_dependencies:
@@ -96,6 +98,7 @@ flutter:
     - assets/animated_icons/
     - assets/logo/prism_logo.svg
     - assets/animations/
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
