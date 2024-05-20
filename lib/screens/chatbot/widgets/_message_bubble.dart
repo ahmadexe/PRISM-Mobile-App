@@ -1,12 +1,13 @@
 part of '../chatbot.dart';
 
 class _MessageBubble extends StatelessWidget {
-  final _BotMessage message;
-  const _MessageBubble({required this.message});
+  final LensMessage message;
+  final bool isLoading;
+  const _MessageBubble({required this.message, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
-    if (message.isBot) {
+    if (message.isFromLens) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -16,6 +17,7 @@ class _MessageBubble extends StatelessWidget {
             width: AppDimensions.normalize(14),
           ),
           Space.x1!,
+          if (isLoading) const CircularProgressIndicator(),
           Expanded(child: Text(message.message)),
         ],
       );

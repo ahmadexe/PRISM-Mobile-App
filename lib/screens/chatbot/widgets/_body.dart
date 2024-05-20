@@ -6,6 +6,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
+    final lensBloc = BlocProvider.of<LensBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -17,18 +18,40 @@ class _Body extends StatelessWidget {
           padding: Space.all(),
           child: Column(
             children: [
-              // const Expanded(child: _NoMessages()),
-              Expanded(
-                child: ListView.separated(
-                  padding: Space.all(),
-                  reverse: true,
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final message = messages[index];
-                    return _MessageBubble(message: message);
-                  },
-                  separatorBuilder: (context, index) => Space.y2!,
-                ),
+              BlocBuilder<LensBloc, LensState>(
+                builder: (context, state) {
+                  final data = state.messages ?? [];
+                  if (data.isEmpty) {
+                    return const Expanded(child: _NoMessages());
+                  }
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.separated(
+                            padding: Space.all(),
+                            reverse: true,
+                            itemCount: data.length,
+                            itemBuilder: (context, index) {
+                              final message = data[index];
+                              return _MessageBubble(message: message);
+                            },
+                            separatorBuilder: (context, index) => Space.y2!,
+                          ),
+                        ),
+                        if (state.response is LensLoading) ...[
+                          Space.y2!,
+                          Padding(
+                            padding: Space.all(),
+                            child: const TypingIndicator(
+                              showIndicator: true,
+                            ),
+                          )
+                        ],
+                      ],
+                    ),
+                  );
+                },
               ),
               Row(
                 children: [
@@ -65,7 +88,13 @@ class _Body extends StatelessWidget {
                       if (!screenState.isWriting) return;
                       final form = screenState.formKey.currentState!;
                       form.save();
-                      // final message = form.value[_FormKeys.message] as String;
+                      final message = form.value[_FormKeys.message] as String;
+                      final prompt = LensMessage(
+                          message: message,
+                          isFromLens: false,
+                          time: DateTime.now());
+
+                      lensBloc.add(GenerateContent(prompt: prompt));
 
                       form.reset();
                     },

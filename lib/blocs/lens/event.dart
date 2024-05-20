@@ -8,7 +8,7 @@ sealed class LensEvent extends Equatable {
 }
 
 class GenerateContent extends LensEvent {
-  final String prompt;
+  final LensMessage prompt;
   final Uint8List? image;
 
   const GenerateContent({
