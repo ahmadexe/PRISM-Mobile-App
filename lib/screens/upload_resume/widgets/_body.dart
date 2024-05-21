@@ -7,15 +7,49 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
+    final mediaProvider = MediaProvider.s(context, true);
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text('Hello ${user.fullname}!'),
           scrolledUnderElevation: 0,
+          actions: [
+            TextButton(
+              onPressed: () => AppRoutes.home.pushReplace(context),
+              child: Text(
+                'Skip',
+                style: AppText.b1bm!.cl(AppTheme.c.primary!),
+              ),
+            )
+          ],
         ),
-        body: const Center(
-          child: Text('Upload Resume Screen'),
+        body: Padding(
+          padding: Space.all(),
+          child: Column(
+            children: [
+              // TODO: Verify this
+              const UploadImageBoard(),
+              const Spacer(),
+              AppButton(
+                label: 'Next!',
+                onPressed: () {
+                  if (mediaProvider.media == null) {
+                    SnackBars.failure(
+                      context,
+                      'Please upload a resume',
+                    );
+                    return;
+                  }
+                  AppRoutes.home.pushReplace(context);
+                },
+                backgroundColor: mediaProvider.media != null
+                    ? AppTheme.c.accent
+                    : AppTheme.c.fieldLight,
+              ),
+              Space.y!,
+            ],
+          ),
         ),
       ),
     );

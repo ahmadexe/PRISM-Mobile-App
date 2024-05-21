@@ -1,7 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/providers/media_provider.dart';
+import 'package:prism/router/routes.dart';
+import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
+import 'package:prism/widgets/design/buttons/app_button.dart';
+import 'package:prism/widgets/upload_image_board.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';
