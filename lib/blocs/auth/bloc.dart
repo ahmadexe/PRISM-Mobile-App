@@ -23,6 +23,7 @@ part 'states/_init.dart';
 part 'states/_logout.dart';
 part 'states/_update.dart';
 part 'states/_get_user.dart';
+part 'states/_forgot_password.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -32,6 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLogout>(_logout);
     on<AuthUpdate>(_update);
     on<GetUserByIdEvent>(_getById);
+    on<ForgotPassword>(_forgotPassword);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -168,6 +170,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(
         get: GetUserFailure(message: e.toString()),
+      ));
+    }
+  }
+
+  Future<void> _forgotPassword(
+    ForgotPassword event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(state.copyWith(forgot: const ForgotPasswordLoading()));
+    try {
+      await _AuthDataProvider.forgotPassword(event.email);
+      emit(state.copyWith(forgot: const ForgotPasswordSuccess()));
+    } catch (e) {
+      emit(state.copyWith(
+        forgot: ForgotPasswordFailure(message: e.toString()),
       ));
     }
   }

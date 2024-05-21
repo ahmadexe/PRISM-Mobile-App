@@ -23,7 +23,7 @@ class AuthRegister extends AuthEvent {
 }
 
 class AuthLogin extends AuthEvent {
-  final String email; 
+  final String email;
   final String password;
 
   const AuthLogin({
@@ -60,6 +60,14 @@ class GetUserByIdEvent extends AuthEvent {
 
   const GetUserByIdEvent({
     required this.id,
+  });
+}
+
+class ForgotPassword extends AuthEvent {
+  final String email;
+
+  const ForgotPassword({
+    required this.email,
   });
 }
 
