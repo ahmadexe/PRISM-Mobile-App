@@ -3,21 +3,25 @@ part of 'bloc.dart';
 class LensState extends Equatable {
   final List<LensMessage>? messages;
   final LensResponseState response;
+  final SkillExtractionState skills;
   const LensState({
     this.messages,
     required this.response,
+    required this.skills,
   });
 
   @override
-  List<Object?> get props => [messages, response];
+  List<Object?> get props => [messages, response, skills];
 
   LensState copyWith({
     List<LensMessage>? messages,
     LensResponseState? response,
+    SkillExtractionState? skills,
   }) {
     return LensState(
       messages: messages ?? this.messages,
       response: response ?? this.response,
+      skills: skills ?? this.skills,
     );
   }
 }
@@ -27,33 +31,6 @@ class LensDefault extends LensState {
       : super(
           messages: null,
           response: const LensInitial(),
+          skills: const SkillExtractionInitial(),
         );
-}
-
-final class LensResponseState extends Equatable {
-  final String? error;
-  const LensResponseState({
-    this.error,
-  });
-
-  @override
-  List<Object?> get props => [error];
-}
-
-final class LensInitial extends LensResponseState {
-  const LensInitial();
-}
-
-final class LensLoading extends LensResponseState {
-  const LensLoading();
-}
-
-final class LensSuccess extends LensResponseState {
-  const LensSuccess();
-}
-
-final class LensFailure extends LensResponseState {
-  const LensFailure({
-    required String error,
-  }) : super(error: error);
 }

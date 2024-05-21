@@ -30,32 +30,36 @@ class _Body extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Space.y2!,
-                  Wrap(
-                    children: [
-                      Chip(
-                        label: const Text('Python'),
-                        backgroundColor: AppTheme.c.primary,
-                      ),
-                      Space.x!,
-                      Chip(
-                        label: const Text('Django'),
-                        backgroundColor: AppTheme.c.primary,
-                      ),
-                      Space.x!,
-                      Chip(
-                        label: const Text('React'),
-                        backgroundColor: AppTheme.c.primary,
-                      ),
-                      Space.x!,
-                      Chip(
-                        label: const Text('Flutter'),
-                        backgroundColor: AppTheme.c.primary,
-                      ),
-                    ],
+                  BlocBuilder<LensBloc, LensState>(
+                    builder: (context, state) {
+                      if (state.skills is SkillExtractionSuccess) {
+                        final skills = state.skills.skills ?? [];
+                        return Wrap(
+                          children: skills
+                              .map(
+                                (skill) => Chip(
+                                  label: Text(skill),
+                                  backgroundColor: AppTheme.c.primary,
+                                ),
+                              )
+                              .toList(),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
                   )
                 ],
               ),
             ),
+            BlocBuilder<LensBloc, LensState>(
+              builder: (context, state) {
+                if (state.skills is SkillExtractionLoading) {
+                  return const FullScreenLoader();
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            )
           ],
         ),
       ),

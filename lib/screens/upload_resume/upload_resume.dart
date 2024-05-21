@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/lens/bloc.dart';
+import 'package:prism/blocs/text_recognition/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/providers/media_provider.dart';

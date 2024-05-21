@@ -1,6 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prism/blocs/lens/bloc.dart';
+import 'package:prism/blocs/text_recognition/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/widgets/headless/full_screen_loader.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';

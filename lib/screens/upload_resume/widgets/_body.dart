@@ -40,6 +40,10 @@ class _Body extends StatelessWidget {
                     );
                     return;
                   }
+                  mediaProvider.setInputImage();
+                  final lensBloc = BlocProvider.of<LensBloc>(context);
+                  lensBloc.add(
+                      ExtractSkills(inputImage: mediaProvider.inputImage!));
                   AppRoutes.resumeAnalysis.push(context);
                 },
                 backgroundColor: mediaProvider.media != null
