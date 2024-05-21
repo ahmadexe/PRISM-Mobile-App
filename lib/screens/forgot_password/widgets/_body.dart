@@ -6,6 +6,7 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -26,7 +27,6 @@ class _Body extends StatelessWidget {
           padding: Space.all(),
           child: FormBuilder(
             key: screenState.formKey,
-            initialValue: _FormData.initialValues(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -64,10 +64,37 @@ class _Body extends StatelessWidget {
                   ),
                 ),
                 Space.y2!,
-                AppButton(
-                  onPressed: () {},
-                  label: 'Send Email',
-                  buttonType: ButtonType.secondary,
+                BlocConsumer<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state.forgot is ForgotPasswordSuccess) {
+                      SnackBars.success(
+                        context,
+                        "We've sent you an email to reset your password!",
+                      );
+                    } else if (state.forgot is ForgotPasswordFailure) {
+                      SnackBars.failure(
+                        context,
+                        "Failed to send email! Please try again.",
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state.forgot is ForgotPasswordLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    return AppButton(
+                      onPressed: () {
+                        final form = screenState.formKey.currentState!;
+                        final isValid = form.saveAndValidate();
+                        if (!isValid) return;
+
+                        final email = form.value[_FormKeys.email] as String;
+                        authBloc.add(ForgotPassword(email: email));
+                      },
+                      label: 'Send Email',
+                      buttonType: ButtonType.secondary,
+                    );
+                  },
                 ),
               ],
             ),
