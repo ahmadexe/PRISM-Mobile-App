@@ -155,11 +155,16 @@ class _Body extends StatelessWidget {
                       if (state.register is AuthRegisterSuccess) {
                         final postBloc = BlocProvider.of<PostsBloc>(context);
                         postBloc.add(const PostsFetchEvent());
+                        final user = state.user!;
                         SnackBars.success(
                           context,
                           'Welcome to Prism!',
                         );
-                        AppRoutes.home.pushReplace(context);
+                        if (user.isBusinessAcc) {
+                          AppRoutes.home.pushReplace(context);
+                          return;
+                        }
+                        AppRoutes.uploadResume.pushReplace(context);
                       } else if (state.register is AuthRegisterFailure) {
                         final message = state.register.message;
                         SnackBars.failure(
