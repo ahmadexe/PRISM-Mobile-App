@@ -84,17 +84,22 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     );
     try {
       final raw = await _LensProvider.recognizeText(event.inputImage);
-      final prompt =
-          '''$raw \nUse this text and output skills, the output text should only have skills seperated by comma, e.g. skill1,skill2,skill3 It should have no additional text.''';
-      final skillsRaw = await _service.generateContentFromText(prompt: prompt);
-      if (skillsRaw == null) {
-        throw Exception('Failed to extract skills');
+      List<String>? skills;
+      if (raw.isNotEmpty) {
+        final prompt =
+            '''$raw \nUse this text and output skills, the output text should only have skills seperated by comma, e.g. skill1,skill2,skill3 It should have no additional text.''';
+        final skillsRaw =
+            await _service.generateContentFromText(prompt: prompt);
+        if (skillsRaw == null) {
+          throw Exception('Failed to extract skills');
+        }
+
+        skills = skillsRaw.split(',').map((e) => e.trim()).toList();
       }
 
-      final skills = skillsRaw.split(',').map((e) => e.trim()).toList();
       emit(
         state.copyWith(
-          skills: SkillExtractionSuccess(skills: skills),
+          skills: SkillExtractionSuccess(skills: skills ?? []),
         ),
       );
     } catch (e) {
