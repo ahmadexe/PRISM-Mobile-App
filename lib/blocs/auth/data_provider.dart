@@ -145,4 +145,14 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static Future<void> forgotPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(forgotPassword): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }
