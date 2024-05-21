@@ -28,7 +28,6 @@ class _Body extends StatelessWidget {
           padding: Space.all(),
           child: Column(
             children: [
-              // TODO: Verify this
               const UploadImageBoard(),
               const Spacer(),
               AppButton(
@@ -41,7 +40,7 @@ class _Body extends StatelessWidget {
                     );
                     return;
                   }
-                  AppRoutes.home.pushReplace(context);
+                  AppRoutes.resumeAnalysis.push(context);
                 },
                 backgroundColor: mediaProvider.media != null
                     ? AppTheme.c.accent
