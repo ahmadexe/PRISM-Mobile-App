@@ -25,8 +25,7 @@ class _BodyState extends State<_Body> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state.init is AuthInitSuccess) {
-          // TODO: Change this back to AppRoutes.home
-          Navigator.pushReplacementNamed(context, AppRoutes.uploadResume);
+          Navigator.pushReplacementNamed(context, AppRoutes.home);
         } else if (state.init is AuthInitFailure) {
           await Future.delayed(const Duration(seconds: 2));
           if (!context.mounted) return;
