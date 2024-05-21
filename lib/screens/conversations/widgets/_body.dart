@@ -39,11 +39,12 @@ class _BodyState extends State<_Body> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             AppTextField(
               name: _FormKeys.search,
-              hint: 'Search...',
-              suffixIcon: Icon(
-                Iconsax.search_status,
+              prefixIcon: Icon(
+                Iconsax.search_normal,
                 size: AppDimensions.normalize(7),
               ),
+              hint: 'Search...',
+              isDarkField: true,
               type: FieldType.secondary,
             ),
             Space.yf(30),

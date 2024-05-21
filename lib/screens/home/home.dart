@@ -18,6 +18,7 @@ import 'package:provider/provider.dart';
 part '_state.dart';
 
 part 'widgets/_body.dart';
+part 'widgets/_drawer.dart';
 
 part 'static/_form_keys.dart';
 
