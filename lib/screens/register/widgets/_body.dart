@@ -153,6 +153,8 @@ class _Body extends StatelessWidget {
                     listenWhen: AuthRegisterState.match,
                     listener: (context, state) {
                       if (state.register is AuthRegisterSuccess) {
+                        final postBloc = BlocProvider.of<PostsBloc>(context);
+                        postBloc.add(const PostsFetchEvent());
                         SnackBars.success(
                           context,
                           'Welcome to Prism!',
@@ -187,7 +189,8 @@ class _Body extends StatelessWidget {
                           final name = formData[_FormKeys.name] as String;
                           final domain = formData[_FormKeys.domain] as String;
                           final bio = formData[_FormKeys.bio] as String;
-                          final isBusiness = formData[_FormKeys.isBusiness] as bool;
+                          final isBusiness =
+                              formData[_FormKeys.isBusiness] as bool;
 
                           final Map<String, dynamic> payload = {
                             'fullname': name,
