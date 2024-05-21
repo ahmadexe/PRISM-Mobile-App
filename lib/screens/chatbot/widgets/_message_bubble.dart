@@ -12,10 +12,10 @@ class _MessageBubble extends StatelessWidget {
         children: [
           Image.asset(
             AppStaticData.lensIcon,
-            height: AppDimensions.normalize(14),
-            width: AppDimensions.normalize(14),
+            height: AppDimensions.normalize(15),
+            width: AppDimensions.normalize(15),
           ),
-          Space.x1!,
+          Space.x!,
           Expanded(child: Text(message.message)),
         ],
       );

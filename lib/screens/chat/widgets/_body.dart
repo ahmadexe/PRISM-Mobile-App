@@ -97,8 +97,8 @@ class _BodyState extends State<_Body> {
                           onTap: () {},
                           child: Icon(
                             Iconsax.export_1,
-                            size: AppDimensions.normalize(7),
-                            color: AppTheme.c.textGrey,
+                            size: AppDimensions.normalize(10),
+                            color: AppTheme.c.white,
                           ),
                         ),
                         Space.x!,
@@ -147,10 +147,10 @@ class _BodyState extends State<_Body> {
                           },
                           child: Icon(
                             Iconsax.send_2,
-                            size: AppDimensions.normalize(7),
+                            size: AppDimensions.normalize(10),
                             color: screenState.isWriting
                                 ? AppTheme.c.primary
-                                : AppTheme.c.textGrey,
+                                : AppTheme.c.white,
                           ),
                         ),
                       ],

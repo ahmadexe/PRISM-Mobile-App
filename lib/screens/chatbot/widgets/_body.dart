@@ -59,8 +59,8 @@ class _Body extends StatelessWidget {
                     onTap: () {},
                     child: Icon(
                       Iconsax.export_1,
-                      size: AppDimensions.normalize(7),
-                      color: AppTheme.c.textGrey,
+                      size: AppDimensions.normalize(10),
+                      color: AppTheme.c.white,
                     ),
                   ),
                   Space.x!,
@@ -100,10 +100,10 @@ class _Body extends StatelessWidget {
                     },
                     child: Icon(
                       Iconsax.send_2,
-                      size: AppDimensions.normalize(7),
+                      size: AppDimensions.normalize(10),
                       color: screenState.isWriting
                           ? AppTheme.c.primary
-                          : AppTheme.c.textGrey,
+                          : AppTheme.c.white,
                     ),
                   ),
                 ],
