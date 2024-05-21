@@ -22,10 +22,7 @@ class _Body extends StatelessWidget {
           ],
           scrolledUnderElevation: 0,
         ),
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * .7,
-          color: AppTheme.c.fieldDark,
-        ),
+        drawer: const _Drawer(),
         floatingActionButton: GestureDetector(
           onTap: () {
             AppRoutes.chatbot.push(context);
