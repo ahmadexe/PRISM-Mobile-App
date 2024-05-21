@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
@@ -13,7 +10,7 @@ import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'package:prism/widgets/headless/full_screen_loader.dart';
-import 'package:prism/widgets/pick_image_modal.dart';
+import 'package:prism/widgets/upload_image_board.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';

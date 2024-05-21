@@ -1,4 +1,6 @@
 abstract class AppRoutes {
+  static const resumeAnalysis = '/resume-analysis';
+  static const uploadResume = '/upload-resume';
   static const chatbot = '/chatbot';
   static const settings = '/settings';
   static const chat = '/chat';

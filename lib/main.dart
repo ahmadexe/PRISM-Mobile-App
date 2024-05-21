@@ -7,6 +7,7 @@ import 'package:prism/blocs/chats/bloc.dart';
 import 'package:prism/blocs/comments/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
+import 'package:prism/blocs/text_recognition/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/firebase_options.dart';
 import 'package:prism/providers/media_provider.dart';
@@ -47,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CommentsBloc()),
         BlocProvider(create: (context) => ChatsBloc()),
         BlocProvider(create: (context) => LensBloc()..init()),
+        BlocProvider(create: (context) => TextRecognitionBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

@@ -16,3 +16,10 @@ class GenerateContent extends LensEvent {
     this.image,
   });
 }
+
+class ExtractSkills extends LensEvent {
+  final InputImage inputImage;
+  const ExtractSkills({
+    required this.inputImage,
+  });
+}

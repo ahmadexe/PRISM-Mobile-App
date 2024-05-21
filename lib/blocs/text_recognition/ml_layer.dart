@@ -1,6 +1,6 @@
 part of 'bloc.dart';
 
-class _LensProvider {
+class TextRecognitionModel {
   static final textRecognizer =
       TextRecognizer(script: TextRecognitionScript.latin);
 
