@@ -16,7 +16,11 @@ class _Body extends StatelessWidget {
           scrolledUnderElevation: 0,
           actions: [
             TextButton(
-              onPressed: () => AppRoutes.home.pushReplace(context),
+              onPressed: () {
+                AppRoutes.home.pushReplace(context);
+                mediaProvider.removeInputImage();
+                mediaProvider.removeMedia();
+              },
               child: Text(
                 'Skip',
                 style: AppText.b1bm!.cl(AppTheme.c.primary!),
@@ -26,32 +30,38 @@ class _Body extends StatelessWidget {
         ),
         body: Padding(
           padding: Space.all(),
-          child: Column(
-            children: [
-              const UploadImageBoard(),
-              const Spacer(),
-              AppButton(
-                label: 'Next!',
-                onPressed: () {
-                  if (mediaProvider.media == null) {
-                    SnackBars.failure(
-                      context,
-                      'Please upload a resume',
-                    );
-                    return;
-                  }
-                  mediaProvider.setInputImage();
-                  final lensBloc = BlocProvider.of<LensBloc>(context);
-                  lensBloc.add(
-                      ExtractSkills(inputImage: mediaProvider.inputImage!));
-                  AppRoutes.resumeAnalysis.push(context);
-                },
-                backgroundColor: mediaProvider.media != null
-                    ? AppTheme.c.accent
-                    : AppTheme.c.fieldLight,
-              ),
-              Space.y!,
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  AppStaticData.resume,
+                  height: AppDimensions.normalize(100),
+                ),
+                const UploadImageBoard(),
+                Space.yf(30),
+                AppButton(
+                  label: 'Next!',
+                  onPressed: () {
+                    if (mediaProvider.media == null) {
+                      SnackBars.failure(
+                        context,
+                        'Please upload a resume',
+                      );
+                      return;
+                    }
+                    mediaProvider.setInputImage();
+                    final lensBloc = BlocProvider.of<LensBloc>(context);
+                    lensBloc.add(
+                        ExtractSkills(inputImage: mediaProvider.inputImage!));
+                    AppRoutes.resumeAnalysis.push(context);
+                  },
+                  backgroundColor: mediaProvider.media != null
+                      ? AppTheme.c.accent
+                      : AppTheme.c.fieldLight,
+                ),
+                Space.y!,
+              ],
+            ),
           ),
         ),
       ),

@@ -166,10 +166,9 @@ class _Body extends StatelessWidget {
                         }
                         AppRoutes.uploadResume.pushReplace(context);
                       } else if (state.register is AuthRegisterFailure) {
-                        final message = state.register.message;
                         SnackBars.failure(
                           context,
-                          message!,
+                          'Failed to create your account, please try again',
                         );
                       }
                     },

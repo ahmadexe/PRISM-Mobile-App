@@ -25,6 +25,14 @@ extension SuperString on String {
   bool sameRoute() =>
       NavigationHistoryObserver().history.isNotEmpty &&
       NavigationHistoryObserver().top?.settings.name == this;
+
+  Future<void> clearStackAndPush(BuildContext context) async {
+    await Navigator.pushNamedAndRemoveUntil(
+      context,
+      this,
+      (_) => false,
+    );
+  }
       
   //
 }

@@ -15,7 +15,6 @@ class UploadImageBoard extends StatelessWidget {
     return Column(
       children: [
         if (mediaProvider.media != null) ...[
-          Space.yf(80),
           Stack(
             children: [
               ClipRRect(
@@ -57,7 +56,6 @@ class UploadImageBoard extends StatelessWidget {
             ],
           ),
         ] else ...[
-          Space.yf(80),
           GestureDetector(
             onTap: () {
               showModalBottomSheet(

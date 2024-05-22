@@ -71,7 +71,7 @@ class _Body extends StatelessWidget {
                     onPressed: () {
                       mediaProvider.removeInputImage();
                       mediaProvider.removeMedia();
-                      AppRoutes.home.pushReplace(context);
+                      AppRoutes.home.clearStackAndPush(context);
                     },
                   ),
                 ],
