@@ -49,6 +49,7 @@ class _Body extends StatelessWidget {
                         minLines: 4,
                         isDarkField: true,
                       ),
+                      Space.y!,
                       const UploadImageBoard(),
                       Space.yf(50),
                       AppButton(
@@ -97,7 +98,7 @@ class _Body extends StatelessWidget {
             ),
             BlocConsumer<PostsBloc, PostsState>(
               listener: (context, state) {
-                if (state.post is CreatePostSuccess) { 
+                if (state.post is CreatePostSuccess) {
                   SnackBars.success(context, 'Post created successfully');
                   ''.pop(context);
                 } else if (state.post is CreatePostFailure) {
