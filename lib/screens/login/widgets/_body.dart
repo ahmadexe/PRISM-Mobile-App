@@ -51,7 +51,12 @@ class _Body extends StatelessWidget {
                   isPass: true,
                   textCapitalization: TextCapitalization.none,
                   prefixIcon: const Icon(Icons.lock),
-                  validator: FormBuilderValidators.required(),
+                  validator: FormBuilderValidators.compose(
+                    [
+                      FormBuilderValidators.required(), 
+                      FormBuilderValidators.minLength(6)
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,

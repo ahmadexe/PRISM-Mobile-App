@@ -29,6 +29,7 @@ class _BodyState extends State<_Body> {
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),
         body: BlocConsumer<AuthBloc, AuthState>(
+          listenWhen: AuthLogoutState.match,
           listener: (context, state) {
             if (state.logout is AuthLogoutSuccess) {
               Navigator.of(context).pushNamedAndRemoveUntil(
