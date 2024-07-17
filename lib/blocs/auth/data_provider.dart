@@ -155,4 +155,25 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static Future<void> toggleFollow(String to, String from) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.put('/users/follow', data: {
+        'to': to,
+        'from': from,
+      });
+
+      if (response.statusCode != 200) {
+        throw 'Failed to toggle follow';
+      }
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(toggleFollow): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

@@ -10,6 +10,8 @@ class _Profile extends StatelessWidget {
     final postsBloc = BlocProvider.of<PostsBloc>(context);
     final usersPost =
         postsBloc.state.data!.where((post) => post.userId == user.id).toList();
+
+    final authBloc = BlocProvider.of<AuthBloc>(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +158,11 @@ class _Profile extends StatelessWidget {
                       ),
                       AppButton(
                         label: 'Follow',
-                        onPressed: () {},
+                        onPressed: () {
+                          final currentUser = authBloc.state.user!;
+                          authBloc.add(ToggleFollowEvent(
+                              to: currentUser.id, from: user.id));
+                        },
                         width: AppDimensions.normalize(75),
                         height: AppDimensions.normalize(15),
                         buttonType: ButtonType.secondary,

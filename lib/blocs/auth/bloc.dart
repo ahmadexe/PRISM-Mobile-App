@@ -35,6 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUpdate>(_update);
     on<GetUserByIdEvent>(_getById);
     on<ForgotPassword>(_forgotPassword);
+    on<ToggleFollowEvent>(_toggleFollow);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -179,13 +180,50 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ForgotPassword event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(forgot: const ForgotPasswordLoading()));
+    emit(
+      state.copyWith(
+        forgot: const ForgotPasswordLoading(),
+      ),
+    );
     try {
       await _AuthDataProvider.forgotPassword(event.email);
-      emit(state.copyWith(forgot: const ForgotPasswordSuccess()));
+      emit(
+        state.copyWith(
+          forgot: const ForgotPasswordSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          forgot: ForgotPasswordFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _toggleFollow(
+    ToggleFollowEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        follow: const ToggleFollowLoading(),
+      ),
+    );
+    try {
+      await _AuthDataProvider.toggleFollow(event.to, event.from);
+      emit(
+        state.copyWith(
+          follow: const ToggleFollowSuccess(),
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(
-        forgot: ForgotPasswordFailure(message: e.toString()),
+        follow: ToggleFollowFailure(
+          message: e.toString(),
+        ),
       ));
     }
   }
