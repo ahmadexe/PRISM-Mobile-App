@@ -12,6 +12,9 @@ class _Profile extends StatelessWidget {
         postsBloc.state.data!.where((post) => post.userId == user.id).toList();
 
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final currentUser = authBloc.state.user!;
+    final screenState = _ScreenState.s(context);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,16 +160,20 @@ class _Profile extends StatelessWidget {
                         backgroundColor: AppTheme.c.grey,
                       ),
                       AppButton(
-                        label: 'Follow',
+                        label: user.followers.contains(currentUser.id)
+                            ? 'Unfollow'
+                            : 'Follow',
                         onPressed: () {
-                          final currentUser = authBloc.state.user!;
                           authBloc.add(ToggleFollowEvent(
-                              to: currentUser.id, from: user.id));
+                              to: user.id, from: currentUser.id));
+                          screenState.toggleFollow();
                         },
                         width: AppDimensions.normalize(75),
                         height: AppDimensions.normalize(15),
                         buttonType: ButtonType.secondary,
-                        backgroundColor: AppTheme.c.grey,
+                        backgroundColor: user.followers.contains(currentUser.id)
+                            ? AppTheme.c.grey
+                            : AppTheme.c.primary,
                       ),
                     ],
                   )

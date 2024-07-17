@@ -213,6 +213,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ),
     );
     try {
+      final currentUser = state.user!;
+      final otherUser = state.get.user!;
+
+      if (currentUser.following.contains(otherUser.id)) {
+        currentUser.following.remove(otherUser.id);
+        otherUser.followers.remove(currentUser.id);
+      } else {
+        currentUser.following.add(otherUser.id);
+        otherUser.followers.add(currentUser.id);
+      }
+
+      emit(state.copyWith(
+        user: currentUser,
+        get: GetUserSuccess(user: otherUser),
+      ));
+
       await _AuthDataProvider.toggleFollow(event.to, event.from);
       emit(
         state.copyWith(

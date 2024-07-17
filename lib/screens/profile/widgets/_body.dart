@@ -45,6 +45,7 @@ class _BodyState extends State<_Body> {
               );
             } else if (state.get is GetUserSuccess && !isMe) {
               final user = state.get.user!;
+
               return _Profile(user: user, isMe: isMe);
             } else if (state.get is GetUserFailure) {
               return const Center(
