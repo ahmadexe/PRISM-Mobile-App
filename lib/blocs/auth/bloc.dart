@@ -24,6 +24,7 @@ part 'states/_logout.dart';
 part 'states/_update.dart';
 part 'states/_get_user.dart';
 part 'states/_forgot_password.dart';
+part 'states/_toggle_follow.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {

@@ -74,3 +74,13 @@ class ForgotPassword extends AuthEvent {
 class AuthLogout extends AuthEvent {
   const AuthLogout();
 }
+
+class ToggleFollowEvent extends AuthEvent {
+  final String to;
+  final String from;
+
+  const ToggleFollowEvent({
+    required this.to,
+    required this.from,
+  });
+}
