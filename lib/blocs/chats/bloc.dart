@@ -71,10 +71,6 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
         channel: channel,
       ));
       add(const SubscribeToMessges());
-
-      // add(
-      //   SocketInit(senderId: event.user1Id, receiverId: event.user2Id),
-      // );
     } catch (e) {
       emit(state.copyWith(
         convoInit: ConvoInitFailure(message: e.toString()),
