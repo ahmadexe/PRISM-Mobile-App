@@ -5,6 +5,8 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: const BottomBar(),
@@ -12,8 +14,56 @@ class _Body extends StatelessWidget {
           title: const Text('Explore'),
           scrolledUnderElevation: 0,
         ),
-        body: const Center(
-          child: Text('Explore'),
+        body: Padding(
+          padding: Space.all(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppTextField(
+                  name: _FormKeys.query,
+                  hint: 'Explore',
+                  isDarkField: true,
+                  validator: FormBuilderValidators.required(),
+                  suffixIcon: const Icon(Iconsax.search_normal),
+                  onChanged: (val) {
+                    if (val != null && val.isNotEmpty) {
+                      authBloc.add(SearchEvent(query: val));
+                    }
+                  },
+                ),
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    if (state.search is SearchLoading) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    if (state.search is SearchSuccess) {
+                      final users = (state.search as SearchSuccess).users;
+
+                      return Column(
+                        children: users!
+                            .map(
+                              (user) => Padding(
+                                padding: Space.vf(15),
+                                child: _UserTile(user: user),
+                              ),
+                            )
+                            .toList(),
+                      );
+                    }
+
+                    if (state.search is SearchFailure) {
+                      final message = (state.search as SearchFailure).message;
+
+                      return Text(message!);
+                    }
+
+                    return const SizedBox();
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

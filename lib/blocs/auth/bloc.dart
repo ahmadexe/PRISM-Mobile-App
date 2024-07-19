@@ -283,10 +283,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final raw = data as String;
           final normalized = json.decode(raw) as Map<String, dynamic>;
 
-          final usersRaw = normalized['data'] as List<dynamic>;
+          final usersRaw = normalized['data'] as List<dynamic>? ?? [];
 
           final users = usersRaw.map((e) => AuthData.fromMap(e)).toList();
-          
+
           return state.copyWith(search: SearchSuccess(users: users));
         },
       );
