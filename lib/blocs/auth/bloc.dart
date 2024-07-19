@@ -131,6 +131,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(logout: const AuthLogoutLoading()));
     try {
       await _adaptor.logout();
+      state.channel?.sink.close();
+
       emit(
         state.copyWith(
           user: null,
@@ -139,6 +141,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           register: const AuthRegisterDefault(),
           init: const AuthInitDefault(),
           get: const GetUserDefault(),
+          search: const SearchDefault(),
+          follow: const ToggleFollowDefault(),
+          channel: null,
         ),
       );
     } catch (e) {
