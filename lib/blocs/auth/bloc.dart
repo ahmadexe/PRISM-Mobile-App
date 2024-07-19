@@ -88,6 +88,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           channel: channel,
         ),
       );
+      add(const SubscribeToSearch());
     } catch (e) {
       emit(
         state.copyWith(
@@ -117,6 +118,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         init: const AuthInitSuccess(),
         channel: channel,
       ));
+
+      add(const SubscribeToSearch());
     } catch (e) {
       emit(state.copyWith(
         init: AuthInitFailure(message: e.toString()),
@@ -278,10 +281,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         state.channel!.stream.asBroadcastStream(),
         onData: (data) {
           final raw = data as String;
-          final normalized = json.decode(raw) as List<dynamic>;
+          final normalized = json.decode(raw) as Map<String, dynamic>;
 
-          final users = normalized.map((e) => AuthData.fromMap(e)).toList();
+          final usersRaw = normalized['data'] as List<dynamic>;
 
+          final users = usersRaw.map((e) => AuthData.fromMap(e)).toList();
+          
           return state.copyWith(search: SearchSuccess(users: users));
         },
       );
