@@ -34,10 +34,8 @@ class _Body extends StatelessWidget {
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {
                     if (state.search is SearchLoading) {
-                      return const CircularProgressIndicator();
-                    }
-
-                    if (state.search is SearchSuccess) {
+                      return const _ListPlaceHolder();
+                    } else if (state.search is SearchSuccess) {
                       final users = (state.search as SearchSuccess).users;
 
                       return Column(
@@ -50,15 +48,14 @@ class _Body extends StatelessWidget {
                             )
                             .toList(),
                       );
+                    } else if (state.search is SearchFailure) {
+                      return const ErrorWarning(
+                        title: 'Oops :(',
+                        message: 'Something went wrong, we are working on it.',
+                      );
                     }
 
-                    if (state.search is SearchFailure) {
-                      final message = (state.search as SearchFailure).message;
-
-                      return Text(message!);
-                    }
-
-                    return const SizedBox();
+                    return const SizedBox.shrink();
                   },
                 ),
               ],
