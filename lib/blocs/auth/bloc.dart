@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prism/models/auth/auth_data.dart';
 import 'package:prism/services/api.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'event.dart';
 part 'state.dart';
@@ -25,6 +26,7 @@ part 'states/_update.dart';
 part 'states/_get_user.dart';
 part 'states/_forgot_password.dart';
 part 'states/_toggle_follow.dart';
+part 'states/_search.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -75,6 +77,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
       );
 
+      _AuthDataProvider.initSearchChannel(user.id);
+
       emit(
         state.copyWith(
           user: user,
@@ -102,6 +106,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return;
       }
       final profile = await _adaptor.getUser(event.user);
+
+      _AuthDataProvider.initSearchChannel(profile.id);
+
       emit(state.copyWith(
         user: profile,
         init: const AuthInitSuccess(),
