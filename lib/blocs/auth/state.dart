@@ -1,6 +1,8 @@
 part of 'bloc.dart';
 
 class AuthState extends Equatable {
+  final WebSocketChannel? channel;
+
   final AuthData? user;
   final AuthInitState init;
   final AuthRegisterState register;
@@ -13,6 +15,7 @@ class AuthState extends Equatable {
   final SearchState search;
 
   const AuthState({
+    this.channel,
     this.user,
     required this.init,
     required this.register,
@@ -26,6 +29,7 @@ class AuthState extends Equatable {
   });
 
   AuthState copyWith({
+    WebSocketChannel? channel,
     AuthData? user,
     AuthInitState? init,
     AuthRegisterState? register,
@@ -38,6 +42,7 @@ class AuthState extends Equatable {
     SearchState? search,
   }) {
     return AuthState(
+      channel: channel ?? this.channel,
       user: user ?? this.user,
       init: init ?? this.init,
       register: register ?? this.register,
@@ -53,6 +58,7 @@ class AuthState extends Equatable {
 
   @override
   List<Object?> get props => [
+        channel,
         user,
         init,
         register,

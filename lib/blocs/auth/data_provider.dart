@@ -184,4 +184,9 @@ class _AuthDataProvider {
 
     return channel;
   }
+
+  static void sendMessage(
+      WebSocketChannel channel, Map<String, dynamic> payload) {
+    channel.sink.add(json.encode(payload));
+  }
 }

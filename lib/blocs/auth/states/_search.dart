@@ -24,7 +24,7 @@ class SearchLoading extends SearchState {
 }
 
 class SearchSuccess extends SearchState {
-  const SearchSuccess();
+  const SearchSuccess({required List<AuthData> users}) : super(users: users);
 }
 
 class SearchFailure extends SearchState {

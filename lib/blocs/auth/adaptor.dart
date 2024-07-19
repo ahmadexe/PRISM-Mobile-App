@@ -32,6 +32,15 @@ class _AuthAdaptor {
     return res;
   }
 
+  void sendSearchQuery(WebSocketChannel channel ,String query, String id) {
+    final payload = {
+      'query': query,
+      'id': id,
+    };
+
+    _AuthDataProvider.sendMessage(channel, payload);
+  }
+
   Future<AuthData> getUser(User? user) => _AuthDataProvider.getUser(user);
 
   Future<void> logout() => _AuthDataProvider.logout();

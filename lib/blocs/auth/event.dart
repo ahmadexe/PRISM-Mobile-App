@@ -84,3 +84,15 @@ class ToggleFollowEvent extends AuthEvent {
     required this.from,
   });
 }
+
+class SearchEvent extends AuthEvent {
+  final String query;
+
+  const SearchEvent({
+    required this.query,
+  });
+}
+
+class SubscribeToSearch extends AuthEvent {
+  const SubscribeToSearch();
+}

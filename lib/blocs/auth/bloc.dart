@@ -38,6 +38,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GetUserByIdEvent>(_getById);
     on<ForgotPassword>(_forgotPassword);
     on<ToggleFollowEvent>(_toggleFollow);
+    on<SearchEvent>(_search);
+    on<SubscribeToSearch>(_subscribeToSearch);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -77,12 +79,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
       );
 
-      _AuthDataProvider.initSearchChannel(user.id);
+      final channel = _AuthDataProvider.initSearchChannel(user.id);
 
       emit(
         state.copyWith(
           user: user,
           login: const AuthLoginSuccess(),
+          channel: channel,
         ),
       );
     } catch (e) {
@@ -107,11 +110,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       final profile = await _adaptor.getUser(event.user);
 
-      _AuthDataProvider.initSearchChannel(profile.id);
+      final channel = _AuthDataProvider.initSearchChannel(profile.id);
 
       emit(state.copyWith(
         user: profile,
         init: const AuthInitSuccess(),
+        channel: channel,
       ));
     } catch (e) {
       emit(state.copyWith(
@@ -247,6 +251,43 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         follow: ToggleFollowFailure(
           message: e.toString(),
         ),
+      ));
+    }
+  }
+
+  Future<void> _search(SearchEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(search: const SearchLoading()));
+    try {
+      final query = event.query;
+      final id = state.user!.id;
+      final channel = state.channel!;
+      _adaptor.sendSearchQuery(channel, query, id);
+    } catch (e) {
+      emit(state.copyWith(
+        search: SearchFailure(message: e.toString()),
+      ));
+    }
+  }
+
+  _subscribeToSearch(
+    SubscribeToSearch event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      await emit.forEach(
+        state.channel!.stream.asBroadcastStream(),
+        onData: (data) {
+          final raw = data as String;
+          final normalized = json.decode(raw) as List<dynamic>;
+
+          final users = normalized.map((e) => AuthData.fromMap(e)).toList();
+
+          return state.copyWith(search: SearchSuccess(users: users));
+        },
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        search: SearchFailure(message: e.toString()),
       ));
     }
   }
