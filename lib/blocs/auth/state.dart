@@ -1,6 +1,8 @@
 part of 'bloc.dart';
 
 class AuthState extends Equatable {
+  final WebSocketChannel? channel;
+
   final AuthData? user;
   final AuthInitState init;
   final AuthRegisterState register;
@@ -10,8 +12,10 @@ class AuthState extends Equatable {
   final GetUserState get;
   final ForgotPasswordState forgot;
   final ToggleFollowState follow;
+  final SearchState search;
 
   const AuthState({
+    this.channel,
     this.user,
     required this.init,
     required this.register,
@@ -21,9 +25,11 @@ class AuthState extends Equatable {
     required this.get,
     required this.forgot,
     required this.follow,
+    required this.search,
   });
 
   AuthState copyWith({
+    WebSocketChannel? channel,
     AuthData? user,
     AuthInitState? init,
     AuthRegisterState? register,
@@ -33,8 +39,10 @@ class AuthState extends Equatable {
     GetUserState? get,
     ForgotPasswordState? forgot,
     ToggleFollowState? follow,
+    SearchState? search,
   }) {
     return AuthState(
+      channel: channel ?? this.channel,
       user: user ?? this.user,
       init: init ?? this.init,
       register: register ?? this.register,
@@ -44,11 +52,13 @@ class AuthState extends Equatable {
       get: get ?? this.get,
       forgot: forgot ?? this.forgot,
       follow: follow ?? this.follow,
+      search: search ?? this.search,
     );
   }
 
   @override
   List<Object?> get props => [
+        channel,
         user,
         init,
         register,
@@ -58,6 +68,7 @@ class AuthState extends Equatable {
         get,
         forgot,
         follow,
+        search,
       ];
 }
 
@@ -72,5 +83,6 @@ final class AuthDefault extends AuthState {
           get: const GetUserDefault(),
           forgot: const ForgotPasswordDefault(),
           follow: const ToggleFollowDefault(),
+          search: const SearchDefault(),
         );
 }

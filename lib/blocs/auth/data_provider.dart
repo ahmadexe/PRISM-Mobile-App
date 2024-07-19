@@ -176,4 +176,17 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static WebSocketChannel initSearchChannel(String userId) {
+    final channel = WebSocketChannel.connect(
+      Uri.parse('ws://3.111.196.231:3000/v1/users/fetch/ws/$userId'),
+    );
+
+    return channel;
+  }
+
+  static void sendMessage(
+      WebSocketChannel channel, Map<String, dynamic> payload) {
+    channel.sink.add(json.encode(payload));
+  }
 }

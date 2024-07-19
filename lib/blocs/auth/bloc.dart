@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prism/models/auth/auth_data.dart';
 import 'package:prism/services/api.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'event.dart';
 part 'state.dart';
@@ -25,6 +26,7 @@ part 'states/_update.dart';
 part 'states/_get_user.dart';
 part 'states/_forgot_password.dart';
 part 'states/_toggle_follow.dart';
+part 'states/_search.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -36,6 +38,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<GetUserByIdEvent>(_getById);
     on<ForgotPassword>(_forgotPassword);
     on<ToggleFollowEvent>(_toggleFollow);
+    on<SearchEvent>(_search);
+    on<SubscribeToSearch>(_subscribeToSearch);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -75,12 +79,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.password,
       );
 
+      final channel = _AuthDataProvider.initSearchChannel(user.id);
+
       emit(
         state.copyWith(
           user: user,
           login: const AuthLoginSuccess(),
+          channel: channel,
         ),
       );
+      add(const SubscribeToSearch());
     } catch (e) {
       emit(
         state.copyWith(
@@ -102,10 +110,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return;
       }
       final profile = await _adaptor.getUser(event.user);
+
+      final channel = _AuthDataProvider.initSearchChannel(profile.id);
+
       emit(state.copyWith(
         user: profile,
         init: const AuthInitSuccess(),
+        channel: channel,
       ));
+
+      add(const SubscribeToSearch());
     } catch (e) {
       emit(state.copyWith(
         init: AuthInitFailure(message: e.toString()),
@@ -117,6 +131,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(logout: const AuthLogoutLoading()));
     try {
       await _adaptor.logout();
+      state.channel?.sink.close();
+
       emit(
         state.copyWith(
           user: null,
@@ -125,6 +141,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           register: const AuthRegisterDefault(),
           init: const AuthInitDefault(),
           get: const GetUserDefault(),
+          search: const SearchDefault(),
+          follow: const ToggleFollowDefault(),
+          channel: null,
         ),
       );
     } catch (e) {
@@ -240,6 +259,45 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         follow: ToggleFollowFailure(
           message: e.toString(),
         ),
+      ));
+    }
+  }
+
+  Future<void> _search(SearchEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(search: const SearchLoading()));
+    try {
+      final query = event.query;
+      final id = state.user!.id;
+      final channel = state.channel!;
+      _adaptor.sendSearchQuery(channel, query, id);
+    } catch (e) {
+      emit(state.copyWith(
+        search: SearchFailure(message: e.toString()),
+      ));
+    }
+  }
+
+  _subscribeToSearch(
+    SubscribeToSearch event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      await emit.forEach(
+        state.channel!.stream.asBroadcastStream(),
+        onData: (data) {
+          final raw = data as String;
+          final normalized = json.decode(raw) as Map<String, dynamic>;
+
+          final usersRaw = normalized['data'] as List<dynamic>? ?? [];
+
+          final users = usersRaw.map((e) => AuthData.fromMap(e)).toList();
+
+          return state.copyWith(search: SearchSuccess(users: users));
+        },
+      );
+    } catch (e) {
+      emit(state.copyWith(
+        search: SearchFailure(message: e.toString()),
       ));
     }
   }
