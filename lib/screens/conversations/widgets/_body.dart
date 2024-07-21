@@ -52,7 +52,11 @@ class _BodyState extends State<_Body> {
               builder: (context, state) {
                 if (state.fetchAllConvos is FetchAllConvosLoading ||
                     state.fetchAllConvos is FetchAllConvosDefault) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
                 } else if (state.fetchAllConvos is FetchAllConvosSuccess) {
                   final convos = state.convos;
                   if (convos == null || convos.isEmpty) {
