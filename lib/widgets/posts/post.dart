@@ -8,6 +8,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/posts/meta_data_counter.dart';
 import 'package:prism/widgets/info_tile.dart';
+import 'package:prism/widgets/text_expander.dart';
 
 class Post extends StatelessWidget {
   final PostData post;
@@ -105,28 +106,4 @@ class Post extends StatelessWidget {
   }
 }
 
-class TextExpander extends StatefulWidget {
-  final String displayText;
-  const TextExpander({super.key, required this.displayText});
 
-  @override
-  State<TextExpander> createState() => _TextExpanderState();
-}
-
-class _TextExpanderState extends State<TextExpander> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      child: Text(
-        isExpanded ? widget.displayText : 'Read more...',
-      ),
-    );
-  }
-}

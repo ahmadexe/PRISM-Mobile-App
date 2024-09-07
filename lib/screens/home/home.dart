@@ -6,12 +6,14 @@ import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
+import 'package:prism/models/job/job.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';
 import 'package:prism/widgets/core/error/error.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
+import 'package:prism/widgets/job/job_card.dart';
 import 'package:prism/widgets/posts/posts_placeholder.dart';
 import 'package:prism/widgets/posts/post.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +25,8 @@ part 'widgets/_drawer.dart';
 part 'widgets/_body_service_provider.dart';
 
 part 'static/_form_keys.dart';
+
+part '_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

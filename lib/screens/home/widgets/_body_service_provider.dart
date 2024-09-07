@@ -17,12 +17,11 @@ class _BodyServiceProvider extends StatelessWidget {
         scrolledUnderElevation: 0,
       ),
       drawer: const _Drawer(),
+      bottomNavigationBar: const BottomBar(),
       body: Padding(
         padding: Space.all(),
-        child: const Column(
-          children: [
-            Text('Service Provider'),
-          ],
+        child: Column(
+          children: [JobCard(job: jobs[0],)],
         ),
       ),
     );

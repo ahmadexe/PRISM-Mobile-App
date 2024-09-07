@@ -16,6 +16,7 @@ part '_space_ext.dart';
 part '_string_ext.dart';
 part '_ui.dart';
 part '_ui_props.dart';
+part '_date_ext.dart';
 
 class App {
   static bool? isLtr;
