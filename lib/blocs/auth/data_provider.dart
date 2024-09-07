@@ -190,14 +190,14 @@ class _AuthDataProvider {
     channel.sink.add(json.encode(payload));
   }
 
-  static Future<void> switchProfileMode(String uid) async {
+  static Future<void> switchProfileMode(String id) async {
     try {
       final user = _auth.currentUser;
 
       final token = await user?.getIdToken();
       _client.options.headers['Authorization'] = 'Bearer $token';
 
-      final response = await _client.put('/users/service/$uid');
+      final response = await _client.put('/users/service/$id');
 
       if (response.statusCode != 200) {
         throw 'Failed to switch profile mode';
