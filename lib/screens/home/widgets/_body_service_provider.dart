@@ -1,7 +1,7 @@
 part of '../home.dart';
 
 class _BodyServiceProvider extends StatelessWidget {
-  const _BodyServiceProvider({super.key});
+  const _BodyServiceProvider();
 
   @override
   Widget build(BuildContext context) {
