@@ -96,3 +96,11 @@ class SearchEvent extends AuthEvent {
 class SubscribeToSearch extends AuthEvent {
   const SubscribeToSearch();
 }
+
+class ToggleServiceProviderEvent extends AuthEvent {
+  final String id;
+
+  const ToggleServiceProviderEvent({
+    required this.id,
+  });
+}

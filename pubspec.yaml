@@ -40,15 +40,15 @@ dependencies:
   
   # utils
   flutter_screenutil: ^5.9.0
-  intl: ^0.18.1
+  intl: ^0.19.0
   navigation_history_observer: ^1.1.0
   rive: ^0.12.4
   flutter_svg: ^2.0.9
   image_picker: ^1.0.7
   
   # forms
-  form_builder_validators: ^9.1.0
-  flutter_form_builder: ^9.1.1
+  form_builder_validators: ^11.0.0
+  flutter_form_builder: ^9.4.1
 
   # state management
   provider: ^6.1.1

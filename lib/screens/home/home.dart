@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -19,6 +20,7 @@ part '_state.dart';
 
 part 'widgets/_body.dart';
 part 'widgets/_drawer.dart';
+part 'widgets/_body_service_provider.dart';
 
 part 'static/_form_keys.dart';
 
@@ -28,10 +30,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     App.init(context);
+    final auth = BlocProvider.of<AuthBloc>(context, listen: true).state;
+    final user = auth.user!;
 
     return ChangeNotifierProvider<_ScreenState>(
       create: (_) => _ScreenState(),
-      child: const _Body(),
+      child: user.isServiceProvider ? const _BodyServiceProvider() : const _Body(),
     );
   }
 }

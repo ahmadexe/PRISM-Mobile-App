@@ -27,6 +27,7 @@ part 'states/_get_user.dart';
 part 'states/_forgot_password.dart';
 part 'states/_toggle_follow.dart';
 part 'states/_search.dart';
+part 'states/_service_provider.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -40,6 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ToggleFollowEvent>(_toggleFollow);
     on<SearchEvent>(_search);
     on<SubscribeToSearch>(_subscribeToSearch);
+    on<ToggleServiceProviderEvent>(_toggleServiceProvider);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -277,7 +279,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _subscribeToSearch(
+  Future<void> _subscribeToSearch(
     SubscribeToSearch event,
     Emitter<AuthState> emit,
   ) async {
@@ -299,6 +301,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         search: SearchFailure(message: e.toString()),
       ));
+    }
+  }
+
+  void _toggleServiceProvider(
+    ToggleServiceProviderEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(state.copyWith(serviceProvider: const ServiceProviderToggleLoading()));
+    try {
+      AuthData user = state.user!;
+      await _AuthDataProvider.switchProfileMode(event.id);
+      user = user.copyWith(isServiceProvider: !user.isServiceProvider);
+      
+      emit(
+        state.copyWith(
+          user: user,
+          serviceProvider: const ServiceProviderToggleSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          serviceProvider: ServiceProviderToggleFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
     }
   }
 }
