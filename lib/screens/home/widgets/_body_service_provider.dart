@@ -7,21 +7,24 @@ class _BodyServiceProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Home'),
-          actions: [
-            IconButton(
-              onPressed: () => AppRoutes.conversations.push(context),
-              icon: const Icon(Iconsax.sms_tracking),
-            ),
-          ],
-          scrolledUnderElevation: 0,
-        ),
-        drawer: const _Drawer(),
-        body: const Column(
+        title: const Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () => AppRoutes.conversations.push(context),
+            icon: const Icon(Iconsax.sms_tracking),
+          ),
+        ],
+        scrolledUnderElevation: 0,
+      ),
+      drawer: const _Drawer(),
+      body: Padding(
+        padding: Space.all(),
+        child: const Column(
           children: [
             Text('Service Provider'),
           ],
         ),
+      ),
     );
   }
 }
