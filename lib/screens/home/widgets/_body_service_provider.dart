@@ -20,8 +20,29 @@ class _BodyServiceProvider extends StatelessWidget {
       bottomNavigationBar: const BottomBar(),
       body: Padding(
         padding: Space.all(),
-        child: Column(
-          children: [JobCard(job: jobs[0],)],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              AppTextField(
+                name: _FormKeys.jobSearch,
+                prefixIcon: Icon(
+                  Iconsax.search_normal,
+                  size: AppDimensions.normalize(7),
+                ),
+                hint: 'Search',
+                isDarkField: true,
+                type: FieldType.secondary,
+              ),
+              Space.y2!,
+              ListView.separated(
+                itemCount: 10,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (_, __) => Space.y!,
+                itemBuilder: (_, index) => JobCard(job: jobs[0]),
+              )
+            ],
+          ),
         ),
       ),
     );

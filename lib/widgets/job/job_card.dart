@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -41,11 +43,13 @@ class JobCard extends StatelessWidget {
                 job.likedBy.contains(currentProfile.id)
                     ? Icon(
                         Icons.favorite_rounded,
-                        color: AppTheme.c.accent,
+                        color: [AppTheme.c.accent, AppTheme.c.primary]
+                            .elementAt(Random().nextInt(2)),
                       )
                     : Icon(
                         Icons.favorite_border_rounded,
-                        color: AppTheme.c.accent,
+                        color: [AppTheme.c.accent, AppTheme.c.primary]
+                            .elementAt(Random().nextInt(2)),
                       ),
               ],
             ),
