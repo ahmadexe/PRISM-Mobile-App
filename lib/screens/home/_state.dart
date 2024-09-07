@@ -12,4 +12,11 @@ class _ScreenState extends ChangeNotifier {
     showPostArrow = val;
     notifyListeners();
   }
+
+  bool service = false;
+
+  void setService(bool val) {
+    service = val;
+    notifyListeners();
+  }
 }

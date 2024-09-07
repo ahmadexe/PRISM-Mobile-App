@@ -9,6 +9,8 @@ class _Drawer extends StatelessWidget {
     final user = authBloc.state.user!;
     final appMedia = MediaQuery.sizeOf(context);
 
+    final screenState = _ScreenState.s(context, true);
+
     return SizedBox(
       width: appMedia.width * 0.65,
       child: Drawer(
@@ -30,13 +32,27 @@ class _Drawer extends StatelessWidget {
                     user.fullname,
                     style: AppText.b1bm,
                   ),
-                  const SizedBox(height: 5),
+                  Space.y!,
                   Text(
                     user.email,
                     style: AppText.b2,
                   ),
+                  Space.y1!,
                 ],
               ),
+            ),
+            ListTile(
+              title: const Text('Service Provider'),
+              trailing: CupertinoSwitch(
+                  value: user.isServiceProvider,
+                  onChanged: (value) {
+                    screenState.setService(value);
+                    authBloc.add(
+                      ToggleServiceProviderEvent(
+                        id: user.id,
+                      ),
+                    );
+                  }),
             ),
             ListTile(
               leading: Icon(

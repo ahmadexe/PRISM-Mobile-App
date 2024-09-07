@@ -13,6 +13,7 @@ class AuthState extends Equatable {
   final ForgotPasswordState forgot;
   final ToggleFollowState follow;
   final SearchState search;
+  final ServiceProviderToggleState serviceProvider;
 
   const AuthState({
     this.channel,
@@ -26,6 +27,7 @@ class AuthState extends Equatable {
     required this.forgot,
     required this.follow,
     required this.search,
+    required this.serviceProvider,
   });
 
   AuthState copyWith({
@@ -40,6 +42,7 @@ class AuthState extends Equatable {
     ForgotPasswordState? forgot,
     ToggleFollowState? follow,
     SearchState? search,
+    ServiceProviderToggleState? serviceProvider,
   }) {
     return AuthState(
       channel: channel ?? this.channel,
@@ -53,6 +56,7 @@ class AuthState extends Equatable {
       forgot: forgot ?? this.forgot,
       follow: follow ?? this.follow,
       search: search ?? this.search,
+      serviceProvider: serviceProvider ?? this.serviceProvider,
     );
   }
 
@@ -69,6 +73,7 @@ class AuthState extends Equatable {
         forgot,
         follow,
         search,
+        serviceProvider,
       ];
 }
 
@@ -84,5 +89,6 @@ final class AuthDefault extends AuthState {
           forgot: const ForgotPasswordDefault(),
           follow: const ToggleFollowDefault(),
           search: const SearchDefault(),
+          serviceProvider: const ServiceProviderToggleDefault(),
         );
 }

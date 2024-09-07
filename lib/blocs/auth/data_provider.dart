@@ -189,4 +189,23 @@ class _AuthDataProvider {
       WebSocketChannel channel, Map<String, dynamic> payload) {
     channel.sink.add(json.encode(payload));
   }
+
+  static Future<void> switchProfileMode(String uid) async {
+    try {
+      final user = _auth.currentUser;
+
+      final token = await user?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.put('/users/service/$uid');
+
+      if (response.statusCode != 200) {
+        throw 'Failed to switch profile mode';
+      }
+    } catch(e) {
+      debugPrint('Exception in Auth Data Provider(switchProfileMode): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

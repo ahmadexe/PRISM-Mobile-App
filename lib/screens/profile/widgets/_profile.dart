@@ -154,7 +154,7 @@ class _Profile extends StatelessWidget {
                           'receiverName': user.fullname,
                           'receiverPic': user.imageUrl,
                         }),
-                        width: AppDimensions.normalize(75),
+                        width: AppDimensions.normalize(67),
                         height: AppDimensions.normalize(15),
                         buttonType: ButtonType.secondary,
                         backgroundColor: AppTheme.c.grey,
@@ -168,7 +168,7 @@ class _Profile extends StatelessWidget {
                               to: user.id, from: currentUser.id));
                           screenState.toggleFollow();
                         },
-                        width: AppDimensions.normalize(75),
+                        width: AppDimensions.normalize(67),
                         height: AppDimensions.normalize(15),
                         buttonType: ButtonType.secondary,
                         backgroundColor: user.followers.contains(currentUser.id)

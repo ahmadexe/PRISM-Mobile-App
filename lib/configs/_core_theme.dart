@@ -24,7 +24,6 @@ final themeDark = ThemeData(
   ),
 
   colorScheme: ThemeData.dark().colorScheme.copyWith(
-        background: AppTheme.dark.background,
         secondary: AppTheme.dark.primary,
         surface: AppTheme.dark.background,
         onSurface: AppTheme.dark.white,

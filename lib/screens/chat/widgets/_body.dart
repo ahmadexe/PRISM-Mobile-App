@@ -43,7 +43,7 @@ class _BodyState extends State<_Body> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, res) {
         if (didPop) return;
         chatBloc.add(const CloseConvo());
         ''.pop(context);
