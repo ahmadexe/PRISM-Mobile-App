@@ -41,19 +41,20 @@ class _Drawer extends StatelessWidget {
                 ],
               ),
             ),
-            ListTile(
-              title: const Text('Service Provider'),
-              trailing: CupertinoSwitch(
-                  value: user.isServiceProvider,
-                  onChanged: (value) {
-                    screenState.setService(value);
-                    authBloc.add(
-                      ToggleServiceProviderEvent(
-                        id: user.id,
-                      ),
-                    );
-                  }),
-            ),
+            if (!user.isBusinessAcc)
+              ListTile(
+                title: const Text('Service Provider'),
+                trailing: CupertinoSwitch(
+                    value: user.isServiceProvider,
+                    onChanged: (value) {
+                      screenState.setService(value);
+                      authBloc.add(
+                        ToggleServiceProviderEvent(
+                          id: user.id,
+                        ),
+                      );
+                    }),
+              ),
             ListTile(
               leading: Icon(
                 Iconsax.box_2,
