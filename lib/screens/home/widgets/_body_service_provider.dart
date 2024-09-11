@@ -39,7 +39,7 @@ class _BodyServiceProvider extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (_, __) => Space.y!,
-                itemBuilder: (_, index) => JobCard(job: jobs[0]),
+                itemBuilder: (_, index) => JobCard(job: _jobs[0]),
               )
             ],
           ),

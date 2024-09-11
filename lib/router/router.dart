@@ -1,3 +1,4 @@
+import 'package:prism/screens/my_jobs/my_jobs.dart';
 import 'package:prism/screens/resume_analysis/resume_analysis.dart';
 import 'package:prism/screens/upload_resume/upload_resume.dart';
 import 'package:prism/screens/chatbot/chatbot.dart';
@@ -20,6 +21,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.myJobs: (_) => const MyJobsScreen(),
   AppRoutes.resumeAnalysis: (_) => const ResumeAnalysisScreen(),
   AppRoutes.uploadResume: (_) => const UploadResumeScreen(),
   AppRoutes.chatbot: (_) => const ChatbotScreen(),

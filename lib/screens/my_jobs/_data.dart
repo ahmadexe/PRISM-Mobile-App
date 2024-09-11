@@ -1,4 +1,4 @@
-part of 'home.dart';
+part of 'my_jobs.dart';
 
 List<Job> _jobs = [
   Job(
