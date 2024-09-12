@@ -18,7 +18,12 @@ class _Body extends StatelessWidget {
           scrolledUnderElevation: 0,
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: () {}, child: const Icon(Icons.add)),
+          onPressed: () {
+            AppRoutes.createJob.push(context);
+          },
+          shape: const CircleBorder(),
+          child: const Icon(Icons.add),
+        ),
         bottomNavigationBar: const BottomBar(),
         body: Padding(
           padding: Space.all(),
