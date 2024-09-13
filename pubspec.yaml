@@ -69,6 +69,7 @@ dependencies:
   google_generative_ai: ^0.4.0
   flutter_dotenv: ^5.1.0
   google_mlkit_text_recognition: ^0.13.0
+  country_picker: ^2.0.26
 
 
 dev_dependencies:
