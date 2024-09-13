@@ -17,11 +17,13 @@ part '_static.dart';
 
 part 'state/_skill_extraction.dart';
 part 'state/_response.dart';
+part 'state/_key_words.dart';
 
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
     on<GenerateContent>(_onGenerateContent);
     on<ExtractSkills>(_extractSkills);
+    on<ExtractKeywords>(_extractKeywords);
   }
 
   late final LensService _service;
@@ -106,6 +108,43 @@ class LensBloc extends Bloc<LensEvent, LensState> {
       emit(
         state.copyWith(
           skills: SkillExtractionFailure(
+            error: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _extractKeywords(
+    ExtractKeywords event,
+    Emitter<LensState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        keywords: const KeywordsExtractionLoading(),
+      ),
+    );
+    try {
+      final raw = event.inputText;
+      final prompt =
+          '''$raw \nUse this text and output keywords, the output text should only have keywords seperated by comma, e.g. keyword1,keyword2,keyword3 It should have no additional text.''';
+
+      final response =
+          await _service.generateContentFromText(prompt: prompt) ?? '';
+      List<String>? keywords;
+      if (response.isNotEmpty) {
+        keywords = raw.split(',').map((e) => e.trim()).toList();
+      }
+
+      emit(
+        state.copyWith(
+          keywords: KeywordsExtractionSuccess(keywords: keywords ?? []),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          keywords: KeywordsExtractionFailure(
             error: e.toString(),
           ),
         ),

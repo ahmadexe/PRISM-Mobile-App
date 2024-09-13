@@ -23,3 +23,10 @@ class ExtractSkills extends LensEvent {
     required this.inputImage,
   });
 }
+
+class ExtractKeywords extends LensEvent {
+  final String inputText;
+  const ExtractKeywords({
+    required this.inputText,
+  });
+}

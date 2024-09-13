@@ -9,7 +9,7 @@ sealed class SkillExtractionState extends Equatable {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [skills, error];
 }
 
 final class SkillExtractionInitial extends SkillExtractionState {
