@@ -6,6 +6,8 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
+    final lensBloc = BlocProvider.of<LensBloc>(context);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -127,6 +129,13 @@ class _Body extends StatelessWidget {
                       final form = screenState.formKey.currentState!;
                       final isValid = form.saveAndValidate();
                       if (!isValid) return;
+
+                      lensBloc.add(
+                        ExtractKeywords(
+                          inputText:
+                              form.value[_FormKeys.jobDescription] as String,
+                        ),
+                      );
                     },
                   )
                 ],

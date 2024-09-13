@@ -133,7 +133,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
           await _service.generateContentFromText(prompt: prompt) ?? '';
       List<String>? keywords;
       if (response.isNotEmpty) {
-        keywords = raw.split(',').map((e) => e.trim()).toList();
+        keywords = response.split(',').map((e) => e.trim()).toList();
       }
 
       emit(
