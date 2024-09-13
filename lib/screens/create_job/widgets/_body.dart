@@ -127,8 +127,6 @@ class _Body extends StatelessWidget {
                       final form = screenState.formKey.currentState!;
                       final isValid = form.saveAndValidate();
                       if (!isValid) return;
-
-                      print(form.value);
                     },
                   )
                 ],
