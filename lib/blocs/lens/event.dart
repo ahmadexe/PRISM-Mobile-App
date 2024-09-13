@@ -30,3 +30,10 @@ class ExtractKeywords extends LensEvent {
     required this.inputText,
   });
 }
+
+class AddKeyword extends LensEvent {
+  final String keyword;
+  const AddKeyword({
+    required this.keyword,
+  });
+}

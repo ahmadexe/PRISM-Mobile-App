@@ -24,6 +24,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     on<GenerateContent>(_onGenerateContent);
     on<ExtractSkills>(_extractSkills);
     on<ExtractKeywords>(_extractKeywords);
+    on<AddKeyword>(_addKeyword);
   }
 
   late final LensService _service;
@@ -150,5 +151,19 @@ class LensBloc extends Bloc<LensEvent, LensState> {
         ),
       );
     }
+  }
+
+  void _addKeyword(
+    AddKeyword event,
+    Emitter<LensState> emit,
+  ) {
+    final keywords = state.keywords.keywords ?? [];
+    emit(
+      state.copyWith(
+        keywords: KeywordsExtractionSuccess(
+          keywords: [...keywords, event.keyword],
+        ),
+      ),
+    );
   }
 }
