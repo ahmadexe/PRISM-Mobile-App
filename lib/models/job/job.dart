@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -13,7 +12,7 @@ class Job {
   final List<String> likedBy;
   final List<String> appliedBy;
   final bool isAvailable;
-  final String hired;
+  final String? hired;
   final DateTime hiredAt;
   final String id;
   final double budget;
@@ -133,43 +132,42 @@ class Job {
   @override
   bool operator ==(covariant Job other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.postedBy == postedBy &&
-      other.title == title &&
-      other.description == description &&
-      other.postedAt == postedAt &&
-      other.country == country &&
-      listEquals(other.keywords, keywords) &&
-      listEquals(other.likedBy, likedBy) &&
-      listEquals(other.appliedBy, appliedBy) &&
-      other.isAvailable == isAvailable &&
-      other.hired == hired &&
-      other.hiredAt == hiredAt &&
-      other.id == id &&
-      other.budget == budget &&
-      other.budgetMeta == budgetMeta &&
-      other.username == username &&
-      other.avatar == avatar;
+
+    return other.postedBy == postedBy &&
+        other.title == title &&
+        other.description == description &&
+        other.postedAt == postedAt &&
+        other.country == country &&
+        listEquals(other.keywords, keywords) &&
+        listEquals(other.likedBy, likedBy) &&
+        listEquals(other.appliedBy, appliedBy) &&
+        other.isAvailable == isAvailable &&
+        other.hired == hired &&
+        other.hiredAt == hiredAt &&
+        other.id == id &&
+        other.budget == budget &&
+        other.budgetMeta == budgetMeta &&
+        other.username == username &&
+        other.avatar == avatar;
   }
 
   @override
   int get hashCode {
     return postedBy.hashCode ^
-      title.hashCode ^
-      description.hashCode ^
-      postedAt.hashCode ^
-      country.hashCode ^
-      keywords.hashCode ^
-      likedBy.hashCode ^
-      appliedBy.hashCode ^
-      isAvailable.hashCode ^
-      hired.hashCode ^
-      hiredAt.hashCode ^
-      id.hashCode ^
-      budget.hashCode ^
-      budgetMeta.hashCode ^
-      username.hashCode ^
-      avatar.hashCode;
+        title.hashCode ^
+        description.hashCode ^
+        postedAt.hashCode ^
+        country.hashCode ^
+        keywords.hashCode ^
+        likedBy.hashCode ^
+        appliedBy.hashCode ^
+        isAvailable.hashCode ^
+        hired.hashCode ^
+        hiredAt.hashCode ^
+        id.hashCode ^
+        budget.hashCode ^
+        budgetMeta.hashCode ^
+        username.hashCode ^
+        avatar.hashCode;
   }
 }

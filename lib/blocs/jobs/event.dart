@@ -43,3 +43,10 @@ class CreateJob extends JobsEvent {
         keywords,
       ];
 }
+
+class FetchJobs extends JobsEvent {
+  const FetchJobs();
+
+  @override
+  List<Object?> get props => [];
+}
