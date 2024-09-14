@@ -5,6 +5,7 @@ import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/chats/bloc.dart';
 import 'package:prism/blocs/comments/bloc.dart';
+import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/text_recognition/bloc.dart';
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ChatsBloc()),
         BlocProvider(create: (context) => LensBloc()..init()),
         BlocProvider(create: (context) => TextRecognitionBloc()),
+        BlocProvider(create: (context) => JobsBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

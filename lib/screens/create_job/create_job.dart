@@ -2,6 +2,8 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';

@@ -7,10 +7,30 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context);
     final lensBloc = BlocProvider.of<LensBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
 
     return BlocListener<LensBloc, LensState>(
       listener: (context, state) {
-        
+        if (state.keywords is KeywordsExtractionSuccess) {
+          final user = authBloc.state.user!;
+          final form = screenState.formKey.currentState!;
+          final values = form.value;
+
+          jobsBloc.add(
+            CreateJob(
+              title: values[_FormKeys.jobTitle] as String,
+              description: values[_FormKeys.jobDescription] as String,
+              budget: double.parse(values[_FormKeys.jobBudget] as String),
+              budgetMeta: values[_FormKeys.jobBudgetMeta] as String,
+              country: values[_FormKeys.country] as String,
+              postedBy: user.id,
+              username: user.fullname,
+              avatar: user.imageUrl,
+              keywords: state.keywords.keywords ?? [],
+            ),
+          );
+        }
       },
       child: SafeArea(
         child: Scaffold(
@@ -133,7 +153,6 @@ class _Body extends StatelessWidget {
                         final form = screenState.formKey.currentState!;
                         final isValid = form.saveAndValidate();
                         if (!isValid) return;
-
                         lensBloc.add(
                           ExtractKeywords(
                             inputText:

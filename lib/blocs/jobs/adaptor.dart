@@ -9,21 +9,21 @@ class _Adaptor {
     final String country,
     final String postedBy,
     final String username,
-    final String avatar,
+    final String? avatar,
     final List<String> keywords,
   ) async {
     try {
       final payload = {
+        'postedBy': postedBy,
         'title': title,
         'description': description,
+        'postedAt': DateTime.now().microsecondsSinceEpoch,
+        'country': country,
+        'keywords': keywords,
         'budget': budget,
         'budgetMeta': budgetMeta,
-        'country': country,
-        'postedBy': postedBy,
         'username': username,
         'avatar': avatar,
-        'postedAt': DateTime.now().microsecondsSinceEpoch,
-        'keywords': keywords,
       };
       await _JobsDataProvider().createJob(payload);
     } catch (e) {

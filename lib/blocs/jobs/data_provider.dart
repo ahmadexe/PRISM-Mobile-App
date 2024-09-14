@@ -11,6 +11,7 @@ class _JobsDataProvider {
 
       final response = await _client.post('/jobs', data: json.encode(payload));
       if (response.statusCode != 201) {
+        debugPrint('Failed to create job: ${response.data}');
         throw 'Failed to create job';
       }
     } catch (e) {

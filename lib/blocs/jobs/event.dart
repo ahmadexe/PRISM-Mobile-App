@@ -4,7 +4,7 @@ sealed class JobsEvent extends Equatable {
   const JobsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class CreateJob extends JobsEvent {
@@ -15,7 +15,7 @@ class CreateJob extends JobsEvent {
   final String country;
   final String postedBy;
   final String username;
-  final String avatar;
+  final String? avatar;
   final List<String> keywords;
 
   const CreateJob({
@@ -31,7 +31,7 @@ class CreateJob extends JobsEvent {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         title,
         description,
         budget,
