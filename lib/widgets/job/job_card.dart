@@ -29,7 +29,7 @@ class JobCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Posted ${job.postedAt.getDifference(DateTime.now())} ago',
+              'Posted ${DateTime.now().getDifference(job.postedAt)} ago',
               style: AppText.l1!.cl(Colors.grey),
             ),
             Space.y!,

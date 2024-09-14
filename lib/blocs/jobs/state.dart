@@ -20,7 +20,7 @@ class JobsState extends Equatable {
     FetchJobsState? fetch,
   }) {
     return JobsState(
-      jobs: jobs,
+      jobs: jobs ?? this.jobs,
       create: create ?? this.create,
       fetch: fetch ?? this.fetch,
     );
