@@ -147,20 +147,40 @@ class _Body extends StatelessWidget {
                       validator: FormBuilderValidators.required(),
                     ),
                     Space.yf(40),
-                    AppButton(
-                      label: 'Next',
-                      onPressed: () {
-                        final form = screenState.formKey.currentState!;
-                        final isValid = form.saveAndValidate();
-                        if (!isValid) return;
-                        lensBloc.add(
-                          ExtractKeywords(
-                            inputText:
-                                form.value[_FormKeys.jobDescription] as String,
-                          ),
-                        );
+                    BlocListener<JobsBloc, JobsState>(
+                      listener: (context, state) {
+                        if (state.create is CreateJobSuccess) {
+                          screenState.formKey.currentState!.reset();
+                          SnackBars.success(context, 'Job posted successfully');
+                          ''.pop(context);
+                        }
                       },
-                    )
+                      child: Builder(builder: (context) {
+                        final lensState = context.watch<LensBloc>().state;
+                        final jobsState = context.watch<JobsBloc>().state;
+
+                        if (lensState.keywords is KeywordsExtractionLoading ||
+                            jobsState.create is CreateJobLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+
+                        return AppButton(
+                          label: 'Next',
+                          onPressed: () {
+                            final form = screenState.formKey.currentState!;
+                            final isValid = form.saveAndValidate();
+                            if (!isValid) return;
+                            lensBloc.add(
+                              ExtractKeywords(
+                                inputText: form.value[_FormKeys.jobDescription]
+                                    as String,
+                              ),
+                            );
+                          },
+                        );
+                      }),
+                    ),
                   ],
                 ),
               ),

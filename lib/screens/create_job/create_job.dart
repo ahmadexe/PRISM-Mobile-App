@@ -7,6 +7,7 @@ import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/design/input/app_text_field.dart';
 import 'package:provider/provider.dart';
