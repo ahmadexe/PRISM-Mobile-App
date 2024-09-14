@@ -76,7 +76,10 @@ class _Body extends StatelessWidget {
                       name: _FormKeys.jobBudget,
                       hint: 'Budget',
                       isDarkField: true,
-                      validator: FormBuilderValidators.required(),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.numeric(),
+                      ]),
                     ),
                     Space.y!,
                     FormBuilderDropdown(
