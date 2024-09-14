@@ -10,6 +10,7 @@ class _Adaptor {
     final String postedBy,
     final String username,
     final String avatar,
+    final List<String> keywords,
   ) async {
     try {
       final payload = {
@@ -22,6 +23,7 @@ class _Adaptor {
         'username': username,
         'avatar': avatar,
         'postedAt': DateTime.now().microsecondsSinceEpoch,
+        'keywords': keywords,
       };
       await _JobsDataProvider().createJob(payload);
     } catch (e) {

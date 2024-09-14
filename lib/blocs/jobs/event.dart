@@ -16,6 +16,7 @@ class CreateJob extends JobsEvent {
   final String postedBy;
   final String username;
   final String avatar;
+  final List<String> keywords;
 
   const CreateJob({
     required this.title,
@@ -26,6 +27,7 @@ class CreateJob extends JobsEvent {
     required this.postedBy,
     required this.username,
     required this.avatar,
+    required this.keywords,
   });
 
   @override
@@ -38,5 +40,6 @@ class CreateJob extends JobsEvent {
         postedBy,
         username,
         avatar,
+        keywords,
       ];
 }

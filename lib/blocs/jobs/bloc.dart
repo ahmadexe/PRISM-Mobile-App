@@ -35,6 +35,7 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
         event.postedBy,
         event.username,
         event.avatar,
+        event.keywords,
       );
       emit(
         const JobsState(
