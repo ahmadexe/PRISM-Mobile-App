@@ -13,6 +13,9 @@ class CreateJob extends JobsEvent {
   final double budget;
   final String budgetMeta;
   final String country;
+  final String postedBy;
+  final String username;
+  final String avatar;
 
   const CreateJob({
     required this.title,
@@ -20,6 +23,9 @@ class CreateJob extends JobsEvent {
     required this.budget,
     required this.budgetMeta,
     required this.country,
+    required this.postedBy,
+    required this.username,
+    required this.avatar,
   });
 
   @override
@@ -29,5 +35,8 @@ class CreateJob extends JobsEvent {
         budget,
         budgetMeta,
         country,
+        postedBy,
+        username,
+        avatar,
       ];
 }
