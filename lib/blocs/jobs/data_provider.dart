@@ -27,8 +27,11 @@ class _JobsDataProvider {
         throw 'Failed to fetch jobs';
       }
 
-      final List<dynamic> data = response.data;
-      return data.map((e) => Job.fromJson(e)).toList();
+      final dataRaw = response.data;
+      final data = dataRaw['data'] as List<dynamic>;
+
+      final res =  data.map((e) => Job.fromMap(e)).toList();
+      return res; 
     } catch (e) {
       debugPrint('Exception in Jobs Data Provider(fetchJobs): $e');
       debugPrint('--------------------------');

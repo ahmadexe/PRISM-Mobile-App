@@ -15,7 +15,6 @@ Connected to the VM Service.
     keywords: ['Flutter', 'Dart'],
     likedBy: ['6697cf89dc1f4f0b42c46e63'],
     appliedBy: [],
-    isAvailable: true,
     hired: '',
     hiredAt: DateTime.now(),
     id: '',

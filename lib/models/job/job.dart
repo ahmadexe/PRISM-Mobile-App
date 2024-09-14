@@ -11,7 +11,6 @@ class Job {
   final List<String> keywords;
   final List<String> likedBy;
   final List<String> appliedBy;
-  final bool isAvailable;
   final String? hired;
   final DateTime hiredAt;
   final String id;
@@ -29,8 +28,7 @@ class Job {
     required this.keywords,
     required this.likedBy,
     required this.appliedBy,
-    required this.isAvailable,
-    required this.hired,
+    this.hired,
     required this.hiredAt,
     required this.id,
     required this.budget,
@@ -66,7 +64,6 @@ class Job {
       keywords: keywords ?? this.keywords,
       likedBy: likedBy ?? this.likedBy,
       appliedBy: appliedBy ?? this.appliedBy,
-      isAvailable: isAvailable ?? this.isAvailable,
       hired: hired ?? this.hired,
       hiredAt: hiredAt ?? this.hiredAt,
       id: id ?? this.id,
@@ -87,7 +84,6 @@ class Job {
       'keywords': keywords,
       'likedBy': likedBy,
       'appliedBy': appliedBy,
-      'isAvailable': isAvailable,
       'hired': hired,
       'hiredAt': hiredAt.millisecondsSinceEpoch,
       'id': id,
@@ -108,11 +104,10 @@ class Job {
       keywords: List<String>.from((map['keywords'] as List<dynamic>)),
       likedBy: List<String>.from((map['likedBy'] as List<dynamic>)),
       appliedBy: List<String>.from((map['appliedBy'] as List<dynamic>)),
-      isAvailable: map['isAvailable'] as bool,
-      hired: map['hired'] as String,
+      hired: map['hired'] as String?,
       hiredAt: DateTime.fromMillisecondsSinceEpoch(map['hiredAt'] as int),
       id: map['id'] as String,
-      budget: map['budget'] as double,
+      budget: double.parse(map['budget'].toString()),
       budgetMeta: map['budgetMeta'] as String,
       username: map['username'] as String,
       avatar: map['avatar'] as String,
@@ -126,7 +121,7 @@ class Job {
 
   @override
   String toString() {
-    return 'Job(postedBy: $postedBy, title: $title, description: $description, postedAt: $postedAt, country: $country, keywords: $keywords, likedBy: $likedBy, appliedBy: $appliedBy, isAvailable: $isAvailable, hired: $hired, hiredAt: $hiredAt, id: $id, budget: $budget, budgetMeta: $budgetMeta, username: $username, avatar: $avatar)';
+    return 'Job(postedBy: $postedBy, title: $title, description: $description, postedAt: $postedAt, country: $country, keywords: $keywords, likedBy: $likedBy, appliedBy: $appliedBy, hired: $hired, hiredAt: $hiredAt, id: $id, budget: $budget, budgetMeta: $budgetMeta, username: $username, avatar: $avatar)';
   }
 
   @override
@@ -141,7 +136,6 @@ class Job {
         listEquals(other.keywords, keywords) &&
         listEquals(other.likedBy, likedBy) &&
         listEquals(other.appliedBy, appliedBy) &&
-        other.isAvailable == isAvailable &&
         other.hired == hired &&
         other.hiredAt == hiredAt &&
         other.id == id &&
@@ -161,7 +155,6 @@ class Job {
         keywords.hashCode ^
         likedBy.hashCode ^
         appliedBy.hashCode ^
-        isAvailable.hashCode ^
         hired.hashCode ^
         hiredAt.hashCode ^
         id.hashCode ^

@@ -21,10 +21,17 @@ class _BodyState extends State<_Body> {
   Widget build(BuildContext context) {
     App.init(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
         if (state.init is AuthInitSuccess) {
+          final user = state.user!;
+          if (user.isBusinessAcc) {
+            jobsBloc.add(
+              const FetchJobs(),
+            );
+          }
           Navigator.pushReplacementNamed(context, AppRoutes.home);
         } else if (state.init is AuthInitFailure) {
           await Future.delayed(const Duration(seconds: 2));

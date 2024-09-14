@@ -52,12 +52,37 @@ class _Body extends StatelessWidget {
                   ],
                 ),
                 Space.y2!,
-                ListView.separated(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (_, __) => Space.y!,
-                  itemBuilder: (_, index) => JobCard(job: _jobs[0]),
+                BlocBuilder<JobsBloc, JobsState>(
+                  builder: (context, state) {
+                    if (state.fetch is FetchJobsLoading ||
+                        state.fetch is JobsInitial) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state.fetch is FetchJobsFailure) {
+                      return const Center(
+                        child: ErrorWarning(
+                          title: 'Oops!',
+                          message:
+                              'Looks like something went wrong. Please try again.',
+                        ),
+                      );
+                    }
+
+                    final jobs = state.jobs!;
+                    if (jobs.isEmpty) {
+                      return const Center(
+                        child: Text('No jobs found'),
+                      );
+                    }
+                    return ListView.separated(
+                      itemCount: jobs.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (_, __) => Space.y!,
+                      itemBuilder: (_, index) => JobCard(job: jobs[index]),
+                    );
+                  },
                 )
               ],
             ),
