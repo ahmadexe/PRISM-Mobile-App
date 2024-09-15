@@ -86,14 +86,6 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
 
     try {
       await _adaptor.likeUnlikeJob(event.jobId, event.userId);
-      final jobs = state.jobs ?? [];
-      final job = jobs.firstWhere((e) => e.id == event.jobId);
-      final likedBy = job.likedBy;
-      if (likedBy.contains(event.userId)) {
-        likedBy.remove(event.userId);
-      } else {
-        likedBy.add(event.userId);
-      }
 
       emit(
         state.copyWith(

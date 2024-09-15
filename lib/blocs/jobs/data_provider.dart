@@ -45,7 +45,7 @@ class _JobsDataProvider {
       _client.options.headers['Authorization'] = 'Bearer $token';
 
       final response =
-          await _client.post('/jobs/like', data: json.encode(payload));
+          await _client.put('/jobs/like', data: json.encode(payload));
       if (response.statusCode != 200) {
         throw 'Failed to like/unlike job';
       }
