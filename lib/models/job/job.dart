@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -12,8 +11,7 @@ class Job {
   final List<String> keywords;
   final List<String> likedBy;
   final List<String> appliedBy;
-  final bool isAvailable;
-  final String hired;
+  final String? hired;
   final DateTime hiredAt;
   final String id;
   final double budget;
@@ -30,8 +28,7 @@ class Job {
     required this.keywords,
     required this.likedBy,
     required this.appliedBy,
-    required this.isAvailable,
-    required this.hired,
+    this.hired,
     required this.hiredAt,
     required this.id,
     required this.budget,
@@ -67,7 +64,6 @@ class Job {
       keywords: keywords ?? this.keywords,
       likedBy: likedBy ?? this.likedBy,
       appliedBy: appliedBy ?? this.appliedBy,
-      isAvailable: isAvailable ?? this.isAvailable,
       hired: hired ?? this.hired,
       hiredAt: hiredAt ?? this.hiredAt,
       id: id ?? this.id,
@@ -83,14 +79,13 @@ class Job {
       'postedBy': postedBy,
       'title': title,
       'description': description,
-      'postedAt': postedAt.millisecondsSinceEpoch,
+      'postedAt': postedAt.microsecondsSinceEpoch,
       'country': country,
       'keywords': keywords,
       'likedBy': likedBy,
       'appliedBy': appliedBy,
-      'isAvailable': isAvailable,
       'hired': hired,
-      'hiredAt': hiredAt.millisecondsSinceEpoch,
+      'hiredAt': hiredAt.microsecondsSinceEpoch,
       'id': id,
       'budget': budget,
       'budgetMeta': budgetMeta,
@@ -104,16 +99,15 @@ class Job {
       postedBy: map['postedBy'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
-      postedAt: DateTime.fromMillisecondsSinceEpoch(map['postedAt'] as int),
+      postedAt: DateTime.fromMicrosecondsSinceEpoch(map['postedAt'] as int),
       country: map['country'] as String,
       keywords: List<String>.from((map['keywords'] as List<dynamic>)),
       likedBy: List<String>.from((map['likedBy'] as List<dynamic>)),
       appliedBy: List<String>.from((map['appliedBy'] as List<dynamic>)),
-      isAvailable: map['isAvailable'] as bool,
-      hired: map['hired'] as String,
-      hiredAt: DateTime.fromMillisecondsSinceEpoch(map['hiredAt'] as int),
+      hired: map['hired'] as String?,
+      hiredAt: DateTime.fromMicrosecondsSinceEpoch(map['hiredAt'] as int),
       id: map['id'] as String,
-      budget: map['budget'] as double,
+      budget: double.parse(map['budget'].toString()),
       budgetMeta: map['budgetMeta'] as String,
       username: map['username'] as String,
       avatar: map['avatar'] as String,
@@ -127,49 +121,46 @@ class Job {
 
   @override
   String toString() {
-    return 'Job(postedBy: $postedBy, title: $title, description: $description, postedAt: $postedAt, country: $country, keywords: $keywords, likedBy: $likedBy, appliedBy: $appliedBy, isAvailable: $isAvailable, hired: $hired, hiredAt: $hiredAt, id: $id, budget: $budget, budgetMeta: $budgetMeta, username: $username, avatar: $avatar)';
+    return 'Job(postedBy: $postedBy, title: $title, description: $description, postedAt: $postedAt, country: $country, keywords: $keywords, likedBy: $likedBy, appliedBy: $appliedBy, hired: $hired, hiredAt: $hiredAt, id: $id, budget: $budget, budgetMeta: $budgetMeta, username: $username, avatar: $avatar)';
   }
 
   @override
   bool operator ==(covariant Job other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.postedBy == postedBy &&
-      other.title == title &&
-      other.description == description &&
-      other.postedAt == postedAt &&
-      other.country == country &&
-      listEquals(other.keywords, keywords) &&
-      listEquals(other.likedBy, likedBy) &&
-      listEquals(other.appliedBy, appliedBy) &&
-      other.isAvailable == isAvailable &&
-      other.hired == hired &&
-      other.hiredAt == hiredAt &&
-      other.id == id &&
-      other.budget == budget &&
-      other.budgetMeta == budgetMeta &&
-      other.username == username &&
-      other.avatar == avatar;
+
+    return other.postedBy == postedBy &&
+        other.title == title &&
+        other.description == description &&
+        other.postedAt == postedAt &&
+        other.country == country &&
+        listEquals(other.keywords, keywords) &&
+        listEquals(other.likedBy, likedBy) &&
+        listEquals(other.appliedBy, appliedBy) &&
+        other.hired == hired &&
+        other.hiredAt == hiredAt &&
+        other.id == id &&
+        other.budget == budget &&
+        other.budgetMeta == budgetMeta &&
+        other.username == username &&
+        other.avatar == avatar;
   }
 
   @override
   int get hashCode {
     return postedBy.hashCode ^
-      title.hashCode ^
-      description.hashCode ^
-      postedAt.hashCode ^
-      country.hashCode ^
-      keywords.hashCode ^
-      likedBy.hashCode ^
-      appliedBy.hashCode ^
-      isAvailable.hashCode ^
-      hired.hashCode ^
-      hiredAt.hashCode ^
-      id.hashCode ^
-      budget.hashCode ^
-      budgetMeta.hashCode ^
-      username.hashCode ^
-      avatar.hashCode;
+        title.hashCode ^
+        description.hashCode ^
+        postedAt.hashCode ^
+        country.hashCode ^
+        keywords.hashCode ^
+        likedBy.hashCode ^
+        appliedBy.hashCode ^
+        hired.hashCode ^
+        hiredAt.hashCode ^
+        id.hashCode ^
+        budget.hashCode ^
+        budgetMeta.hashCode ^
+        username.hashCode ^
+        avatar.hashCode;
   }
 }

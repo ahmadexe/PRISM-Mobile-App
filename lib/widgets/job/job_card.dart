@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/job/job.dart';
 import 'package:prism/widgets/text_expander.dart';
+
+part '_like_icon.dart';
 
 class JobCard extends StatelessWidget {
   final Job job;
@@ -40,20 +43,10 @@ class JobCard extends StatelessWidget {
                   job.title,
                   style: AppText.b1bm,
                 ),
-                job.likedBy.contains(currentProfile.id)
-                    ? Icon(
-                        Icons.favorite_rounded,
-                        color: [AppTheme.c.accent, AppTheme.c.primary]
-                            .elementAt(Random().nextInt(2)),
-                      )
-                    : Icon(
-                        Icons.favorite_border_rounded,
-                        color: [AppTheme.c.accent, AppTheme.c.primary]
-                            .elementAt(Random().nextInt(2)),
-                      ),
+                _LikeIcon(job: job, userId: currentProfile.id),
               ],
             ),
-            TextExpander(displayText: job.description.substring(100)),
+            TextExpander(displayText: job.description),
             Space.y1!,
             Wrap(
               spacing: 10,

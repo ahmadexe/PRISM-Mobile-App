@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
-import 'package:prism/models/job/job.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/avatar.dart';
@@ -26,7 +26,6 @@ part 'widgets/_body_service_provider.dart';
 
 part 'static/_form_keys.dart';
 
-part '_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);

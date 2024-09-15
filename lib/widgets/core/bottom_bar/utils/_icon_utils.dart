@@ -8,4 +8,10 @@ class _IconUtils {
     artboard.addController(controller!);
     return controller;
   }
+
+  static List<_Asset> getBottomNavElements(bool isBusinessUser) {
+    return isBusinessUser
+        ? bottomNavElementsBusinessUser
+        : bottomNavElementsRegularUsers;
+  }
 }

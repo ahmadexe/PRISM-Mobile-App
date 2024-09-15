@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/router/routes.dart';
 import 'package:rive/rive.dart';
@@ -22,6 +24,11 @@ class _BottomBarState extends State<BottomBar> {
     App.init(context);
     final currentRoute = NavigationHistoryObserver().top;
     final currentPath = currentRoute!.settings.name;
+
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
+
+    final bottomNavElements = _IconUtils.getBottomNavElements(user.isBusinessAcc);
 
     return Padding(
       padding: Space.hf(10),
