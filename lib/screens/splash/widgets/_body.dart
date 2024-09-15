@@ -27,7 +27,7 @@ class _BodyState extends State<_Body> {
       listener: (context, state) async {
         if (state.init is AuthInitSuccess) {
           final user = state.user!;
-          if (user.isBusinessAcc) {
+          if (user.isBusinessAcc || user.isServiceProvider) {
             jobsBloc.add(
               const FetchJobs(),
             );

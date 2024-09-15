@@ -55,7 +55,7 @@ class _Body extends StatelessWidget {
                 BlocBuilder<JobsBloc, JobsState>(
                   builder: (context, state) {
                     if (state.fetch is FetchJobsLoading ||
-                        state.fetch is JobsInitial) {
+                        state.fetch is FetchJobsInitial) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
@@ -83,7 +83,7 @@ class _Body extends StatelessWidget {
                       itemBuilder: (_, index) => JobCard(job: jobs[index]),
                     );
                   },
-                )
+                ),
               ],
             ),
           ),

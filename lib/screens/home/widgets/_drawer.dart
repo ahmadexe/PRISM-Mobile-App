@@ -8,7 +8,7 @@ class _Drawer extends StatelessWidget {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
     final appMedia = MediaQuery.sizeOf(context);
-
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final screenState = _ScreenState.s(context, true);
 
     return SizedBox(
@@ -53,6 +53,11 @@ class _Drawer extends StatelessWidget {
                           id: user.id,
                         ),
                       );
+                      if (value) {
+                        jobsBloc.add(
+                          const FetchJobs(),
+                        );
+                      }
                     }),
               ),
             ListTile(
