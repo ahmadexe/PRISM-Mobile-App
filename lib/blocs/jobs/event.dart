@@ -50,3 +50,16 @@ class FetchJobs extends JobsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class LikeUnlikeJob extends JobsEvent {
+  final String jobId;
+  final String userId;
+
+  const LikeUnlikeJob({
+    required this.jobId,
+    required this.userId,
+  });
+
+  @override
+  List<Object?> get props => [jobId, userId];
+}

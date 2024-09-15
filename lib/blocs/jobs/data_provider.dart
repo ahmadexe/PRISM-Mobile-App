@@ -30,10 +30,27 @@ class _JobsDataProvider {
       final dataRaw = response.data;
       final data = dataRaw['data'] as List<dynamic>;
 
-      final res =  data.map((e) => Job.fromMap(e)).toList();
-      return res; 
+      final res = data.map((e) => Job.fromMap(e)).toList();
+      return res;
     } catch (e) {
       debugPrint('Exception in Jobs Data Provider(fetchJobs): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  Future<void> likeUnlikeJob(Map<String, dynamic> payload) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response =
+          await _client.post('/jobs/like', data: json.encode(payload));
+      if (response.statusCode != 200) {
+        throw 'Failed to like/unlike job';
+      }
+    } catch (e) {
+      debugPrint('Exception in Jobs Data Provider(likeJob): $e');
       debugPrint('--------------------------');
       rethrow;
     }

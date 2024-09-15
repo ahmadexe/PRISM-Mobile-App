@@ -14,11 +14,13 @@ part 'data_provider.dart';
 
 part 'states/_create_job.dart';
 part 'states/_fetch_jobs.dart';
+part 'states/_like.dart';
 
 class JobsBloc extends Bloc<JobsEvent, JobsState> {
   JobsBloc() : super(const JobsInitial()) {
     on<CreateJob>(_createJob);
     on<FetchJobs>(_fetchJobs);
+    on<LikeUnlikeJob>(_likeUnlikeJob);
   }
 
   final _adaptor = _Adaptor();
@@ -76,4 +78,34 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
       );
     }
   }
+
+  Future<void> _likeUnlikeJob(LikeUnlikeJob event, Emitter<JobsState> emit) async {
+    emit(state.copyWith(
+      like: const LikeToggleLoading(),
+    ));
+
+    try {
+      await _adaptor.likeUnlikeJob(event.jobId, event.userId);
+      final jobs = state.jobs ?? [];
+      final job = jobs.firstWhere((e) => e.id == event.jobId);
+      final likedBy = job.likedBy;
+      if (likedBy.contains(event.userId)) {
+        likedBy.remove(event.userId);
+      } else {
+        likedBy.add(event.userId);
+      }
+
+      emit(
+        state.copyWith(
+          like: const LikeToggleSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          like: LikeToggleFailure(error: e.toString()),
+        ),
+      );
+    }
+  }  
 }

@@ -30,4 +30,16 @@ class _Adaptor {
       rethrow;
     }
   }
+
+  Future<void> likeUnlikeJob(final String jobId, final String userId) async {
+    try {
+      final payload = {
+        'id': jobId,
+        'userId': userId,
+      };
+      await _JobsDataProvider().likeUnlikeJob(payload);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
