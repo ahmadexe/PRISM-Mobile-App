@@ -11,6 +11,7 @@ class AppButton extends StatelessWidget {
   final double? height;
   final TextStyle? textStyle;
   final ButtonType? buttonType;
+  final IconData? icon;
   const AppButton({
     required this.label,
     required this.onPressed,
@@ -19,6 +20,7 @@ class AppButton extends StatelessWidget {
     this.backgroundColor,
     this.textStyle,
     this.buttonType = ButtonType.primary,
+    this.icon,
     super.key,
   });
 
@@ -52,19 +54,35 @@ class AppButton extends StatelessWidget {
                         border: Border.all(
                           color: AppTheme.c.primary!,
                           width: 1,
-                        )
-                      )
+                        ))
                     : BoxDecoration(
                         borderRadius:
                             BorderRadius.circular(AppDimensions.ratio * 100),
                         color: backgroundColor ?? AppTheme.c.primary,
                       ),
-        child: Center(
-          child: Text(
-            label,
-            style: textStyle ?? AppText.b1bm,
-          ),
-        ),
+        child: icon != null
+            ? Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon!,
+                      size: 17,
+                    ),
+                    Space.x1!,
+                    Text(
+                      label,
+                      style: textStyle ?? AppText.b1bm,
+                    ),
+                  ],
+                ),
+              )
+            : Center(
+                child: Text(
+                  label,
+                  style: textStyle ?? AppText.b1bm,
+                ),
+              ),
       ),
     );
   }
