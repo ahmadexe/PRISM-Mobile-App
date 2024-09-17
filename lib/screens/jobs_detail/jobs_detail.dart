@@ -6,8 +6,10 @@ import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/models/job/job.dart';
 import 'package:prism/widgets/avatar.dart';
+import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/headless/divider.dart';
+import 'package:prism/widgets/headless/full_screen_loader.dart';
 import 'package:provider/provider.dart';
 
 part '_state.dart';

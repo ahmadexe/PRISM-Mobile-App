@@ -136,7 +136,11 @@ class _Body extends StatelessWidget {
                       Expanded(
                         child: AppButton(
                           label: 'Apply',
-                          onPressed: () {},
+                          onPressed: () {
+                            jobsBloc.add(
+                              ApplyForJob(jobId: job.id, userId: user.id),
+                            );
+                          },
                         ),
                       ),
                       Space.x1!,
@@ -158,6 +162,29 @@ class _Body extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+              BlocConsumer<JobsBloc, JobsState>(
+                listener: (context, state) {
+                  if (state.apply is ApplyForJobSuccess) {
+                    SnackBars.success(context, 'Applied for job successfully');
+                    ''.pop(context);
+                  } else if (state.apply is ApplyForJobFailure) {
+                    SnackBars.failure(
+                      context,
+                      'Failed to apply for job, try again.',
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return BlocBuilder<JobsBloc, JobsState>(
+                    builder: (context, state) {
+                      if (state.apply is ApplyForJobLoading) {
+                        return const FullScreenLoader();
+                      }
+                      return const SizedBox();
+                    },
+                  );
+                },
               ),
             ],
           ),
