@@ -42,4 +42,16 @@ class _Adaptor {
       rethrow;
     }
   }
+
+  Future<void> applyForJob(final String jobId, final String userId) async {
+    try {
+      final payload = {
+        'id': jobId,
+        'userId': userId,
+      };
+      await _JobsDataProvider().applyForJob(payload);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
