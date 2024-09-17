@@ -46,6 +46,7 @@ class AppButton extends StatelessWidget {
                       color: AppTheme.c.primary!,
                       width: 1,
                     ),
+                    color: AppTheme.c.background,
                   )
                 : buttonType == ButtonType.borderedSecondary
                     ? BoxDecoration(
@@ -68,6 +69,7 @@ class AppButton extends StatelessWidget {
                     Icon(
                       icon!,
                       size: 17,
+                      color: AppTheme.c.primary,
                     ),
                     Space.x1!,
                     Text(

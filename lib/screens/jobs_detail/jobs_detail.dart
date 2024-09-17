@@ -1,4 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/models/job/job.dart';
@@ -19,10 +22,13 @@ class JobsDetailScreen extends StatelessWidget {
     App.init(context);
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final job = args['job'] as Job;
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
 
     return ChangeNotifierProvider<_ScreenState>(
       create: (_) => _ScreenState(
         job: job,
+        isJobLiked: job.likedBy.contains(user.id),
       ),
       child: const _Body(),
     );
