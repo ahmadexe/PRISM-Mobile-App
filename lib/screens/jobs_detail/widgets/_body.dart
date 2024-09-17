@@ -5,6 +5,11 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
+
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final user = authBloc.state.user!;
+
     final screenState = _ScreenState.s(context, true);
     final job = screenState.job;
 
@@ -143,6 +148,9 @@ class _Body extends StatelessWidget {
                           label: screenState.isJobLiked ? 'Liked' : 'Like',
                           onPressed: () {
                             screenState.toggleLike();
+                            jobsBloc.add(
+                              LikeUnlikeJob(jobId: job.id, userId: user.id),
+                            );
                           },
                           buttonType: ButtonType.bordered,
                         ),
