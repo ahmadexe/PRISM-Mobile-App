@@ -55,4 +55,21 @@ class _JobsDataProvider {
       rethrow;
     }
   }
+
+  Future<void> applyForJob(Map<String, dynamic> payload) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response =
+          await _client.put('/jobs/apply', data: json.encode(payload));
+      if (response.statusCode != 200) {
+        throw 'Failed to apply for job';
+      }
+    } catch (e) {
+      debugPrint('Exception in Jobs Data Provider(applyForJob): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }
