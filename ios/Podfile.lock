@@ -43,10 +43,10 @@ PODS:
     - GoogleUtilities/Environment (~> 7.12)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
-  - google_mlkit_commons (0.7.1):
+  - google_mlkit_commons (0.8.1):
     - Flutter
     - MLKitVision
-  - google_mlkit_text_recognition (0.13.0):
+  - google_mlkit_text_recognition (0.13.1):
     - Flutter
     - google_mlkit_commons
     - GoogleMLKit/TextRecognition (~> 6.0.0)
@@ -203,8 +203,8 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: df84dd300b561c27d5571684f389bf60b0a5c934
   FirebaseStorage: 44f4e25073f6fa0d4d8c09f5bec299ee9e4eb985
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  google_mlkit_commons: 96aaca445520311b84a2da013dedf3427fe4cc69
-  google_mlkit_text_recognition: 393c2526da49aa6c9c883e6d69100f54af011e24
+  google_mlkit_commons: 242b715c38863e1ca5e732c909a1545ba52f1375
+  google_mlkit_text_recognition: e36a265afba48580518dfc4532ce9fefaae7d20e
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleMLKit: 97ac7af399057e99182ee8edfa8249e3226a4065
   GoogleToolboxForMac: d1a2cbf009c453f4d6ded37c105e2f67a32206d8
@@ -224,6 +224,6 @@ SPEC CHECKSUMS:
   rive_common: 3a4c254c6e4db7e4b9e05daeb3d1f47ae4f7bf76
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
 
-PODFILE CHECKSUM: eae22443bde45aeb4d03875963b20c580cd25b57
+PODFILE CHECKSUM: ad41d4a3fade269daafcd63945451502f3a2dd9a
 
 COCOAPODS: 1.14.3

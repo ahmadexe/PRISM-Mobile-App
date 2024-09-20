@@ -59,10 +59,10 @@ dependencies:
   lottie: ^2.7.0
 
   # network|firebase
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  firebase_core: ^2.32.0
+  firebase_auth: ^4.20.0
   dio: ^5.4.0
-  firebase_storage: ^11.7.0
+  firebase_storage: ^11.7.1
   cached_network_image: ^3.3.1
   shimmer: ^3.0.0
   web_socket_channel: ^3.0.0
