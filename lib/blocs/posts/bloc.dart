@@ -20,6 +20,7 @@ part 'adaptor.dart';
 part 'states/_fetch.dart';
 part 'states/_post.dart';
 part 'states/_vote.dart';
+part 'states/_report.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
   PostsBloc() : super(const PostsDefault()) {
@@ -27,6 +28,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
     on<PostCreateEvent>(_createPost);
     on<PostVoteEvent>(_votePost);
     on<ClearPostBlocEvent>(_clearBloc);
+    on<ReportPostEvent>(_report);
   }
 
   final _adaptor = _PostAdaptor();
@@ -108,6 +110,33 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       emit(
         state.copyWith(
           vote: VotePostFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _report(ReportPostEvent event, Emitter<PostsState> emit) async {
+    emit(state.copyWith(report: const ReportPostLoading()));
+
+    try {
+      final payload = {
+        'postId': event.postId,
+        'type': event.type,
+      };
+
+      await _PostProvider.report(payload);
+
+      emit(
+        state.copyWith(
+          report: const ReportPostSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          report: ReportPostFailure(
             message: e.toString(),
           ),
         ),
