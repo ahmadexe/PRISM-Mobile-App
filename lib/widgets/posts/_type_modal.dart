@@ -1,10 +1,8 @@
 part of 'post.dart';
 
-class _ReportModal extends StatelessWidget {
+class _TypeModal extends StatelessWidget {
   final String postId;
-  const _ReportModal({
-    required this.postId,
-  });
+  const _TypeModal({required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +10,7 @@ class _ReportModal extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: media.height * .3,
+      height: media.height * .8,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -23,6 +21,7 @@ class _ReportModal extends StatelessWidget {
       child: Padding(
         padding: Space.all(15, 7),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
               child: Container(
@@ -37,37 +36,39 @@ class _ReportModal extends StatelessWidget {
             Space.y2!,
             Center(
               child: Text(
-                'Issues?',
+                'Report',
+                style: AppText.h2bm,
+              ),
+            ),
+            Space.y2!,
+            Center(
+              child: Text(
+                'What\'s the issue?',
                 style: AppText.h2b,
               ),
             ),
+            Space.y!,
             Center(
               child: Text(
-                "PRISM is committed to keeping our community safe. Let us know if you see anything that doesn't belong.",
+                "Your reports help us keep our community safe. Let us know what's happening.",
                 style: AppText.l1,
-              ),
-            ),
-            Space.ym!,
-            Center(
-              child: AppButton(
-                onPressed: () {
-                  ''.pop(context);
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    builder: (context) => _TypeModal(postId: postId),
-                  );
-                },
-                label: 'Report Post',
+                textAlign: TextAlign.center,
               ),
             ),
             Space.y2!,
-            AppButton(
-              backgroundColor: AppTheme.c.accent,
-              onPressed: () {},
-              label: 'Report User',
-            ),
-            Space.y2!,
+            ..._reportItems
+                .map(
+                  (e) => TextButton(
+                    onPressed: () {
+                      ''.pop(context);
+                    },
+                    child: Text(
+                      e.text,
+                      style: AppText.b2,
+                    ),
+                  ),
+                )
+                .toList(),
           ],
         ),
       ),

@@ -12,6 +12,8 @@ import 'package:prism/widgets/info_tile.dart';
 import 'package:prism/widgets/text_expander.dart';
 
 part '_report_modal.dart';
+part '_type_modal.dart';
+part '_data.dart';
 
 class Post extends StatelessWidget {
   final PostData post;
