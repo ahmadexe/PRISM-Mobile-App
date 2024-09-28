@@ -40,7 +40,7 @@ class JobCard extends StatelessWidget {
                 'Posted ${DateTime.now().getDifference(job.postedAt)} ago',
                 style: AppText.l1!.cl(Colors.grey),
               ),
-              Space.y!,
+              Space.y1!,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -48,11 +48,13 @@ class JobCard extends StatelessWidget {
                     job.title,
                     style: AppText.b1bm,
                   ),
-                  _LikeIcon(job: job, userId: currentProfile.id),
+                  if (currentProfile.id != job.postedBy) ...[
+                    _LikeIcon(job: job, userId: currentProfile.id),
+                  ],
                 ],
               ),
               TextExpander(displayText: job.description),
-              Space.y1!,
+              Space.y2!,
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
