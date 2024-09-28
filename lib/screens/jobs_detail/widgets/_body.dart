@@ -125,67 +125,70 @@ class _Body extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: AppTheme.c.background,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: AppButton(
-                          label: 'Apply',
-                          onPressed: () {
-                            jobsBloc.add(
-                              ApplyForJob(jobId: job.id, userId: user.id),
-                            );
-                          },
+              if (user.id != job.postedBy) ...[
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: AppTheme.c.background,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            label: 'Apply',
+                            onPressed: () {
+                              jobsBloc.add(
+                                ApplyForJob(jobId: job.id, userId: user.id),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      Space.x1!,
-                      Expanded(
-                        child: AppButton(
-                          icon: screenState.isJobLiked
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          label: screenState.isJobLiked ? 'Liked' : 'Like',
-                          onPressed: () {
-                            screenState.toggleLike();
-                            jobsBloc.add(
-                              LikeUnlikeJob(jobId: job.id, userId: user.id),
-                            );
-                          },
-                          buttonType: ButtonType.bordered,
+                        Space.x1!,
+                        Expanded(
+                          child: AppButton(
+                            icon: screenState.isJobLiked
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            label: screenState.isJobLiked ? 'Liked' : 'Like',
+                            onPressed: () {
+                              screenState.toggleLike();
+                              jobsBloc.add(
+                                LikeUnlikeJob(jobId: job.id, userId: user.id),
+                              );
+                            },
+                            buttonType: ButtonType.bordered,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              BlocConsumer<JobsBloc, JobsState>(
-                listener: (context, state) {
-                  if (state.apply is ApplyForJobSuccess) {
-                    SnackBars.success(context, 'Applied for job successfully');
-                    ''.pop(context);
-                  } else if (state.apply is ApplyForJobFailure) {
-                    SnackBars.failure(
-                      context,
-                      'Failed to apply for job, try again.',
+                BlocConsumer<JobsBloc, JobsState>(
+                  listener: (context, state) {
+                    if (state.apply is ApplyForJobSuccess) {
+                      SnackBars.success(
+                          context, 'Applied for job successfully');
+                      ''.pop(context);
+                    } else if (state.apply is ApplyForJobFailure) {
+                      SnackBars.failure(
+                        context,
+                        'Failed to apply for job, try again.',
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return BlocBuilder<JobsBloc, JobsState>(
+                      builder: (context, state) {
+                        if (state.apply is ApplyForJobLoading) {
+                          return const FullScreenLoader();
+                        }
+                        return const SizedBox();
+                      },
                     );
-                  }
-                },
-                builder: (context, state) {
-                  return BlocBuilder<JobsBloc, JobsState>(
-                    builder: (context, state) {
-                      if (state.apply is ApplyForJobLoading) {
-                        return const FullScreenLoader();
-                      }
-                      return const SizedBox();
-                    },
-                  );
-                },
-              ),
+                  },
+                ),
+              ]
             ],
           ),
         ),
