@@ -115,4 +115,22 @@ class _PostProvider {
       rethrow;
     }
   }
+
+  static Future<void> report(Map<String, dynamic> payload) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response =
+          await _client.put('/posts/report', data: json.encode(payload));
+
+      if (response.statusCode != 200) {
+        throw 'Failed to report post';
+      }
+    } catch (e) {
+      debugPrint('Exception in Post Data Provider(report): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

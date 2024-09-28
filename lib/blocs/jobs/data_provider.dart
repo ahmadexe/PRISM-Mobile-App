@@ -22,7 +22,32 @@ class _JobsDataProvider {
 
   Future<List<Job>> fetchJobs() async {
     try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
       final response = await _client.get('/jobs');
+      if (response.statusCode != 200) {
+        throw 'Failed to fetch jobs';
+      }
+
+      final dataRaw = response.data;
+      final data = dataRaw['data'] as List<dynamic>;
+
+      final res = data.map((e) => Job.fromMap(e)).toList();
+      return res;
+    } catch (e) {
+      debugPrint('Exception in Jobs Data Provider(fetchJobs): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+    Future<List<Job>> fetchMyJobs(String id) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+      
+      final response = await _client.get('/jobs/user/$id');
       if (response.statusCode != 200) {
         throw 'Failed to fetch jobs';
       }

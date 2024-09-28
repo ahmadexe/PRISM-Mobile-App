@@ -76,3 +76,14 @@ class ApplyForJob extends JobsEvent {
   @override
   List<Object?> get props => [jobId, userId];
 }
+
+class FetchMyJobs extends JobsEvent {
+  final String userId;
+
+  const FetchMyJobs({
+    required this.userId,
+  });
+
+  @override
+  List<Object?> get props => [userId];
+}

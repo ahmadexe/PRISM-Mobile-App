@@ -6,12 +6,14 @@ class PostsState extends Equatable {
   final PostsfetchState? fetch;
   final CreatePostState? post;
   final VotePostState? vote;
+  final ReportPostState? report;
 
   const PostsState({
     this.data,
     this.fetch,
     this.post,
     this.vote,
+    this.report,
   });
 
   PostsState copyWith({
@@ -19,12 +21,14 @@ class PostsState extends Equatable {
     PostsfetchState? fetch,
     CreatePostState? post,
     VotePostState? vote,
+    ReportPostState? report,
   }) {
     return PostsState(
       data: data ?? this.data,
       fetch: fetch ?? this.fetch,
       post: post ?? this.post,
       vote: vote ?? this.vote,
+      report: report ?? this.report,
     );
   }
 
@@ -34,6 +38,7 @@ class PostsState extends Equatable {
         fetch,
         post,
         vote,
+        report,
       ];
 }
 
@@ -45,5 +50,6 @@ final class PostsDefault extends PostsState {
           fetch: const PostsfetchDefault(),
           post: const CreatePostDefault(),
           vote: const VotePostDefault(),
+          report: const ReportPostDefault(),
         );
 }

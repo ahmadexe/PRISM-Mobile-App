@@ -2,13 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
+import 'package:prism/widgets/design/buttons/app_button.dart';
 import 'package:prism/widgets/posts/meta_data_counter.dart';
 import 'package:prism/widgets/info_tile.dart';
 import 'package:prism/widgets/text_expander.dart';
+
+part '_report_modal.dart';
+part '_type_modal.dart';
+part '_data.dart';
 
 class Post extends StatelessWidget {
   final PostData post;
@@ -70,7 +76,13 @@ class Post extends StatelessWidget {
             ),
             Space.x!,
             GestureDetector(
-              onTap: () {},
+              onTap: () => showModalBottomSheet(
+                context: context,
+                builder: (_) => _ReportModal(
+                  postId: post.id,
+                  imageUrl: post.imageUrl ?? '',
+                ),
+              ),
               child: const Icon(Icons.more_vert),
             )
           ],
@@ -105,5 +117,3 @@ class Post extends StatelessWidget {
     );
   }
 }
-
-
