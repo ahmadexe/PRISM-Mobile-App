@@ -54,12 +54,12 @@ class _Body extends StatelessWidget {
                 Space.y2!,
                 BlocBuilder<JobsBloc, JobsState>(
                   builder: (context, state) {
-                    if (state.fetch is FetchJobsLoading ||
-                        state.fetch is FetchJobsInitial) {
+                    if (state.myJobs is FetchMyJobsInitial ||
+                        state.myJobs is FetchMyJobsLoading) {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
-                    } else if (state.fetch is FetchJobsFailure) {
+                    } else if (state.myJobs is FetchMyJobsFailure) {
                       return const Center(
                         child: ErrorWarning(
                           title: 'Oops!',
@@ -69,12 +69,13 @@ class _Body extends StatelessWidget {
                       );
                     }
 
-                    final jobs = state.jobs!;
+                    final jobs = state.myJobs.jobs!;
                     if (jobs.isEmpty) {
                       return const Center(
                         child: Text('No jobs found'),
                       );
                     }
+
                     return ListView.separated(
                       itemCount: jobs.length,
                       shrinkWrap: true,
