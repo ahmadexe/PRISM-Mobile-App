@@ -2,8 +2,10 @@ part of 'post.dart';
 
 class _ReportModal extends StatelessWidget {
   final String postId;
+  final String imageUrl;
   const _ReportModal({
     required this.postId,
+    required this.imageUrl,
   });
 
   @override
@@ -55,7 +57,10 @@ class _ReportModal extends StatelessWidget {
                   showModalBottomSheet(
                     context: context,
                     isScrollControlled: true,
-                    builder: (context) => _TypeModal(postId: postId),
+                    builder: (context) => _TypeModal(
+                      postId: postId,
+                      imageUrl: imageUrl,
+                    ),
                   );
                 },
                 label: 'Report Post',

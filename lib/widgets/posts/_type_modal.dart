@@ -2,11 +2,13 @@ part of 'post.dart';
 
 class _TypeModal extends StatelessWidget {
   final String postId;
-  const _TypeModal({required this.postId});
+  final String imageUrl;
+  const _TypeModal({required this.postId, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     final media = MediaQuery.sizeOf(context);
+    final postsBloc = BlocProvider.of<PostsBloc>(context);
 
     return Container(
       width: double.infinity,
@@ -61,6 +63,13 @@ class _TypeModal extends StatelessWidget {
                   (e) => TextButton(
                     onPressed: () {
                       ''.pop(context);
+                      postsBloc.add(
+                        ReportPostEvent(
+                          postId: postId,
+                          type: e.type,
+                          url: imageUrl
+                        ),
+                      );
                     },
                     child: Text(
                       e.text,

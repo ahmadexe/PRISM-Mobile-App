@@ -122,7 +122,7 @@ class _PostProvider {
       _client.options.headers['Authorization'] = 'Bearer $token';
 
       final response =
-          await _client.post('/posts/report', data: json.encode(payload));
+          await _client.put('/posts/report', data: json.encode(payload));
 
       if (response.statusCode != 200) {
         throw 'Failed to report post';

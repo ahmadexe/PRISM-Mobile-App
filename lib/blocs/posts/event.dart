@@ -44,13 +44,15 @@ class ClearPostBlocEvent extends PostsEvent {
 
 class ReportPostEvent extends PostsEvent {
   final String postId;
+  final String url;
   final String type;
 
   const ReportPostEvent({
     required this.postId,
+    required this.url,
     required this.type,
   });
 
   @override
-  List<Object> get props => [postId, type];
+  List<Object> get props => [postId, type, url];
 }

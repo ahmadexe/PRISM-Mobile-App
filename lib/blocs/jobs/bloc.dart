@@ -16,6 +16,7 @@ part 'states/_create_job.dart';
 part 'states/_fetch_jobs.dart';
 part 'states/_like.dart';
 part 'states/_apply.dart';
+part 'states/_fetch_myjobs.dart';
 
 class JobsBloc extends Bloc<JobsEvent, JobsState> {
   JobsBloc() : super(const JobsInitial()) {
@@ -23,6 +24,7 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
     on<FetchJobs>(_fetchJobs);
     on<LikeUnlikeJob>(_likeUnlikeJob);
     on<ApplyForJob>(_applyForJob);
+    on<FetchMyJobs>(_fetchMyJobs);
   }
 
   final _adaptor = _Adaptor();
@@ -122,6 +124,31 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
       emit(
         state.copyWith(
           apply: ApplyForJobFailure(error: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<void> _fetchMyJobs(FetchMyJobs event, Emitter<JobsState> emit) async {
+    emit(
+      state.copyWith(
+        myJobs: const FetchMyJobsLoading(),
+      ),
+    );
+
+    try {
+      final jobs = await _jobsProvider.fetchMyJobs(event.userId);
+      emit(
+        state.copyWith(
+          myJobs: FetchMyJobsSuccess(
+            jobs: jobs,
+          ),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          myJobs: FetchMyJobsFailure(error: e.toString()),
         ),
       );
     }

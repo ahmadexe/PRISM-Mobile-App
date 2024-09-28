@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
 import 'package:prism/router/routes.dart';
@@ -79,6 +80,7 @@ class Post extends StatelessWidget {
                 context: context,
                 builder: (_) => _ReportModal(
                   postId: post.id,
+                  imageUrl: post.imageUrl ?? '',
                 ),
               ),
               child: const Icon(Icons.more_vert),
