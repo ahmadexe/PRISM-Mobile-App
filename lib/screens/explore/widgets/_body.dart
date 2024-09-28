@@ -26,7 +26,7 @@ class _Body extends StatelessWidget {
                   validator: FormBuilderValidators.required(),
                   suffixIcon: const Icon(Iconsax.search_normal),
                   onChanged: (val) {
-                    if (val != null && val.isNotEmpty) {
+                    if (val != null) {
                       authBloc.add(SearchEvent(query: val));
                     }
                   },
@@ -55,7 +55,24 @@ class _Body extends StatelessWidget {
                       );
                     }
 
-                    return const SizedBox.shrink();
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Space.yf(150.h),
+                          Image.asset(
+                            AppStaticData.noPostsIcon,
+                            height: AppDimensions.normalize(70),
+                            width: AppDimensions.normalize(70),
+                          ),
+                          Space.y!,
+                          Text(
+                            'Make a Search!',
+                            style: AppText.h3b!.cl(AppTheme.c.textGrey!),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
               ],

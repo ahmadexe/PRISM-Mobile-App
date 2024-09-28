@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -53,7 +54,7 @@ class _Body extends StatelessWidget {
                   prefixIcon: const Icon(Icons.lock),
                   validator: FormBuilderValidators.compose(
                     [
-                      FormBuilderValidators.required(), 
+                      FormBuilderValidators.required(),
                       FormBuilderValidators.minLength(6)
                     ],
                   ),
@@ -86,6 +87,12 @@ class _Body extends StatelessWidget {
                     if (state.login is AuthLoginSuccess) {
                       final postBloc = BlocProvider.of<PostsBloc>(context);
                       postBloc.add(const PostsFetchEvent());
+                      
+                      final user = state.user!;
+                      if (user.isBusinessAcc) {
+                        jobsBloc.add(FetchMyJobs(userId: user.id));
+                      }
+
                       SnackBars.success(
                         context,
                         "Welcome back!",
