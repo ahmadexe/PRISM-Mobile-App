@@ -26,7 +26,7 @@ class _Body extends StatelessWidget {
                   validator: FormBuilderValidators.required(),
                   suffixIcon: const Icon(Iconsax.search_normal),
                   onChanged: (val) {
-                    if (val != null && val.isNotEmpty) {
+                    if (val != null) {
                       authBloc.add(SearchEvent(query: val));
                     }
                   },

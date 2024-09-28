@@ -269,6 +269,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(search: const SearchLoading()));
     try {
       final query = event.query;
+      if (query.isEmpty) {
+        emit(state.copyWith(search: const SearchDefault()));
+        return;
+      }
       final id = state.user!.id;
       final channel = state.channel!;
       _adaptor.sendSearchQuery(channel, query, id);
