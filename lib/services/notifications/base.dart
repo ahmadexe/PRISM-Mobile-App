@@ -77,7 +77,7 @@ class NotificationBase {
   }
 
   Future<void> sendPushMessage(
-      String uid, String deviceToken, String body, String title) async {
+      String uid, String deviceToken, String title, String body) async {
     try {
       final serverKey = await getAccessToken();
 
