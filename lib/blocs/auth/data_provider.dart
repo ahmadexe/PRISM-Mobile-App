@@ -217,7 +217,7 @@ class _AuthDataProvider {
 
       _client.options.headers['Authorization'] = 'Bearer $token';
 
-      final response = await _client.put('/users/device', data: {
+      final response = await _client.put('/users/token', data: {
         'userId': userId,
         'deviceToken': deviceToken,
       });
