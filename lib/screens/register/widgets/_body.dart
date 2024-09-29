@@ -162,15 +162,16 @@ class _Body extends StatelessWidget {
                         final postBloc = BlocProvider.of<PostsBloc>(context);
                         postBloc.add(const PostsFetchEvent());
                         final user = state.user!;
+                        authBloc.add(UpdateDeviceToken(userId: user.id));
+
                         SnackBars.success(
                           context,
                           'Welcome to Prism!',
                         );
+                        
                         if (user.isBusinessAcc) {
                           AppRoutes.home.pushReplace(context);
-
                           jobsBloc.add(FetchMyJobs(userId: user.id));
-
                           return;
                         }
                         AppRoutes.uploadResume.pushReplace(context);

@@ -27,6 +27,9 @@ class _BodyState extends State<_Body> {
       listener: (context, state) async {
         if (state.init is AuthInitSuccess) {
           final user = state.user!;
+
+          authBloc.add(UpdateDeviceToken(userId: user.id));
+
           if (user.isBusinessAcc) {
             jobsBloc.add(
               FetchMyJobs(userId: user.id),

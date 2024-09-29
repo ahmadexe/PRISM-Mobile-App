@@ -85,10 +85,12 @@ class _Body extends StatelessWidget {
                       );
                     }
                     if (state.login is AuthLoginSuccess) {
+                      final user = state.user!;
+                      authBloc.add(UpdateDeviceToken(userId: user.id));
+
                       final postBloc = BlocProvider.of<PostsBloc>(context);
                       postBloc.add(const PostsFetchEvent());
                       
-                      final user = state.user!;
                       if (user.isBusinessAcc) {
                         jobsBloc.add(FetchMyJobs(userId: user.id));
                       }
