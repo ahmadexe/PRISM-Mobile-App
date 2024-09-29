@@ -67,14 +67,18 @@ class LikeUnlikeJob extends JobsEvent {
 class ApplyForJob extends JobsEvent {
   final String jobId;
   final String userId;
+  final String username;
+  final String? avatar;
 
   const ApplyForJob({
     required this.jobId,
     required this.userId,
+    required this.username,
+    required this.avatar,
   });
 
   @override
-  List<Object?> get props => [jobId, userId];
+  List<Object?> get props => [jobId, userId, username, avatar];
 }
 
 class FetchMyJobs extends JobsEvent {
