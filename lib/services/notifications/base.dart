@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
-import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:googleapis_auth/auth_io.dart' as auth;
 
 class NotificationBase {
@@ -118,10 +117,11 @@ class NotificationBase {
 
   void _showFlutterNotification(BuildContext context, RemoteMessage message) {
     // final notiService = Provider.of<NotiService>(context);
-    RemoteNotification? notification = message.notification;
+    // RemoteNotification? notification = message.notification;
     // notiService.saveNoti(NotificationModel(
     //     title: notification?.title ?? '', body: notification?.body ?? ''));
-    SnackBars.success(context, notification?.body ?? '');
+    // SnackBars.success(context, notification?.body ?? '');
+    debugPrint('Notification: ${message.notification?.body}');
   }
 
   static void onDidReceiveLocalNotification(
