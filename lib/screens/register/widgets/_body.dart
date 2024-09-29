@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final jobsBloc = BlocProvider.of<JobsBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -167,6 +168,9 @@ class _Body extends StatelessWidget {
                         );
                         if (user.isBusinessAcc) {
                           AppRoutes.home.pushReplace(context);
+
+                          jobsBloc.add(FetchMyJobs(userId: user.id));
+
                           return;
                         }
                         AppRoutes.uploadResume.pushReplace(context);

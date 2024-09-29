@@ -53,7 +53,9 @@ class _JobsDataProvider {
       }
 
       final dataRaw = response.data;
-      final data = dataRaw['data'] as List<dynamic>;
+      final data = dataRaw['data'] as List<dynamic>?;
+
+      if (data == null) return [];
 
       final res = data.map((e) => Job.fromMap(e)).toList();
       return res;

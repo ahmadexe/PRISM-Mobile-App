@@ -71,8 +71,23 @@ class _Body extends StatelessWidget {
 
                     final jobs = state.myJobs.jobs!;
                     if (jobs.isEmpty) {
-                      return const Center(
-                        child: Text('No jobs found'),
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Space.yf(150.h),
+                            Image.asset(
+                              AppStaticData.noPostsIcon,
+                              height: AppDimensions.normalize(70),
+                              width: AppDimensions.normalize(70),
+                            ),
+                            Space.y!,
+                            Text(
+                              'Create a Job!',
+                              style: AppText.h3b!.cl(AppTheme.c.textGrey!),
+                            ),
+                          ],
+                        ),
                       );
                     }
 
