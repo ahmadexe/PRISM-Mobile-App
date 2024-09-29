@@ -104,3 +104,11 @@ class ToggleServiceProviderEvent extends AuthEvent {
     required this.id,
   });
 }
+
+class UpdateDeviceToken extends AuthEvent {
+  final String userId;
+
+  const UpdateDeviceToken({
+    required this.userId,
+  });
+}

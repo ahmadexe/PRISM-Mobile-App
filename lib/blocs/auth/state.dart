@@ -14,6 +14,7 @@ class AuthState extends Equatable {
   final ToggleFollowState follow;
   final SearchState search;
   final ServiceProviderToggleState serviceProvider;
+  final TokenState token;
 
   const AuthState({
     this.channel,
@@ -28,6 +29,7 @@ class AuthState extends Equatable {
     required this.follow,
     required this.search,
     required this.serviceProvider,
+    required this.token,
   });
 
   AuthState copyWith({
@@ -43,6 +45,7 @@ class AuthState extends Equatable {
     ToggleFollowState? follow,
     SearchState? search,
     ServiceProviderToggleState? serviceProvider,
+    TokenState? token,
   }) {
     return AuthState(
       channel: channel ?? this.channel,
@@ -57,6 +60,7 @@ class AuthState extends Equatable {
       follow: follow ?? this.follow,
       search: search ?? this.search,
       serviceProvider: serviceProvider ?? this.serviceProvider,
+      token: token ?? this.token,
     );
   }
 
@@ -74,6 +78,7 @@ class AuthState extends Equatable {
         follow,
         search,
         serviceProvider,
+        token,
       ];
 }
 
@@ -90,5 +95,6 @@ final class AuthDefault extends AuthState {
           follow: const ToggleFollowDefault(),
           search: const SearchDefault(),
           serviceProvider: const ServiceProviderToggleDefault(),
+          token: const TokenDefault(),
         );
 }

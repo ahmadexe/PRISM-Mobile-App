@@ -25,12 +25,6 @@ class NotificationBase {
     );
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-
-    // TODO: Set up the token for the user
-    final messaging = FirebaseMessaging.instance;
-    final token = await messaging.getToken();
-    debugPrint('Token: $token');
   }
 
   Future<String> getAccessToken() async {
