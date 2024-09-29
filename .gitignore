@@ -47,5 +47,7 @@ app.*.map.json
 /_templates
 
 # app keys
-/env_var/app_keys.json
+# /env_var/
+assets/data/
 *.env
+
