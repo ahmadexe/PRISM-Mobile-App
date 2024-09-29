@@ -43,11 +43,18 @@ class _Adaptor {
     }
   }
 
-  Future<void> applyForJob(final String jobId, final String userId) async {
+  Future<void> applyForJob(
+    final String jobId,
+    final String userId,
+    final String username, [
+    final String? avatar,
+  ]) async {
     try {
       final payload = {
-        'id': jobId,
+        'jobId': jobId,
         'userId': userId,
+        'username': username,
+        'avatar': avatar,
       };
       await _JobsDataProvider().applyForJob(payload);
     } catch (e) {

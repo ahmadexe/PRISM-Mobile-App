@@ -139,7 +139,12 @@ class _Body extends StatelessWidget {
                             label: 'Apply',
                             onPressed: () {
                               jobsBloc.add(
-                                ApplyForJob(jobId: job.id, userId: user.id),
+                                ApplyForJob(
+                                  jobId: job.id,
+                                  userId: user.id,
+                                  username: user.fullname,
+                                  avatar: user.imageUrl,
+                                ),
                               );
                             },
                           ),

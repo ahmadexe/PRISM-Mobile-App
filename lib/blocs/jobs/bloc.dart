@@ -113,7 +113,12 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
       ),
     );
     try {
-      await _adaptor.applyForJob(event.jobId, event.userId);
+      await _adaptor.applyForJob(
+        event.jobId,
+        event.userId,
+        event.username,
+        event.avatar,
+      );
 
       emit(
         state.copyWith(

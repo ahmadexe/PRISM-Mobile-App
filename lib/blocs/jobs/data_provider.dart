@@ -87,8 +87,8 @@ class _JobsDataProvider {
       _client.options.headers['Authorization'] = 'Bearer $token';
 
       final response =
-          await _client.put('/jobs/apply', data: json.encode(payload));
-      if (response.statusCode != 200) {
+          await _client.post('/jobs/apply', data: json.encode(payload));
+      if (response.statusCode != 201) {
         throw 'Failed to apply for job';
       }
     } catch (e) {
