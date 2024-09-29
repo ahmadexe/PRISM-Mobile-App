@@ -70,6 +70,11 @@ dependencies:
   flutter_dotenv: ^5.1.0
   google_mlkit_text_recognition: ^0.13.0
   country_picker: ^2.0.26
+  firebase_messaging: ^14.9.4
+  flutter_local_notifications: ^17.2.3
+  http: ^1.2.2
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
 
 
 dev_dependencies:
@@ -100,6 +105,7 @@ flutter:
     - assets/animated_icons/
     - assets/logo/prism_logo.svg
     - assets/animations/
+    - assets/data/
     - .env
   #   - images/a_dot_ham.jpeg
 

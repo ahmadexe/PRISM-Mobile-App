@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/chats/bloc.dart';
@@ -14,6 +15,7 @@ import 'package:prism/firebase_options.dart';
 import 'package:prism/providers/media_provider.dart';
 import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
+import 'package:prism/services/notifications/base.dart';
 import 'package:provider/provider.dart';
 import 'configs/configs.dart' as theme;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,6 +26,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  NotificationBase.init(flutterLocalNotificationsPlugin);
   runApp(const MyApp());
 }
 
@@ -62,6 +66,8 @@ class _MyAppState extends State<MyApp> {
         initialRoute: AppRoutes.splash,
         builder: (context, child) {
           App.init(context);
+          final notificationService = NotificationBase();
+          notificationService.listenNotifications(context);
           return child!;
         },
         debugShowCheckedModeBanner: false,
