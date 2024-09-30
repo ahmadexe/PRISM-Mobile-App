@@ -172,7 +172,7 @@ class _Profile extends StatelessWidget {
                             notisBloc.add(SendNotification(
                               title: 'New Follower',
                               body: '${currentUser.fullname} started following you',
-                              uid: user.id,
+                              uid: user.uid,
                               deviceToken: user.deviceToken,
                               type: 'follow',
                             ));

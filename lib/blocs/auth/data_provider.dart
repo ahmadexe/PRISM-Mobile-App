@@ -6,6 +6,7 @@ class _AuthDataProvider {
   static final _storage = FirebaseStorage.instance;
   static final _ref = _storage.ref();
   static final _messaging = FirebaseMessaging.instance;
+  static final _firestore = FirebaseFirestore.instance;
 
   static Future<AuthData> register(
       String email, String password, Map<String, dynamic> payload) async {
@@ -29,6 +30,11 @@ class _AuthDataProvider {
       final raw = response.data as Map<String, dynamic>;
 
       final data = AuthData.fromMap(raw);
+
+      _firestore.collection('notificationCount').doc(uid).set({
+        'unread': 0,
+      });
+
       return data;
     } on FirebaseAuthException catch (e) {
       debugPrint('Exception in Auth Data Provider(register): $e');
