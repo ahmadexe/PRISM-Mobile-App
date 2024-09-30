@@ -14,6 +14,7 @@ class _Profile extends StatelessWidget {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final currentUser = authBloc.state.user!;
     final screenState = _ScreenState.s(context);
+    final notisBloc = BlocProvider.of<NotificationsBloc>(context);
 
     return SingleChildScrollView(
       child: Column(
@@ -166,6 +167,16 @@ class _Profile extends StatelessWidget {
                         onPressed: () {
                           authBloc.add(ToggleFollowEvent(
                               to: user.id, from: currentUser.id));
+
+                          if (!user.followers.contains(currentUser.id)) {
+                            notisBloc.add(SendNotification(
+                              title: 'New Follower',
+                              body: '${currentUser.fullname} started following you',
+                              uid: user.id,
+                              deviceToken: user.deviceToken,
+                              type: 'follow',
+                            ));
+                          } 
                           screenState.toggleFollow();
                         },
                         width: AppDimensions.normalize(67),

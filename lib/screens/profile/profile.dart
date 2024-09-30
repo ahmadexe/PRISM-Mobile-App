@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
