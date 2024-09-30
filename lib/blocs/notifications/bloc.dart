@@ -17,6 +17,7 @@ part 'states/_counter.dart';
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   NotificationsBloc() : super(const NotificationsInitial()) {
     on<SendNotification>(_sendNotification);
+    on<FetchNotifications>(_fetchNotifications);
   }
 
   Future<void> _sendNotification(
@@ -43,6 +44,32 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       emit(
         state.copyWith(
           send: SendNotificationFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _fetchNotifications(
+      FetchNotifications event, Emitter<NotificationsState> emit) async {
+    emit(
+      state.copyWith(
+        fetch: const FetchNotificationLoading(),
+      ),
+    );
+    try {
+      final data = await NotificationProvider.fetchNotifications(event.uid);
+      emit(
+        state.copyWith(
+          fetch: const FetchNotificationSuccess(),
+          data: data,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          fetch: FetchNotificationFailure(
             message: e.toString(),
           ),
         ),

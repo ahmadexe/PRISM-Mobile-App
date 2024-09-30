@@ -31,3 +31,10 @@ class SendNotification extends NotificationsEvent {
         type,
       ];
 }
+
+class FetchNotifications extends NotificationsEvent {
+  final String uid;
+  const FetchNotifications({
+    required this.uid,
+  });
+}

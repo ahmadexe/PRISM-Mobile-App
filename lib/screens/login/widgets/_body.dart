@@ -90,15 +90,11 @@ class _Body extends StatelessWidget {
 
                       final postBloc = BlocProvider.of<PostsBloc>(context);
                       postBloc.add(const PostsFetchEvent());
-                      
+
                       if (user.isBusinessAcc) {
                         jobsBloc.add(FetchMyJobs(userId: user.id));
                       }
 
-                      SnackBars.success(
-                        context,
-                        "Welcome back!",
-                      );
                       AppRoutes.home.pushReplace(context);
                     }
                   },
