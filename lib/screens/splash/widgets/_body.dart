@@ -22,8 +22,10 @@ class _BodyState extends State<_Body> {
     App.init(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
+    final notificationsBloc = BlocProvider.of<NotificationsBloc>(context);
 
     return BlocListener<AuthBloc, AuthState>(
+      listenWhen: AuthInitState.match,
       listener: (context, state) async {
         if (state.init is AuthInitSuccess) {
           final user = state.user!;
@@ -42,6 +44,11 @@ class _BodyState extends State<_Body> {
               const FetchJobs(),
             );
           }
+
+          notificationsBloc.add(
+            FetchNotifications(uid: user.uid),
+          );
+
           Navigator.pushReplacementNamed(context, AppRoutes.home);
         } else if (state.init is AuthInitFailure) {
           await Future.delayed(const Duration(seconds: 2));

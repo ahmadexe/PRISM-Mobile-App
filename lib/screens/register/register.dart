@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
+import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 
 import 'package:prism/configs/configs.dart';

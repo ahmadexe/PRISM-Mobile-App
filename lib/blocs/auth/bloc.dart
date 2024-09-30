@@ -149,6 +149,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           get: const GetUserDefault(),
           search: const SearchDefault(),
           follow: const ToggleFollowDefault(),
+          serviceProvider: const ServiceProviderToggleDefault(),
+          token: const TokenDefault(),
           channel: null,
         ),
       );

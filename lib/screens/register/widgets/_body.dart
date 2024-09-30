@@ -8,6 +8,7 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
+    final notisBloc = BlocProvider.of<NotificationsBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -174,6 +175,9 @@ class _Body extends StatelessWidget {
                           jobsBloc.add(FetchMyJobs(userId: user.id));
                           return;
                         }
+
+                        notisBloc.add(FetchNotifications(uid: user.uid));
+
                         AppRoutes.uploadResume.pushReplace(context);
                       } else if (state.register is AuthRegisterFailure) {
                         SnackBars.failure(

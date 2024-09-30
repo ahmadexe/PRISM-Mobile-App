@@ -8,6 +8,7 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
+    final notisBloc = BlocProvider.of<NotificationsBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -94,6 +95,8 @@ class _Body extends StatelessWidget {
                       if (user.isBusinessAcc) {
                         jobsBloc.add(FetchMyJobs(userId: user.id));
                       }
+
+                      notisBloc.add(FetchNotifications(uid: user.uid));
 
                       AppRoutes.home.pushReplace(context);
                     }
