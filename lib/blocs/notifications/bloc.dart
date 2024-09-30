@@ -11,9 +11,42 @@ part 'adaptor.dart';
 part 'data_provider.dart';
 
 part 'states/_send.dart';
+part 'states/_fetch.dart';
+part 'states/_counter.dart';
 
 class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   NotificationsBloc() : super(const NotificationsInitial()) {
-    on<NotificationsEvent>((event, emit) {});
+    on<SendNotification>(_sendNotification);
+  }
+
+  Future<void> _sendNotification(
+      SendNotification event, Emitter<NotificationsState> emit) async {
+    emit(
+      state.copyWith(
+        send: const SendNotificationLoading(),
+      ),
+    );
+    try {
+      await NotificationProvider.sendNotification(
+        event.title,
+        event.body,
+        event.uid,
+        event.deviceToken,
+        event.type,
+      );
+      emit(
+        state.copyWith(
+          send: const SendNotificationSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          send: SendNotificationFailure(
+            message: e.toString(),
+          ),
+        ),
+      );
+    }
   }
 }
