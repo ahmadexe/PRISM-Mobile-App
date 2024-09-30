@@ -25,7 +25,6 @@ import 'package:prism/screens/home/home.dart';
 final Map<String, Widget Function(dynamic)> appRoutes = {
   AppRoutes.jobsDetail: (_) => const JobsDetailScreen(),
   AppRoutes.createJob: (_) => const CreateJobScreen(),
-  AppRoutes.myJobs: (_) => const MyJobsScreen(),
   AppRoutes.resumeAnalysis: (_) => const ResumeAnalysisScreen(),
   AppRoutes.uploadResume: (_) => const UploadResumeScreen(),
   AppRoutes.chatbot: (_) => const ChatbotScreen(),
@@ -58,6 +57,12 @@ Route<dynamic>? onGenerateRoutes(RouteSettings settings) {
       return FadeRoute(
         settings: settings,
         child: const ShoutOutsScreen(),
+      );
+
+    case AppRoutes.myJobs:
+      return FadeRoute(
+        settings: settings,
+        child: const MyJobsScreen(),
       );
 
     case AppRoutes.notifications:
