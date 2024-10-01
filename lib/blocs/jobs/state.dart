@@ -7,6 +7,7 @@ class JobsState extends Equatable {
   final LikeToggleState like;
   final ApplyForJobState apply;
   final FetchMyJobsState myJobs;
+  final FetchApplicationsState applications;
 
   const JobsState({
     this.jobs,
@@ -15,10 +16,11 @@ class JobsState extends Equatable {
     required this.like,
     required this.apply,
     required this.myJobs,
+    required this.applications,
   });
 
   @override
-  List<Object?> get props => [create, fetch, jobs, like, apply, myJobs];
+  List<Object?> get props => [create, fetch, jobs, like, apply, myJobs, applications];
 
   JobsState copyWith({
     List<Job>? jobs,
@@ -27,6 +29,7 @@ class JobsState extends Equatable {
     LikeToggleState? like,
     ApplyForJobState? apply,
     FetchMyJobsState? myJobs,
+    FetchApplicationsState? applications,
   }) {
     return JobsState(
       jobs: jobs ?? this.jobs,
@@ -35,6 +38,7 @@ class JobsState extends Equatable {
       like: like ?? this.like,
       apply: apply ?? this.apply,
       myJobs: myJobs ?? this.myJobs,
+      applications: applications ?? this.applications,
     );
   }
 }
@@ -47,5 +51,6 @@ final class JobsInitial extends JobsState {
           like: const LikeToggleInitial(),
           apply: const ApplyForJobInitial(),
           myJobs: const FetchMyJobsInitial(),
+          applications: const FetchApplicationsInitial(),
         );
 }

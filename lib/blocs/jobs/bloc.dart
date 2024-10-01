@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/job/job.dart';
+import 'package:prism/models/job/job_application.dart';
 import 'package:prism/services/api.dart';
 
 part 'event.dart';
@@ -17,6 +19,7 @@ part 'states/_fetch_jobs.dart';
 part 'states/_like.dart';
 part 'states/_apply.dart';
 part 'states/_fetch_myjobs.dart';
+part 'states/_fetch_applications.dart';
 
 class JobsBloc extends Bloc<JobsEvent, JobsState> {
   JobsBloc() : super(const JobsInitial()) {
@@ -25,6 +28,7 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
     on<LikeUnlikeJob>(_likeUnlikeJob);
     on<ApplyForJob>(_applyForJob);
     on<FetchMyJobs>(_fetchMyJobs);
+    on<FetchApplications>(_fetchApplications);
   }
 
   final _adaptor = _Adaptor();
@@ -154,6 +158,35 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
       emit(
         state.copyWith(
           myJobs: FetchMyJobsFailure(error: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<void> _fetchApplications(
+      FetchApplications event, Emitter<JobsState> emit) async {
+    emit(
+      state.copyWith(
+        applications: const FetchApplicationsLoading(),
+      ),
+    );
+
+    try {
+      final applications = await _jobsProvider.fetchApplications(
+        event.id,
+        event.isUser,
+      );
+      emit(
+        state.copyWith(
+          applications: FetchApplicationsSuccess(
+            applications: applications,
+          ),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          applications: FetchApplicationsFailure(error: e.toString()),
         ),
       );
     }

@@ -42,11 +42,11 @@ class _JobsDataProvider {
     }
   }
 
-    Future<List<Job>> fetchMyJobs(String id) async {
+  Future<List<Job>> fetchMyJobs(String id) async {
     try {
       final token = await _auth.currentUser?.getIdToken();
       _client.options.headers['Authorization'] = 'Bearer $token';
-      
+
       final response = await _client.get('/jobs/user/$id');
       if (response.statusCode != 200) {
         throw 'Failed to fetch jobs';
@@ -95,6 +95,40 @@ class _JobsDataProvider {
       }
     } catch (e) {
       debugPrint('Exception in Jobs Data Provider(applyForJob): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  Future<List<JobApplication>> fetchApplications(String id,
+      [bool isUser = false]) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      final client = Api.getClient(ClientType.jobs);
+
+      client.options.headers['Authorization'] = 'Bearer $token';
+
+      final Response<dynamic> response;
+
+      if (isUser) {
+        response = await client.get('/jobs/applications/user/$id');
+      } else {
+        response = await client.get('/jobs/applications/job/$id');
+      }
+
+      if (response.statusCode != 200) {
+        throw ("Failed to fetch applications");
+      }
+
+      final dataRaw = response.data;
+
+      final data = dataRaw['data'] as List<dynamic>;
+
+      final res = data.map((e) => JobApplication.fromMap(e)).toList();
+
+      return res;
+    } catch (e) {
+      debugPrint('Exception in Jobs Data Provider(fetchApplications): $e');
       debugPrint('--------------------------');
       rethrow;
     }
