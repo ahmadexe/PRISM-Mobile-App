@@ -3,7 +3,8 @@ part of '../profile.dart';
 class _Profile extends StatelessWidget {
   final AuthData user;
   final bool isMe;
-  const _Profile({required this.user, this.isMe = true});
+  final bool? isApplicant;
+  const _Profile({required this.user, this.isMe = true, this.isApplicant});
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +107,13 @@ class _Profile extends StatelessWidget {
                       InfoTile(
                         domain: user.domain,
                       ),
+                    if (isApplicant != null && isApplicant!)
+                      AppButton(
+                          label: 'Hire?',
+                          width: AppDimensions.normalize(30),
+                          height: 35,
+                          buttonType: ButtonType.secondary,
+                          onPressed: () {})
                   ],
                 ),
                 Space.y!,
@@ -171,12 +179,13 @@ class _Profile extends StatelessWidget {
                           if (!user.followers.contains(currentUser.id)) {
                             notisBloc.add(SendNotification(
                               title: 'New Follower',
-                              body: '${currentUser.fullname} started following you',
+                              body:
+                                  '${currentUser.fullname} started following you',
                               uid: user.uid,
                               deviceToken: user.deviceToken,
                               type: 'follow',
                             ));
-                          } 
+                          }
                           screenState.toggleFollow();
                         },
                         width: AppDimensions.normalize(67),

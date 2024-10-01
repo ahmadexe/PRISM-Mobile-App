@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
+import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/error/error.dart';
 import 'package:provider/provider.dart';

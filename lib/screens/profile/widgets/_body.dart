@@ -2,7 +2,8 @@ part of '../profile.dart';
 
 class _Body extends StatefulWidget {
   final String? userId;
-  const _Body({this.userId});
+  final bool? isApplicant;
+  const _Body({this.userId, this.isApplicant});
 
   @override
   State<_Body> createState() => _BodyState();
@@ -46,7 +47,7 @@ class _BodyState extends State<_Body> {
             } else if (state.get is GetUserSuccess && !isMe) {
               final user = state.get.user!;
 
-              return _Profile(user: user, isMe: isMe);
+              return _Profile(user: user, isMe: isMe, isApplicant: widget.isApplicant);
             } else if (state.get is GetUserFailure) {
               return const Center(
                 child: ErrorWarning(

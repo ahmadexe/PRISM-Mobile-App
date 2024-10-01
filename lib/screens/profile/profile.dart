@@ -36,11 +36,13 @@ class ProfileScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
 
     final userId = args?['userId'] as String?;
+    final isApplicant = args?['isApplicant'] as bool?;
 
     return ChangeNotifierProvider<_ScreenState>(
       create: (_) => _ScreenState(),
       child: _Body(
         userId: userId,
+        isApplicant: isApplicant,
       ),
     );
   }

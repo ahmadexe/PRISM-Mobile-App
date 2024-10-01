@@ -27,7 +27,12 @@ class _Body extends StatelessWidget {
                       return Column(
                         children: applications!.map((application) {
                           return GestureDetector(
-                            
+                            onTap: () {
+                              AppRoutes.profile.push(context, arguments: {
+                                'userId': application.userId,
+                                'isApplicant': true,
+                              });
+                            },
                             child: Container(
                               width: double.infinity,
                               padding: Space.all(),
