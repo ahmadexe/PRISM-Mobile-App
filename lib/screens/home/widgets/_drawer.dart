@@ -117,7 +117,7 @@ class _Drawer extends StatelessWidget {
               ),
               title: const Text('Wallet'),
               onTap: () {
-                Navigator.pop(context);
+                AppRoutes.wallet.push(context);
               },
             ),
           ],

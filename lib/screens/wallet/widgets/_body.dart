@@ -11,8 +11,16 @@ class _Body extends StatelessWidget {
           title: const Text('Wallet'),
           scrolledUnderElevation: 0,
         ),
-        body: const Center(
-          child: Text(''),
+        body: Padding(
+          padding: Space.all(),
+          child: const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _BalanceCard(
+                balance: 1000,
+              ),
+            ],
+          ),
         ),
       ),
     );
