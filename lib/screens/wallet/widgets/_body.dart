@@ -5,6 +5,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenState = _ScreenState.s(context, true);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -32,7 +33,21 @@ class _Body extends StatelessWidget {
                 ],
               ),
               Space.yf(70),
-              const _LineChart(isShowingMainData: true),
+              Text(
+                'Transactions',
+                style: AppText.h3b,
+              ),
+              Space.y!,
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    screenState.toggleMainData();
+                  },
+                ),
+              ),
+              _LineChart(isShowingMainData: screenState.isShowingMainData),
             ],
           ),
         ),

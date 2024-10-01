@@ -4,13 +4,13 @@ class Wallet {
   final String publicKey;
   final String privateKey;
   final String blockchainAddress;
-  double amount;
+  double? amount;
 
   Wallet({
     required this.publicKey,
     required this.privateKey,
     required this.blockchainAddress,
-    this.amount = 0,
+    this.amount,
   });
 
   Wallet copyWith({

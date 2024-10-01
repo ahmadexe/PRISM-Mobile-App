@@ -11,6 +11,8 @@ import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/text_recognition/bloc.dart';
+import 'package:prism/blocs/transaction/transaction_bloc.dart';
+import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/firebase_options.dart';
 import 'package:prism/providers/job_provider.dart';
@@ -59,6 +61,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => TextRecognitionBloc()),
         BlocProvider(create: (context) => JobsBloc()),
         BlocProvider(create: (context) => NotificationsBloc()),
+        BlocProvider(create: (context) => WalletBloc()),
+        BlocProvider(create: (create) => TransactionBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

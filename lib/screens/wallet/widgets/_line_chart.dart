@@ -9,7 +9,7 @@ class _LineChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 200,
+      height: AppDimensions.normalize(80),
       child: LineChart(
         isShowingMainData ? sampleData1 : sampleData2,
         duration: const Duration(milliseconds: 250),
@@ -102,19 +102,19 @@ class _LineChart extends StatelessWidget {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = '1m';
+        text = '1k';
         break;
       case 2:
-        text = '2m';
+        text = '2k';
         break;
       case 3:
-        text = '3m';
+        text = '3k';
         break;
       case 4:
-        text = '5m';
+        text = '5k';
         break;
       case 5:
-        text = '6m';
+        text = '6k';
         break;
       default:
         return Container();
@@ -181,7 +181,7 @@ class _LineChart extends StatelessWidget {
   LineChartBarData get lineChartBarData1_1 => LineChartBarData(
         isCurved: true,
         color: AppTheme.c.accent,
-        barWidth: 8,
+        barWidth: AppDimensions.normalize(2),
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
@@ -199,7 +199,7 @@ class _LineChart extends StatelessWidget {
   LineChartBarData get lineChartBarData1_2 => LineChartBarData(
         isCurved: true,
         color: AppTheme.c.fieldLight,
-        barWidth: 8,
+        barWidth: AppDimensions.normalize(2),
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(
@@ -219,7 +219,7 @@ class _LineChart extends StatelessWidget {
   LineChartBarData get lineChartBarData1_3 => LineChartBarData(
         isCurved: true,
         color: Colors.pink,
-        barWidth: 8,
+        barWidth: AppDimensions.normalize(2),
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
