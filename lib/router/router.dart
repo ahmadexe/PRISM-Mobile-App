@@ -1,3 +1,4 @@
+import 'package:prism/screens/view_applications/view_applications.dart';
 import 'package:prism/screens/jobs_detail/jobs_detail.dart';
 import 'package:prism/screens/create_job/create_job.dart';
 import 'package:prism/screens/my_jobs/my_jobs.dart';
@@ -23,6 +24,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.viewApplications: (_) => const ViewApplicationsScreen(),
   AppRoutes.jobsDetail: (_) => const JobsDetailScreen(),
   AppRoutes.createJob: (_) => const CreateJobScreen(),
   AppRoutes.resumeAnalysis: (_) => const ResumeAnalysisScreen(),

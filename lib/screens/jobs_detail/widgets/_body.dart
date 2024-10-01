@@ -193,6 +193,16 @@ class _Body extends StatelessWidget {
                     );
                   },
                 ),
+              ] else ...[
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: AppTheme.c.background,
+                    child: AppButton(label: 'View Applications', onPressed: (){})
+                  ),
+                ),
               ]
             ],
           ),

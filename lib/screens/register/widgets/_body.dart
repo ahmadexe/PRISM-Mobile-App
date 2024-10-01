@@ -169,11 +169,10 @@ class _Body extends StatelessWidget {
                           context,
                           'Welcome to Prism!',
                         );
-                        
+
                         if (user.isBusinessAcc) {
                           AppRoutes.home.pushReplace(context);
                           jobsBloc.add(FetchMyJobs(userId: user.id));
-                          return;
                         }
 
                         notisBloc.add(FetchNotifications(uid: user.uid));

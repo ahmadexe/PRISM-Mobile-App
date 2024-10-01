@@ -94,6 +94,9 @@ class _Body extends StatelessWidget {
 
                       if (user.isBusinessAcc) {
                         jobsBloc.add(FetchMyJobs(userId: user.id));
+                      } else if (user.isServiceProvider) {
+                        jobsBloc.add(const FetchJobs());
+                        jobsBloc.add(FetchApplications(id: user.id, isUser: true));
                       }
 
                       notisBloc.add(FetchNotifications(uid: user.uid));

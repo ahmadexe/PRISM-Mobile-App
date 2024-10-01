@@ -43,6 +43,9 @@ class _BodyState extends State<_Body> {
             jobsBloc.add(
               const FetchJobs(),
             );
+            jobsBloc.add(
+              FetchApplications(id: user.id, isUser: true),
+            );
           }
 
           notificationsBloc.add(

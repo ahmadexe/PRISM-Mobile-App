@@ -111,9 +111,9 @@ class _JobsDataProvider {
       final Response<dynamic> response;
 
       if (isUser) {
-        response = await client.get('/jobs/applications/user/$id');
+        response = await client.get('/jobs/application/user/$id');
       } else {
-        response = await client.get('/jobs/applications/job/$id');
+        response = await client.get('/jobs/application/job/$id');
       }
 
       if (response.statusCode != 200) {
@@ -122,8 +122,10 @@ class _JobsDataProvider {
 
       final dataRaw = response.data;
 
-      final data = dataRaw['data'] as List<dynamic>;
+      final data = dataRaw['data'] as List<dynamic>?;
 
+      if (data == null) return [];
+      
       final res = data.map((e) => JobApplication.fromMap(e)).toList();
 
       return res;
