@@ -31,6 +31,8 @@ class _Body extends StatelessWidget {
                   ),
                 ],
               ),
+              Space.yf(70),
+              const _LineChart(isShowingMainData: true),
             ],
           ),
         ),

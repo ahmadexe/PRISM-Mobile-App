@@ -76,6 +76,7 @@ dependencies:
   googleapis: ^13.2.0
   googleapis_auth: ^1.6.0
   cloud_firestore: ^4.17.5
+  fl_chart: ^0.69.0
 
 
 dev_dependencies:
