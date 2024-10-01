@@ -5,6 +5,7 @@ import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/models/job/job.dart';
+import 'package:prism/router/routes.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/snackbar/custom_snackbar.dart';
 import 'package:prism/widgets/design/buttons/app_button.dart';

@@ -200,7 +200,10 @@ class _Body extends StatelessWidget {
                   right: 0,
                   child: Container(
                     color: AppTheme.c.background,
-                    child: AppButton(label: 'View Applications', onPressed: (){})
+                    child: AppButton(label: 'View Applications', onPressed: (){
+                      jobsBloc.add(FetchApplications(id: job.id));
+                      AppRoutes.viewApplications.push(context);
+                    })
                   ),
                 ),
               ]
