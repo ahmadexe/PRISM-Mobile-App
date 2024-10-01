@@ -13,11 +13,23 @@ class _Body extends StatelessWidget {
         ),
         body: Padding(
           padding: Space.all(),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _BalanceCard(
+              const _BalanceCard(
                 balance: 1000,
+              ),
+              Space.y2!,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _ActionsCard(
+                    isTransaction: true,
+                  ),
+                  _ActionsCard(
+                    isTransaction: false,
+                  ),
+                ],
               ),
             ],
           ),
