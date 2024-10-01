@@ -125,12 +125,30 @@ class _JobsDataProvider {
       final data = dataRaw['data'] as List<dynamic>?;
 
       if (data == null) return [];
-      
+
       final res = data.map((e) => JobApplication.fromMap(e)).toList();
 
       return res;
     } catch (e) {
       debugPrint('Exception in Jobs Data Provider(fetchApplications): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  Future<void> hireApplicant(Map<String, dynamic> payload) async {
+    try {
+      final token = await _auth.currentUser?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response =
+          await _client.put('/jobs/hire', data: json.encode(payload));
+
+      if (response.statusCode != 200) {
+        throw 'Failed to hire applicant';
+      }
+    } catch (e) {
+      debugPrint('Exception in Jobs Data Provider(hireApplicant): $e');
       debugPrint('--------------------------');
       rethrow;
     }

@@ -20,6 +20,7 @@ part 'states/_like.dart';
 part 'states/_apply.dart';
 part 'states/_fetch_myjobs.dart';
 part 'states/_fetch_applications.dart';
+part 'states/_hire.dart';
 
 class JobsBloc extends Bloc<JobsEvent, JobsState> {
   JobsBloc() : super(const JobsInitial()) {
@@ -29,6 +30,7 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
     on<ApplyForJob>(_applyForJob);
     on<FetchMyJobs>(_fetchMyJobs);
     on<FetchApplications>(_fetchApplications);
+    on<HireApplicant>(_hrieApplicant);
   }
 
   final _adaptor = _Adaptor();
@@ -187,6 +189,30 @@ class JobsBloc extends Bloc<JobsEvent, JobsState> {
       emit(
         state.copyWith(
           applications: FetchApplicationsFailure(error: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<void> _hrieApplicant(
+      HireApplicant event, Emitter<JobsState> emit) async {
+    emit(
+      state.copyWith(
+        hire: const HireApplicantLoading(),
+      ),
+    );
+
+    try {
+      await _adaptor.hireApplicant(event.userId, event.jobId);
+      emit(
+        state.copyWith(
+          hire: const HireApplicantSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          hire: HireApplicantFailure(error: e.toString()),
         ),
       );
     }

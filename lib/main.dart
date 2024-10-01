@@ -13,6 +13,7 @@ import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/text_recognition/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/firebase_options.dart';
+import 'package:prism/providers/job_provider.dart';
 import 'package:prism/providers/media_provider.dart';
 import 'package:prism/router/router.dart';
 import 'package:prism/router/routes.dart';
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider<MediaProvider>(
             create: (context) => MediaProvider()),
+        ChangeNotifierProvider(create: (context) => JobProvider()),
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => PostsBloc()),
         BlocProvider(create: (context) => CommentsBloc()),

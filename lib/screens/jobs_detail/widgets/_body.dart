@@ -13,6 +13,8 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final job = screenState.job;
 
+    final jobProvider = Provider.of<JobProvider>(context, listen: false);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -200,10 +202,14 @@ class _Body extends StatelessWidget {
                   right: 0,
                   child: Container(
                     color: AppTheme.c.background,
-                    child: AppButton(label: 'View Applications', onPressed: (){
-                      jobsBloc.add(FetchApplications(id: job.id));
-                      AppRoutes.viewApplications.push(context);
-                    })
+                    child: AppButton(
+                      label: 'View Applications',
+                      onPressed: () {
+                        jobProvider.selectJob(job);
+                        jobsBloc.add(FetchApplications(id: job.id));
+                        AppRoutes.viewApplications.push(context);
+                      },
+                    ),
                   ),
                 ),
               ]
