@@ -17,6 +17,7 @@ class AuthData {
   final bool isRanked;
   final bool isBusinessAcc;
   final bool isServiceProvider;
+  final String deviceToken;
 
   AuthData({
     required this.email,
@@ -33,6 +34,7 @@ class AuthData {
     required this.isBusinessAcc,
     required this.isServiceProvider,
     required this.isRanked,
+    required this.deviceToken,
   });
 
   AuthData copyWith({
@@ -50,6 +52,7 @@ class AuthData {
     bool? isBusinessAcc,
     bool? isServiceProvider,
     bool? isRanked,
+    String? deviceToken,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -66,6 +69,7 @@ class AuthData {
       isBusinessAcc: isBusinessAcc ?? this.isBusinessAcc,
       isServiceProvider: isServiceProvider ?? this.isServiceProvider,
       isRanked: isRanked ?? this.isRanked,
+      deviceToken: deviceToken ?? this.deviceToken,
     );
   }
 
@@ -85,6 +89,7 @@ class AuthData {
       'isBusinessAcc': isBusinessAcc,
       'isServiceProvider': isServiceProvider,
       'isRanked': isRanked,
+      'deviceToken': deviceToken,
     };
   }
 
@@ -108,6 +113,7 @@ class AuthData {
       isBusinessAcc: map['isBusinessAcc'] as bool,
       isServiceProvider: map['isServiceProvider'] as bool,
       isRanked: map['isRanked'] as bool,
+      deviceToken: map['deviceToken'] as String,
     );
   }
 
@@ -118,7 +124,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked, deviceToken: $deviceToken)';
   }
 
   @override
@@ -138,7 +144,8 @@ class AuthData {
         listEquals(other.following, following) &&
         other.isBusinessAcc == isBusinessAcc &&
         other.isServiceProvider == isServiceProvider &&
-        other.isRanked == isRanked;
+        other.isRanked == isRanked &&
+        other.deviceToken == deviceToken;
   }
 
   @override
@@ -156,6 +163,7 @@ class AuthData {
         following.hashCode ^
         isBusinessAcc.hashCode ^
         isServiceProvider.hashCode ^
-        isRanked.hashCode;
+        isRanked.hashCode ^
+        deviceToken.hashCode;
   }
 }

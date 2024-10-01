@@ -13,6 +13,8 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final job = screenState.job;
 
+    final jobProvider = Provider.of<JobProvider>(context, listen: false);
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -192,6 +194,23 @@ class _Body extends StatelessWidget {
                       },
                     );
                   },
+                ),
+              ] else ...[
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: AppTheme.c.background,
+                    child: AppButton(
+                      label: 'View Applications',
+                      onPressed: () {
+                        jobProvider.selectJob(job);
+                        jobsBloc.add(FetchApplications(id: job.id));
+                        AppRoutes.viewApplications.push(context);
+                      },
+                    ),
+                  ),
                 ),
               ]
             ],

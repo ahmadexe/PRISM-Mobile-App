@@ -5,6 +5,8 @@ class _AuthDataProvider {
   static final Dio _client = Api.getClient(ClientType.auth);
   static final _storage = FirebaseStorage.instance;
   static final _ref = _storage.ref();
+  static final _messaging = FirebaseMessaging.instance;
+  static final _firestore = FirebaseFirestore.instance;
 
   static Future<AuthData> register(
       String email, String password, Map<String, dynamic> payload) async {
@@ -28,6 +30,11 @@ class _AuthDataProvider {
       final raw = response.data as Map<String, dynamic>;
 
       final data = AuthData.fromMap(raw);
+
+      _firestore.collection('notificationCount').doc(uid).set({
+        'unread': 0,
+      });
+
       return data;
     } on FirebaseAuthException catch (e) {
       debugPrint('Exception in Auth Data Provider(register): $e');
@@ -202,8 +209,30 @@ class _AuthDataProvider {
       if (response.statusCode != 200) {
         throw 'Failed to switch profile mode';
       }
-    } catch(e) {
+    } catch (e) {
       debugPrint('Exception in Auth Data Provider(switchProfileMode): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
+
+  static Future<void> updateDeviceToken(String userId) async {
+    try {
+      final deviceToken = await _messaging.getToken();
+      final token = await _auth.currentUser?.getIdToken();
+
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.put('/users/token', data: {
+        'userId': userId,
+        'deviceToken': deviceToken,
+      });
+
+      if (response.statusCode != 200) {
+        throw 'Failed to update device token';
+      }
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(updateDeviceToken): $e');
       debugPrint('--------------------------');
       rethrow;
     }

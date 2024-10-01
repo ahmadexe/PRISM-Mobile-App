@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ part 'states/_forgot_password.dart';
 part 'states/_toggle_follow.dart';
 part 'states/_search.dart';
 part 'states/_service_provider.dart';
+part 'states/_device_token.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -42,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SearchEvent>(_search);
     on<SubscribeToSearch>(_subscribeToSearch);
     on<ToggleServiceProviderEvent>(_toggleServiceProvider);
+    on<UpdateDeviceToken>(_updateDeviceToken);
   }
 
   final _adaptor = _AuthAdaptor();
@@ -145,6 +149,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           get: const GetUserDefault(),
           search: const SearchDefault(),
           follow: const ToggleFollowDefault(),
+          serviceProvider: const ServiceProviderToggleDefault(),
+          token: const TokenDefault(),
           channel: null,
         ),
       );
@@ -317,7 +323,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthData user = state.user!;
       await _AuthDataProvider.switchProfileMode(event.id);
       user = user.copyWith(isServiceProvider: !user.isServiceProvider);
-      
+
       emit(
         state.copyWith(
           user: user,
@@ -330,6 +336,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           serviceProvider: ServiceProviderToggleFailure(
             message: e.toString(),
           ),
+        ),
+      );
+    }
+  }
+
+  Future<void> _updateDeviceToken(
+    UpdateDeviceToken event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        token: const TokenLoading(),
+      ),
+    );
+    try {
+      await _AuthDataProvider.updateDeviceToken(event.userId);
+      emit(
+        state.copyWith(
+          token: const TokenSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          token: TokenFailure(message: e.toString()),
         ),
       );
     }

@@ -8,6 +8,7 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
+    final notisBloc = BlocProvider.of<NotificationsBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -85,18 +86,21 @@ class _Body extends StatelessWidget {
                       );
                     }
                     if (state.login is AuthLoginSuccess) {
+                      final user = state.user!;
+                      authBloc.add(UpdateDeviceToken(userId: user.id));
+
                       final postBloc = BlocProvider.of<PostsBloc>(context);
                       postBloc.add(const PostsFetchEvent());
-                      
-                      final user = state.user!;
+
                       if (user.isBusinessAcc) {
                         jobsBloc.add(FetchMyJobs(userId: user.id));
+                      } else if (user.isServiceProvider) {
+                        jobsBloc.add(const FetchJobs());
+                        jobsBloc.add(FetchApplications(id: user.id, isUser: true));
                       }
 
-                      SnackBars.success(
-                        context,
-                        "Welcome back!",
-                      );
+                      notisBloc.add(FetchNotifications(uid: user.uid));
+
                       AppRoutes.home.pushReplace(context);
                     }
                   },

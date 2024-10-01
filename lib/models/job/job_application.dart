@@ -5,7 +5,7 @@ class JobApplication {
   final String jobId;
   final String userId;
   final bool isHired;
-  final bool username;
+  final String username;
   final String? avatar;
 
   JobApplication({
@@ -22,7 +22,7 @@ class JobApplication {
     String? jobId,
     String? userId,
     bool? isHired,
-    bool? username,
+    String? username,
     String? avatar,
   }) {
     return JobApplication(
@@ -52,7 +52,7 @@ class JobApplication {
       jobId: map['jobId'] as String,
       userId: map['userId'] as String,
       isHired: map['isHired'] as bool,
-      username: map['username'] as bool,
+      username: map['username'] as String,
       avatar: map['avatar'] != null ? map['avatar'] as String : null,
     );
   }
