@@ -108,25 +108,30 @@ class _Profile extends StatelessWidget {
                             ],
                           ),
                         if (!isMe)
-                          InfoTile(
-                            domain: user.domain,
-                          ),
-                        if ((isApplicant != null && isApplicant!) &&
-                            jobProvider.selectedJob!.hired == null)
-                          AppButton(
-                            label: 'Hire?',
-                            width: AppDimensions.normalize(30),
-                            height: 35,
-                            buttonType: ButtonType.secondary,
-                            onPressed: () {
-                              jobsBloc.add(
-                                HireApplicant(
-                                  jobId: jobProvider.selectedJob!.id,
-                                  userId: user.id,
+                          Row(
+                            children: [
+                              InfoTile(
+                                domain: user.domain,
+                              ),
+                              Space.x!,
+                              if ((isApplicant != null && isApplicant!) &&
+                                  jobProvider.selectedJob!.hired == null)
+                                AppButton(
+                                  label: 'Hire?',
+                                  width: AppDimensions.normalize(30),
+                                  height: 35,
+                                  buttonType: ButtonType.secondary,
+                                  onPressed: () {
+                                    jobsBloc.add(
+                                      HireApplicant(
+                                        jobId: jobProvider.selectedJob!.id,
+                                        userId: user.id,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
+                            ],
+                          )
                       ],
                     ),
                     Space.y!,
@@ -251,8 +256,9 @@ class _Profile extends StatelessWidget {
             ],
           ),
           BlocConsumer<JobsBloc, JobsState>(
+            listenWhen: HireApplicantState.match,
             listener: (context, state) {
-              if (state.apply is ApplyForJobSuccess) {
+              if (state.hire is HireApplicantSuccess) {
                 SnackBars.success(context, 'This user has been hired!');
                 notisBloc.add(
                   SendNotification(
@@ -264,13 +270,22 @@ class _Profile extends StatelessWidget {
                     type: 'job',
                   ),
                 );
-              } else if (state.apply is ApplyForJobFailure) {
+                jobsBloc.add(
+                  FetchMyJobs(userId: currentUser.id),
+                );
+                AppRoutes.home.push(context);
+              } else if (state.hire is HireApplicantFailure) {
                 SnackBars.failure(context, 'Failed to hire the user');
+                ''.pop(context);
               }
             },
             builder: (context, state) {
               if (state.hire is HireApplicantLoading) {
-                return const FullScreenLoader();
+                return SizedBox(
+                  height: MediaQuery.sizeOf(context).height,
+                  width: MediaQuery.sizeOf(context).width,
+                  child: const FullScreenLoader(),
+                );
               }
               return const SizedBox();
             },

@@ -66,7 +66,7 @@ class _Adaptor {
     try {
       final payload = {
         'userId': userId,
-        'jobId': jobId,
+        'id': jobId,
       };
       await _JobsDataProvider().hireApplicant(payload);
     } catch (e) {
