@@ -19,8 +19,6 @@ class _Profile extends StatelessWidget {
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final jobProvider = Provider.of<JobProvider>(context, listen: false);
 
-    final notisBloc 
-
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -256,6 +254,16 @@ class _Profile extends StatelessWidget {
             listener: (context, state) {
               if (state.apply is ApplyForJobSuccess) {
                 SnackBars.success(context, 'This user has been hired!');
+                notisBloc.add(
+                  SendNotification(
+                    title: 'Job Application',
+                    body:
+                        'You have been hired for the job ${jobProvider.selectedJob!.title}',
+                    uid: user.uid,
+                    deviceToken: user.deviceToken,
+                    type: 'job',
+                  ),
+                );
               } else if (state.apply is ApplyForJobFailure) {
                 SnackBars.failure(context, 'Failed to hire the user');
               }
