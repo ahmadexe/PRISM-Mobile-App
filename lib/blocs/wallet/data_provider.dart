@@ -8,8 +8,14 @@ class _WallterProvider {
       final response = await _handler.post(
         'http://0.0.0.0:5050/wallet',
       );
+      
+      Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
-      final wallet = Wallet.fromMap(response.data as Map<String, dynamic>);
+      final amount = await _getAmount(data['blockchain_address']);
+
+      data['amount'] = amount;
+
+      final wallet = Wallet.fromMap(data);
 
       return wallet;
     } catch (e) {
@@ -19,7 +25,7 @@ class _WallterProvider {
     }
   }
 
-  static Future<double> getAmount(String chainAddress) async {
+  static Future<double> _getAmount(String chainAddress) async {
     try {
       const String endPoint = 'http://0.0.0.0:5050/wallet/amount';
 
