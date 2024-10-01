@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 part of 'notifications.dart';
 
 class _ScreenState extends ChangeNotifier {
