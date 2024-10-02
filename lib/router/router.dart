@@ -1,3 +1,4 @@
+import 'package:prism/screens/transaction/transaction.dart';
 import 'package:prism/screens/wallet/wallet.dart';
 import 'package:prism/screens/view_applications/view_applications.dart';
 import 'package:prism/screens/jobs_detail/jobs_detail.dart';
@@ -25,6 +26,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.transaction: (_) => const TransactionScreen(),
   AppRoutes.wallet: (_) => const WalletScreen(),
   AppRoutes.viewApplications: (_) => const ViewApplicationsScreen(),
   AppRoutes.jobsDetail: (_) => const JobsDetailScreen(),
