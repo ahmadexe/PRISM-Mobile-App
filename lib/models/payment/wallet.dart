@@ -4,13 +4,13 @@ class Wallet {
   final String publicKey;
   final String privateKey;
   final String blockchainAddress;
-  double? amount;
+  final double amount;
 
   Wallet({
     required this.publicKey,
     required this.privateKey,
     required this.blockchainAddress,
-    this.amount,
+    required this.amount,
   });
 
   Wallet copyWith({
@@ -40,6 +40,7 @@ class Wallet {
       publicKey: map['publicKey'] as String,
       privateKey: map['privateKey'] as String,
       blockchainAddress: map['blockchainAddress'] as String,
+      amount: map['amount'] as double,
     );
   }
 

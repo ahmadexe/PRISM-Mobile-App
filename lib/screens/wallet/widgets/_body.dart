@@ -26,11 +26,12 @@ class _Body extends StatelessWidget {
                         title: 'Hmmm',
                         message: 'An error occured, we are working on it');
                   }
+                  final wallet = state.wallet!;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _BalanceCard(
-                        balance: 1000,
+                      _BalanceCard(
+                        balance: wallet.amount,
                       ),
                       Space.y2!,
                       const Row(
