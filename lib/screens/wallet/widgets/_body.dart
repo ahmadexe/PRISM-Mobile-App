@@ -14,40 +14,57 @@ class _Body extends StatelessWidget {
         ),
         body: Padding(
           padding: Space.all(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              const _BalanceCard(
-                balance: 1000,
+              BlocBuilder<WalletBloc, WalletState>(
+                builder: (context, state) {
+                  if (state.walletInfo is WalletInfoLoading ||
+                      state.walletInfo is WalletInfoDefault) {
+                    return const FullScreenLoader();
+                  } else if (state.walletInfo is WalletInfoError) {
+                    return const ErrorWarning(
+                        title: 'Hmmm',
+                        message: 'An error occured, we are working on it');
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const _BalanceCard(
+                        balance: 1000,
+                      ),
+                      Space.y2!,
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _ActionsCard(
+                            isTransaction: true,
+                          ),
+                          _ActionsCard(
+                            isTransaction: false,
+                          ),
+                        ],
+                      ),
+                      Space.yf(70),
+                      Text(
+                        'Transactions',
+                        style: AppText.h3b,
+                      ),
+                      Space.y!,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                          icon: const Icon(Icons.refresh),
+                          onPressed: () {
+                            screenState.toggleMainData();
+                          },
+                        ),
+                      ),
+                      _LineChart(
+                          isShowingMainData: screenState.isShowingMainData),
+                    ],
+                  );
+                },
               ),
-              Space.y2!,
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _ActionsCard(
-                    isTransaction: true,
-                  ),
-                  _ActionsCard(
-                    isTransaction: false,
-                  ),
-                ],
-              ),
-              Space.yf(70),
-              Text(
-                'Transactions',
-                style: AppText.h3b,
-              ),
-              Space.y!,
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  icon: const Icon(Icons.refresh),
-                  onPressed: () {
-                    screenState.toggleMainData();
-                  },
-                ),
-              ),
-              _LineChart(isShowingMainData: screenState.isShowingMainData),
             ],
           ),
         ),

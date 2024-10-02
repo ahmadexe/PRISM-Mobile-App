@@ -11,7 +11,7 @@ class _WallterProvider {
       
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
-      final amount = await _getAmount(data['blockchain_address']);
+      final amount = await _getAmount(data['blockchainAddress']);
 
       data['amount'] = amount;
 

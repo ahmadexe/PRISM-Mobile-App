@@ -23,6 +23,7 @@ class _BodyState extends State<_Body> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final notificationsBloc = BlocProvider.of<NotificationsBloc>(context);
+    final walletBloc = BlocProvider.of<WalletBloc>(context);
 
     return BlocListener<AuthBloc, AuthState>(
       listenWhen: AuthInitState.match,
@@ -47,6 +48,10 @@ class _BodyState extends State<_Body> {
               FetchApplications(id: user.id, isUser: true),
             );
           }
+
+          walletBloc.add(
+            const GetWalletDetails()
+          );
 
           notificationsBloc.add(
             FetchNotifications(uid: user.uid),
