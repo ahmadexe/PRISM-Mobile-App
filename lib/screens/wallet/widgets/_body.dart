@@ -1,7 +1,19 @@
 part of '../wallet.dart';
 
-class _Body extends StatelessWidget {
+class _Body extends StatefulWidget {
   const _Body();
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+
+  @override
+  initState() {
+    super.initState();
+    BlocProvider.of<WalletBloc>(context).add(const GetWalletDetails());
+  }
 
   @override
   Widget build(BuildContext context) {

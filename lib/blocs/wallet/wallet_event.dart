@@ -8,3 +8,7 @@ abstract class WalletEvent {
 class GetWalletDetails extends WalletEvent {
   const GetWalletDetails() : super();
 }
+
+class GetWalletAmount extends WalletEvent {
+  const GetWalletAmount() : super();
+}

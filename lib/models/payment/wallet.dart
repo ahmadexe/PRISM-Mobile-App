@@ -4,7 +4,7 @@ class Wallet {
   final String publicKey;
   final String privateKey;
   final String blockchainAddress;
-  final double amount;
+  double amount;
 
   Wallet({
     required this.publicKey,

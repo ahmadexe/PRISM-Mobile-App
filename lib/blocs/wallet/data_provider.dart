@@ -11,7 +11,7 @@ class _WallterProvider {
       
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
-      final amount = await _getAmount(data['blockchainAddress']);
+      final amount = await getAmount(data['blockchainAddress']);
 
       data['amount'] = amount;
 
@@ -25,13 +25,13 @@ class _WallterProvider {
     }
   }
 
-  static Future<double> _getAmount(String chainAddress) async {
+  static Future<double> getAmount(String chainAddress) async {
     try {
-      const String endPoint = 'http://0.0.0.0:5050/wallet/amount';
+       String endPoint = 'http://0.0.0.0:5050/wallet/amount?blockchain_address=$chainAddress';
 
-      final response = await _handler.get(endPoint, queryParameters: {
-        'blockchain_address': chainAddress,
-      });
+      
+
+      final response = await _handler.get(endPoint);
 
       final raw = response.data as Map<String, dynamic>;
       final amount = raw['amount'].toDouble();
