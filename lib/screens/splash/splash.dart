@@ -5,6 +5,7 @@ import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
+import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';

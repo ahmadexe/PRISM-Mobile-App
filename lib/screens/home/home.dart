@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
+import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/router/routes.dart';
 import 'package:prism/static/app_statics.dart';

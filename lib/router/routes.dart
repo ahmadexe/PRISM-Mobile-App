@@ -1,4 +1,6 @@
 abstract class AppRoutes {
+  static const transaction = '/transaction';
+  static const wallet = '/wallet';
   static const viewApplications = '/view-applications';
   static const jobsDetail = '/jobs-detail';
   static const createJob = '/create-job';
