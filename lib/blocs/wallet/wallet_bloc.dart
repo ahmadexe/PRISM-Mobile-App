@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/payment/wallet.dart';
+import 'package:prism/services/api.dart';
 
 part 'wallet_event.dart';
 part '_states/_wallet_state.dart';

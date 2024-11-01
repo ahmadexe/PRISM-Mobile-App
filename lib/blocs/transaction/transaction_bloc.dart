@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/payment/transaction.dart';
+import 'package:prism/services/api.dart';
 
 part 'transaction_event.dart';
 part 'transaction_state.dart';

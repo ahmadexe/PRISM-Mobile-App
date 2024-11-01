@@ -1,12 +1,12 @@
 part of 'wallet_bloc.dart';
 
 class _WallterProvider {
-  static final _handler = Dio();
+  static final _handler = Api.getClient(ClientType.wallet);
 
   static Future<Wallet> getWalletDetails() async {
     try {
       final response = await _handler.post(
-        'http://0.0.0.0:5050/wallet',
+        '/wallet',
       );
       
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
@@ -27,7 +27,7 @@ class _WallterProvider {
 
   static Future<double> getAmount(String chainAddress) async {
     try {
-       String endPoint = 'http://0.0.0.0:5050/wallet/amount?blockchain_address=$chainAddress';
+       String endPoint = '/wallet/amount?blockchain_address=$chainAddress';
 
       
 

@@ -27,6 +27,11 @@ class Api {
         final jobOptions =
             _options.copyWith(baseUrl: 'http://3.111.196.231:3003/v1');
         return Dio(jobOptions);
+
+      case ClientType.wallet:
+        final walletOptions =
+            _options.copyWith(baseUrl: 'http://0.0.0.0:11101');
+        return Dio(walletOptions);
     }
   }
 }
@@ -36,4 +41,5 @@ enum ClientType {
   post,
   chat,
   jobs,
+  wallet,
 }

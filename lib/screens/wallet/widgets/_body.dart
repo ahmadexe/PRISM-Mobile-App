@@ -8,7 +8,6 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-
   @override
   initState() {
     super.initState();
@@ -34,47 +33,51 @@ class _BodyState extends State<_Body> {
                       state.walletInfo is WalletInfoDefault) {
                     return const FullScreenLoader();
                   } else if (state.walletInfo is WalletInfoError) {
-                    return const ErrorWarning(
-                        title: 'Hmmm',
-                        message: 'An error occured, we are working on it');
+                    return const Center(
+                      child: ErrorWarning(
+                          title: 'Hmmm',
+                          message: 'An error occured, we are working on it'),
+                    );
                   }
                   final wallet = state.wallet!;
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _BalanceCard(
-                        balance: wallet.amount,
-                      ),
-                      Space.y2!,
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _ActionsCard(
-                            isTransaction: true,
-                          ),
-                          _ActionsCard(
-                            isTransaction: false,
-                          ),
-                        ],
-                      ),
-                      Space.yf(70),
-                      Text(
-                        'Transactions',
-                        style: AppText.h3b,
-                      ),
-                      Space.y!,
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: () {
-                            screenState.toggleMainData();
-                          },
+                  return SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _BalanceCard(
+                          balance: wallet.amount,
                         ),
-                      ),
-                      _LineChart(
-                          isShowingMainData: screenState.isShowingMainData),
-                    ],
+                        Space.y2!,
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _ActionsCard(
+                              isTransaction: true,
+                            ),
+                            _ActionsCard(
+                              isTransaction: false,
+                            ),
+                          ],
+                        ),
+                        Space.yf(70),
+                        Text(
+                          'Transactions',
+                          style: AppText.h3b,
+                        ),
+                        Space.y!,
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.refresh),
+                            onPressed: () {
+                              screenState.toggleMainData();
+                            },
+                          ),
+                        ),
+                        _LineChart(
+                            isShowingMainData: screenState.isShowingMainData),
+                      ],
+                    ),
                   );
                 },
               ),
