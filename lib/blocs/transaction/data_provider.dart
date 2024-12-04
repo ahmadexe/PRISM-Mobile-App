@@ -1,11 +1,18 @@
 part of 'transaction_bloc.dart';
 
 class _TransactionProvider {
-  static final _handler = Api.getClient(ClientType.wallet);
-  static Future<void> createTransaction(Map<String, dynamic> payload) async {
+  static Future<void> createTransaction(Map<String, dynamic> payload, String address) async {
     try {
-      await _handler.post(
-        '/transaction',
+
+      final client = Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ));
+
+
+      await client.post(
+        'http://$address:11101/transaction',
         data: json.encode(payload),
       );
     } catch (e) {

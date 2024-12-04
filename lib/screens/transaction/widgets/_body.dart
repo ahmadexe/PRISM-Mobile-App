@@ -7,6 +7,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
     final transactionBloc = BlocProvider.of<TransactionBloc>(context);
+    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final address = nodeBloc.state.address;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -94,6 +96,7 @@ class _Body extends StatelessWidget {
                         transactionBloc.add(
                           CreateTransaction(
                             transaction: transaction,
+                            nodeAddress: address!,
                           ),
                         );
                       },
