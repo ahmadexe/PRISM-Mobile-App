@@ -15,7 +15,15 @@ class _WallterProvider {
 
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
-      final amount = await getAmount(data['blockchainAddress'], address);
+      final myAddress = data['blockchainAddress'] as String;
+
+      final res = await client.post(
+        "http://$address:10111/join/?address=$myAddress",
+      );
+
+      print(res.data);
+
+      final amount = await getAmount(myAddress, address);
 
       data['amount'] = amount;
 
