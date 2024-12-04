@@ -17,7 +17,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'event.dart';
 part 'state.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 part 'data_provider.dart';
 
 part 'states/_register.dart';
