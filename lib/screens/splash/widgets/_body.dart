@@ -14,6 +14,10 @@ class _BodyState extends State<_Body> {
     postsProvider.add(
       const PostsFetchEvent(),
     );
+
+    BlocProvider.of<NodeBloc>(context).add(
+      GetConnectionString(),
+    );
     super.initState();
   }
 
@@ -49,9 +53,7 @@ class _BodyState extends State<_Body> {
             );
           }
 
-          walletBloc.add(
-            const GetWalletDetails()
-          );
+          walletBloc.add(const GetWalletDetails());
 
           notificationsBloc.add(
             FetchNotifications(uid: user.uid),

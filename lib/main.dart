@@ -8,6 +8,7 @@ import 'package:prism/blocs/chats/bloc.dart';
 import 'package:prism/blocs/comments/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
+import 'package:prism/blocs/node/bloc.dart';
 import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/text_recognition/bloc.dart';
@@ -63,6 +64,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => NotificationsBloc()),
         BlocProvider(create: (context) => WalletBloc()),
         BlocProvider(create: (create) => TransactionBloc()),
+        BlocProvider(create: (create) => NodeBloc()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
