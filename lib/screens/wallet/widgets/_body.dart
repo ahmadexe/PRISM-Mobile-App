@@ -11,7 +11,10 @@ class _BodyState extends State<_Body> {
   @override
   initState() {
     super.initState();
-    BlocProvider.of<WalletBloc>(context).add(const GetWalletDetails());
+    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final address = nodeBloc.state.address;
+    BlocProvider.of<WalletBloc>(context)
+        .add(GetWalletDetails(nodeAddress: address!));
   }
 
   @override

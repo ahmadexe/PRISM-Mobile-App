@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
+import 'package:prism/blocs/node/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';

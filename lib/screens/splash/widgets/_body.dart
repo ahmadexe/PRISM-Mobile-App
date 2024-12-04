@@ -29,43 +29,53 @@ class _BodyState extends State<_Body> {
     final notificationsBloc = BlocProvider.of<NotificationsBloc>(context);
     final walletBloc = BlocProvider.of<WalletBloc>(context);
 
-    return BlocListener<AuthBloc, AuthState>(
-      listenWhen: AuthInitState.match,
-      listener: (context, state) async {
-        if (state.init is AuthInitSuccess) {
-          final user = state.user!;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthBloc, AuthState>(
+          listenWhen: AuthInitState.match,
+          listener: (context, state) async {
+            if (state.init is AuthInitSuccess) {
+              final user = state.user!;
 
-          authBloc.add(UpdateDeviceToken(userId: user.id));
+              authBloc.add(UpdateDeviceToken(userId: user.id));
 
-          if (user.isBusinessAcc) {
-            jobsBloc.add(
-              FetchMyJobs(userId: user.id),
-            );
-            jobsBloc.add(
-              const FetchJobs(),
-            );
-          } else if (user.isServiceProvider) {
-            jobsBloc.add(
-              const FetchJobs(),
-            );
-            jobsBloc.add(
-              FetchApplications(id: user.id, isUser: true),
-            );
-          }
+              if (user.isBusinessAcc) {
+                jobsBloc.add(
+                  FetchMyJobs(userId: user.id),
+                );
+                jobsBloc.add(
+                  const FetchJobs(),
+                );
+              } else if (user.isServiceProvider) {
+                jobsBloc.add(
+                  const FetchJobs(),
+                );
+                jobsBloc.add(
+                  FetchApplications(id: user.id, isUser: true),
+                );
+              }
 
-          walletBloc.add(const GetWalletDetails());
+              notificationsBloc.add(
+                FetchNotifications(uid: user.uid),
+              );
 
-          notificationsBloc.add(
-            FetchNotifications(uid: user.uid),
-          );
-
-          Navigator.pushReplacementNamed(context, AppRoutes.home);
-        } else if (state.init is AuthInitFailure) {
-          await Future.delayed(const Duration(seconds: 2));
-          if (!context.mounted) return;
-          Navigator.pushReplacementNamed(context, AppRoutes.login);
-        }
-      },
+              Navigator.pushReplacementNamed(context, AppRoutes.home);
+            } else if (state.init is AuthInitFailure) {
+              await Future.delayed(const Duration(seconds: 2));
+              if (!context.mounted) return;
+              Navigator.pushReplacementNamed(context, AppRoutes.login);
+            }
+          },
+        ),
+        BlocListener<NodeBloc, NodeState>(
+          listener: (context, state) {
+            if (state is NodeLoaded) {
+              final address = state.data;
+              walletBloc.add(GetWalletDetails(nodeAddress: address));
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

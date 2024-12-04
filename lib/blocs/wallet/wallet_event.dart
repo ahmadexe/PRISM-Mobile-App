@@ -6,9 +6,11 @@ abstract class WalletEvent {
 }
 
 class GetWalletDetails extends WalletEvent {
-  const GetWalletDetails() : super();
+  final String nodeAddress;
+  const GetWalletDetails({required this.nodeAddress}) : super();
 }
 
 class GetWalletAmount extends WalletEvent {
-  const GetWalletAmount() : super();
+  final String nodeAddress;
+  const GetWalletAmount({required this.nodeAddress}) : super();
 }

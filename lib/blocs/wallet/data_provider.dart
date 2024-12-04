@@ -1,17 +1,21 @@
 part of 'wallet_bloc.dart';
 
 class _WallterProvider {
-  static final _handler = Api.getClient(ClientType.wallet);
-
-  static Future<Wallet> getWalletDetails() async {
+  static Future<Wallet> getWalletDetails(String address) async {
     try {
-      final response = await _handler.post(
-        '/wallet',
+      final client = Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ));
+
+      final response = await client.post(
+        'http://$address:11101/wallet',
       );
-      
+
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
-      final amount = await getAmount(data['blockchainAddress']);
+      final amount = await getAmount(data['blockchainAddress'], address);
 
       data['amount'] = amount;
 
@@ -25,13 +29,17 @@ class _WallterProvider {
     }
   }
 
-  static Future<double> getAmount(String chainAddress) async {
+  static Future<double> getAmount(String chainAddress, String nodeAddress) async {
     try {
-       String endPoint = '/wallet/amount?blockchain_address=$chainAddress';
+      String endPoint = 'http://$nodeAddress:11101//wallet/amount?blockchain_address=$chainAddress';
 
-      
+      final client = Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ));
 
-      final response = await _handler.get(endPoint);
+      final response = await client.get(endPoint);
 
       final raw = response.data as Map<String, dynamic>;
       final amount = raw['amount'].toDouble();

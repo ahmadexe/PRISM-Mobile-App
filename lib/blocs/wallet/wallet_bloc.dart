@@ -1,8 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/payment/wallet.dart';
-import 'package:prism/services/api.dart';
 
 part 'wallet_event.dart';
 part '_states/_wallet_state.dart';
@@ -29,7 +29,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     );
 
     try {
-      final wallet = await _WallterProvider.getWalletDetails();
+      final wallet = await _WallterProvider.getWalletDetails(event.nodeAddress);
 
       emit(
         state.copyWith(
@@ -61,7 +61,8 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     try {
       final wallet = state.wallet!;
       final chainAddress = wallet.blockchainAddress;
-      final amount = await _WallterProvider.getAmount(chainAddress);
+      final amount =
+          await _WallterProvider.getAmount(chainAddress, event.nodeAddress);
 
       wallet.amount = amount;
 

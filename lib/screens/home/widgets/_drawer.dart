@@ -11,6 +11,8 @@ class _Drawer extends StatelessWidget {
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final screenState = _ScreenState.s(context, true);
     final walletBloc = BlocProvider.of<WalletBloc>(context);
+    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final address = nodeBloc.state.address;
 
     return SizedBox(
       width: appMedia.width * 0.65,
@@ -119,7 +121,7 @@ class _Drawer extends StatelessWidget {
               title: const Text('Wallet'),
               onTap: () {
                 walletBloc.add(
-                  const GetWalletAmount(),
+                  GetWalletAmount(nodeAddress: address!),
                 );
                 AppRoutes.wallet.push(context);
               },

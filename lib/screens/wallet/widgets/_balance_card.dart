@@ -6,6 +6,8 @@ class _BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final address = nodeBloc.state.address;
     return BlocBuilder<WalletBloc, WalletState>(
       builder: (context, state) {
         if (state.amount is WalletAmountLoading ||
@@ -20,7 +22,8 @@ class _BalanceCard extends StatelessWidget {
         final wallet = state.wallet!;
         return GestureDetector(
           onTap: () {
-            BlocProvider.of<WalletBloc>(context).add(const GetWalletAmount());
+            BlocProvider.of<WalletBloc>(context)
+                .add(GetWalletAmount(nodeAddress: address!));
           },
           child: Container(
             height: AppDimensions.normalize(90),
