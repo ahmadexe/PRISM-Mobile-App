@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:prism/blocs/auth/bloc.dart';
+import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/models/post/post.dart';
+import 'package:prism/utils/media/media_utils.dart';
 import 'package:prism/widgets/posts/comments_sheet.dart';
 
 class MetaDataCounter extends StatefulWidget {
@@ -37,6 +39,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
   Widget build(BuildContext context) {
     final postBloc = BlocProvider.of<PostsBloc>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
+    final lensBloc = BlocProvider.of<LensBloc>(context);
     final user = authBloc.state.user!;
 
     return Row(
@@ -50,7 +53,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
           child: Row(
             children: [
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   setState(() {
                     if (isUpVoted) {
                       upVotes--;
@@ -59,10 +62,20 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                       upVotes++;
                       isUpVoted = true;
                       isDownVoted = false;
-                      
                     }
                   });
-
+    
+                  if (isUpVoted) {
+                    if (widget.post.imageUrl != null) {
+                      final inputImage = await MediaUtils.getImageBytes(
+                        widget.post.imageUrl!,
+                      );
+                      if (inputImage != null) {
+                        lensBloc.add(AnalyzeImage(inputImage: inputImage));
+                      }
+                    }
+                  }
+    
                   postBloc.add(
                     PostVoteEvent(
                       postId: widget.post.id,
@@ -98,7 +111,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                       }
                     }
                   });
-
+    
                   postBloc.add(
                     PostVoteEvent(
                       postId: widget.post.id,

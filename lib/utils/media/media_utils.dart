@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class MediaUtils {
-  Future<Uint8List?> getImageBytes(String url) async {
+  static Future<Uint8List?> getImageBytes(String url) async {
     try {
       final response = await http.get(Uri.parse(url));
 

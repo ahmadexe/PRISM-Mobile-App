@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
@@ -11,19 +12,21 @@ import 'package:prism/services/lens_service.dart';
 
 part 'event.dart';
 part 'state.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 part 'data_provider.dart';
 part '_static.dart';
 
 part 'state/_skill_extraction.dart';
 part 'state/_response.dart';
 part 'state/_key_words.dart';
+part 'state/_analyze_image.dart';
 
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
     on<GenerateContent>(_onGenerateContent);
     on<ExtractSkills>(_extractSkills);
     on<ExtractKeywords>(_extractKeywords);
+    on<AnalyzeImage>(_onAnalyzeImage);
   }
 
   late final LensService _service;
@@ -34,9 +37,46 @@ class LensBloc extends Bloc<LensEvent, LensState> {
       throw Exception('API key not found');
     }
 
-    final model = GenerativeModel(model: 'gemini-pro', apiKey: key);
+    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: key);
     _service = LensService(model: model);
     debugPrint('LensBloc initialized');
+  }
+
+  Future<void> _onAnalyzeImage(
+      AnalyzeImage event, Emitter<LensState> emit) async {
+    emit(state.copyWith(analyzeImage: const AnalyzeImageLoading()));
+    try {
+      final Uint8List image = event.inputImage;
+      const String prompt = "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
+
+      final DataPart dataPart = DataPart('image/jpeg', image);
+
+      final content = await _service.generateContentFromImage(
+        prompt: prompt,
+        dataPart: dataPart,
+      );
+
+      if (content == null) {
+        throw Exception('Failed to analyze image');
+      }
+
+      final List<String> data = [content, ...state.data ?? []];
+
+      emit(
+        state.copyWith(
+          analyzeImage: const AnalyzeImageSuccess(),
+          data: data,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          analyzeImage: AnalyzeImageFailure(
+            error: e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _onGenerateContent(
