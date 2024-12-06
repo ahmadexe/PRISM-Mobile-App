@@ -64,18 +64,18 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                       isDownVoted = false;
                     }
                   });
-    
+
                   if (isUpVoted) {
                     if (widget.post.imageUrl != null) {
                       final inputImage = await MediaUtils.getImageBytes(
                         widget.post.imageUrl!,
                       );
                       if (inputImage != null) {
-                        lensBloc.add(AnalyzeImage(inputImage: inputImage));
+                        lensBloc.add(AnalyzePost(inputImage: inputImage));
                       }
                     }
                   }
-    
+
                   postBloc.add(
                     PostVoteEvent(
                       postId: widget.post.id,
@@ -111,7 +111,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                       }
                     }
                   });
-    
+
                   postBloc.add(
                     PostVoteEvent(
                       postId: widget.post.id,

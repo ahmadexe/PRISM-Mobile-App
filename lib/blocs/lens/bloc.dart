@@ -18,14 +18,14 @@ part '_static.dart';
 part 'state/_skill_extraction.dart';
 part 'state/_response.dart';
 part 'state/_key_words.dart';
-part 'state/_analyze_image.dart';
+part 'state/_analyze_post.dart';
 
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
     on<GenerateContent>(_onGenerateContent);
     on<ExtractSkills>(_extractSkills);
     on<ExtractKeywords>(_extractKeywords);
-    on<AnalyzeImage>(_onAnalyzeImage);
+    on<AnalyzePost>(_onAnalyzeImage);
   }
 
   late final LensService _service;
@@ -42,11 +42,12 @@ class LensBloc extends Bloc<LensEvent, LensState> {
   }
 
   Future<void> _onAnalyzeImage(
-      AnalyzeImage event, Emitter<LensState> emit) async {
-    emit(state.copyWith(analyzeImage: const AnalyzeImageLoading()));
+      AnalyzePost event, Emitter<LensState> emit) async {
+    emit(state.copyWith(analyzeImage: const AnalyzePostLoading()));
     try {
       final Uint8List image = event.inputImage;
-      const String prompt = "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
+      const String prompt =
+          "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
 
       final DataPart dataPart = DataPart('image/jpeg', image);
 
@@ -63,14 +64,14 @@ class LensBloc extends Bloc<LensEvent, LensState> {
 
       emit(
         state.copyWith(
-          analyzeImage: const AnalyzeImageSuccess(),
+          analyzeImage: const AnalyzePostSuccess(),
           data: data,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
-          analyzeImage: AnalyzeImageFailure(
+          analyzeImage: AnalyzePostFailure(
             error: e.toString(),
           ),
         ),

@@ -7,11 +7,11 @@ class LensState extends Equatable {
   final LensResponseState response;
   final SkillExtractionState skills;
   final KeywordsExtractionState keywords;
-  final AnalyzeImageState analyzeImage;
+  final AnalyzePostState analyzeImage;
 
   const LensState({
     this.data,
-    this.messages, 
+    this.messages,
     required this.response,
     required this.skills,
     required this.keywords,
@@ -19,7 +19,8 @@ class LensState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [data, messages, response, skills, keywords, analyzeImage];
+  List<Object?> get props =>
+      [data, messages, response, skills, keywords, analyzeImage];
 
   LensState copyWith({
     List<String>? data,
@@ -27,7 +28,7 @@ class LensState extends Equatable {
     LensResponseState? response,
     SkillExtractionState? skills,
     KeywordsExtractionState? keywords,
-    AnalyzeImageState? analyzeImage,
+    AnalyzePostState? analyzeImage,
   }) {
     return LensState(
       data: data ?? this.data,
@@ -47,6 +48,6 @@ class LensDefault extends LensState {
           response: const LensInitial(),
           skills: const SkillExtractionInitial(),
           keywords: const KeywordsExtractionInitial(),
-          analyzeImage: const AnalyzeImageInitial(),
+          analyzeImage: const AnalyzePostInitial(),
         );
 }

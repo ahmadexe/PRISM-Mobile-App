@@ -12,7 +12,7 @@ class _Body extends StatelessWidget {
 
     return BlocListener<LensBloc, LensState>(
       listener: (context, state) {
-        if (state.analyzeImage is AnalyzeImageSuccess) {
+        if (state.analyzeImage is AnalyzePostSuccess) {
           final data = state.data;
           if (data!.length % 3 == 0) {
             chainBloc.add(
