@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 part '_state.dart';
 
 part 'widgets/_body.dart';
+part 'widgets/_switcher.dart';
 
 class TransactionsScreen extends StatelessWidget {
   const TransactionsScreen({Key? key}) : super(key: key);

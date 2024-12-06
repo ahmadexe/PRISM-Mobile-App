@@ -7,14 +7,13 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(''),
-          scrolledUnderElevation: 0,
-        ),
-        body: const Center(
-          child: Text(''),
-        ),
-      ),
+          appBar: AppBar(
+            title: const Text('Transactions'),
+            scrolledUnderElevation: 0,
+          ),
+          body: const Column(
+            children: [_Switcher()],
+          )),
     );
   }
 }
