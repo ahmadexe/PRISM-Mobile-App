@@ -49,9 +49,20 @@ class _Body extends StatelessWidget {
                           ],
                         ),
                         Space.yf(70),
-                        Text(
-                          'Transactions',
-                          style: AppText.h3b,
+                        Row(
+                          children: [
+                            Text(
+                              'Transactions',
+                              style: AppText.h3b,
+                            ),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                AppRoutes.transactions.push(context);
+                              },
+                              child: Text('View all', style: AppText.b2),
+                            ),
+                          ],
                         ),
                         Space.y!,
                         Align(
