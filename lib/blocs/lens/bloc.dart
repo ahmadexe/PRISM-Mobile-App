@@ -45,29 +45,54 @@ class LensBloc extends Bloc<LensEvent, LensState> {
       AnalyzePost event, Emitter<LensState> emit) async {
     emit(state.copyWith(analyzeImage: const AnalyzePostLoading()));
     try {
-      final Uint8List image = event.inputImage;
-      const String prompt =
-          "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
+      if (event.inputImage != null) {
+        final Uint8List image = event.inputImage!;
 
-      final DataPart dataPart = DataPart('image/jpeg', image);
+        const String prompt =
+            "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
 
-      final content = await _service.generateContentFromImage(
-        prompt: prompt,
-        dataPart: dataPart,
-      );
+        final DataPart dataPart = DataPart('image/jpeg', image);
 
-      if (content == null) {
-        throw Exception('Failed to analyze image');
+        final content = await _service.generateContentFromImage(
+          prompt: prompt,
+          dataPart: dataPart,
+        );
+
+        if (content == null) {
+          throw Exception('Failed to analyze image');
+        }
+
+        final List<String> data = [content, ...state.data ?? []];
+
+        emit(
+          state.copyWith(
+            analyzeImage: const AnalyzePostSuccess(),
+            data: data,
+          ),
+        );
+      } else if (event.text != null) {
+        final String text = event.text!;
+
+        String prompt =
+            "Analyze the text and output the result, describe the text in great detail. Don't include any additional text. This is the text: $text";
+
+        final content = await _service.generateContentFromText(
+          prompt: prompt,
+        );
+
+        if (content == null) {
+          throw Exception('Failed to analyze text');
+        }
+
+        final List<String> data = [content, ...state.data ?? []];
+
+        emit(
+          state.copyWith(
+            analyzeImage: const AnalyzePostSuccess(),
+            data: data,
+          ),
+        );
       }
-
-      final List<String> data = [content, ...state.data ?? []];
-
-      emit(
-        state.copyWith(
-          analyzeImage: const AnalyzePostSuccess(),
-          data: data,
-        ),
-      );
     } catch (e) {
       emit(
         state.copyWith(

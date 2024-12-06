@@ -32,8 +32,10 @@ class ExtractKeywords extends LensEvent {
 }
 
 class AnalyzePost extends LensEvent {
-  final Uint8List inputImage;
+  final Uint8List? inputImage;
+  final String? text;
   const AnalyzePost({
-    required this.inputImage,
+    this.inputImage,
+    this.text,
   });
 }
