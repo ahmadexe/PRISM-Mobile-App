@@ -7,6 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
     final lensBloc = BlocProvider.of<LensBloc>(context);
+    final chainBloc = BlocProvider.of<BlockchainBloc>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -17,7 +18,28 @@ class _Body extends StatelessWidget {
         body: Padding(
           padding: Space.all(),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              GestureDetector(
+                onTap: () {
+                  lensBloc.add(SuperchargeLensToggle(
+                      data: chainBloc.state.analyticalData!));
+                },
+                child: Row(
+                  children: [
+                    Image.asset(
+                      AppStaticData.lensIcon,
+                      height: AppDimensions.normalize(17),
+                      width: AppDimensions.normalize(17),
+                    ),
+                    Space.x!,
+                    Text(
+                      'Supercharge Lens? 🚀',
+                      style: AppText.b1,
+                    ),
+                  ],
+                ),
+              ),
               BlocBuilder<LensBloc, LensState>(
                 builder: (context, state) {
                   final data = state.messages ?? [];

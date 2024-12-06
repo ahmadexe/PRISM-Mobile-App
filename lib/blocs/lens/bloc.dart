@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:prism/models/data/data.dart';
 import 'package:prism/models/lens/lens_message.dart';
 import 'package:prism/services/lens_service.dart';
 
@@ -19,6 +20,7 @@ part 'state/_skill_extraction.dart';
 part 'state/_response.dart';
 part 'state/_key_words.dart';
 part 'state/_analyze_post.dart';
+part 'state/_supercharge.dart';
 
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
@@ -26,6 +28,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     on<ExtractSkills>(_extractSkills);
     on<ExtractKeywords>(_extractKeywords);
     on<AnalyzePost>(_onAnalyzeImage);
+    on<SuperchargeLensToggle>(_superchargeLensToggle);
   }
 
   late final LensService _service;
@@ -39,6 +42,33 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: key);
     _service = LensService(model: model);
     debugPrint('LensBloc initialized');
+  }
+
+  Future<void> _superchargeLensToggle(
+    SuperchargeLensToggle event,
+    Emitter<LensState> emit,
+  ) async {
+    emit(state.copyWith(superchargeState: const SuperchargeLoading()));
+    try {
+      final data = event.data;
+      final analyticalData = data.map((e) => e.data.join('\n')).join('\n');
+
+      emit(
+        state.copyWith(
+          superchargeState: const SuperchargeSuccess(),
+          analyticalData: analyticalData,
+          isSupercharged: !state.isSupercharged,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          superchargeState: SuperchargeFailure(
+            error: e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _onAnalyzeImage(
@@ -111,6 +141,30 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     emit(state.copyWith(messages: [event.prompt, ...state.messages ?? []]));
     emit(state.copyWith(response: const LensLoading()));
     try {
+      if (state.isSupercharged) {
+        final dataPool = state.analyticalData;
+        final prompt =
+            "${dataPool!}\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Following is the prompt: ${event.prompt.message}";
+
+        final content = await _service.generateContentFromText(
+          prompt: prompt,
+        );
+
+        if (content == null) {
+          throw Exception('Failed to generate content');
+        }
+
+        final message = LensMessage(
+          message: content,
+          isFromLens: true,
+          time: DateTime.now(),
+        );
+
+        emit(state.copyWith(messages: [message, ...state.messages ?? []]));
+        emit(state.copyWith(response: const LensSuccess()));
+        return;
+      }
+
       final content = event.image != null
           ? await _service.generateContentFromImage(
               prompt: event.prompt.message,

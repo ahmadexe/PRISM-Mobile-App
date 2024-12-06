@@ -39,3 +39,10 @@ class AnalyzePost extends LensEvent {
     this.text,
   });
 }
+
+class SuperchargeLensToggle extends LensEvent {
+  final List<DataModel> data;
+  const SuperchargeLensToggle({
+    required this.data,
+  });
+}

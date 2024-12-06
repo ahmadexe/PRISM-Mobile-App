@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:prism/blocs/blockchain/bloc.dart';
 import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
