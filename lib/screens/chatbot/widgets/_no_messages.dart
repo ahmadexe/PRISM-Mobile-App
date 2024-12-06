@@ -14,9 +14,19 @@ class _NoMessages extends StatelessWidget {
           width: AppDimensions.normalize(140),
         ),
         Space.y2!,
-        Text(
-          ' Hi!, I am Lens.',
-          style: AppText.h1b,
+        BlocBuilder<LensBloc, LensState>(
+          builder: (context, state) {
+            if (state.isSupercharged) {
+              return Text(
+                'Lens is supercharged! 🔥',
+                style: AppText.h1b,
+              );
+            }
+            return Text(
+              ' Hi!, I am Lens.',
+              style: AppText.h1b,
+            );
+          },
         ),
         Space.y!,
         Text(
