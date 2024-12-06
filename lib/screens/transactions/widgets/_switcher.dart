@@ -5,23 +5,27 @@ class _Switcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: AppDimensions.normalize(25),
-      decoration: BoxDecoration(
-          color: AppTheme.c.fieldDark, borderRadius: BorderRadius.circular(20)),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _SwitcherTab(
-            title: 'All Transactions',
-            index: 0,
-          ),
-          _SwitcherTab(
-            title: 'My Transactions',
-            index: 1,
-          ),
-        ],
+    return Padding(
+      padding: Space.v2!,
+      child: Container(
+        width: double.infinity,
+        height: AppDimensions.normalize(25),
+        decoration: BoxDecoration(
+            color: AppTheme.c.fieldDark,
+            borderRadius: BorderRadius.circular(20)),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _SwitcherTab(
+              title: 'All Transactions',
+              index: 0,
+            ),
+            _SwitcherTab(
+              title: 'My Transactions',
+              index: 1,
+            ),
+          ],
+        ),
       ),
     );
   }
