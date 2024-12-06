@@ -28,6 +28,7 @@ class _BodyState extends State<_Body> {
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final notificationsBloc = BlocProvider.of<NotificationsBloc>(context);
     final walletBloc = BlocProvider.of<WalletBloc>(context);
+    final chainBloc = BlocProvider.of<BlockchainBloc>(context);
 
     return MultiBlocListener(
       listeners: [
@@ -68,10 +69,16 @@ class _BodyState extends State<_Body> {
           },
         ),
         BlocListener<BlockchainBloc, ChainState>(
+          listenWhen: (a, b) => NodeState.match(a,b),
           listener: (context, state) {
             if (state.node is NodeSuccess) {
               final address = state.address!;
               walletBloc.add(GetWalletDetails(nodeAddress: address));
+              chainBloc.add(
+                GetData(
+                  nodeAddress: address,
+                ),
+              );
             }
           },
         ),

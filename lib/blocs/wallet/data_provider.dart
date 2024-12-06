@@ -17,11 +17,9 @@ class _WallterProvider {
 
       final myAddress = data['blockchainAddress'] as String;
 
-      final res = await client.post(
+      await client.post(
         "http://$address:10111/join/?address=$myAddress",
       );
-
-      print(res.data);
 
       final amount = await getAmount(myAddress, address);
 

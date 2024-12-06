@@ -33,11 +33,38 @@ class _ChainProvider {
       if (response.statusCode != 201) {
         throw Exception('Failed to post data');
       }
-
     } catch (e) {
       debugPrint('----- ERROR in Post Data Provider -----');
       debugPrint(e.toString());
       throw Exception('Failed to post data');
+    }
+  }
+
+  static Future<List<DataModel>> getData(String address) async {
+    try {
+      final client = Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ));
+
+      final response = await client.get(
+        'http://$address:10111/data',
+      );
+
+      final dataRaw = response.data as Map<String, dynamic>;
+
+      final dataSeg = dataRaw['data'] as List<dynamic>;
+
+      final data = dataSeg
+          .map((e) => DataModel.fromMap(e as Map<String, dynamic>))
+          .toList();
+
+      return data;
+    } catch (e) {
+      debugPrint('----- ERROR in Get Data Provider -----');
+      debugPrint(e.toString());
+      throw Exception('Failed to get data');
     }
   }
 }

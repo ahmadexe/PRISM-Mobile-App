@@ -21,3 +21,14 @@ final class PostData extends ChainEvent {
   @override
   List<Object> get props => [data, blockchainAddress];
 }
+
+final class GetData extends ChainEvent {
+  final String nodeAddress;
+
+  const GetData({
+    required this.nodeAddress,
+  });
+
+  @override
+  List<Object> get props => [nodeAddress];
+}

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:prism/services/api.dart';
+import 'package:prism/models/data/data.dart';
 
 part 'event.dart';
 part 'state.dart';
@@ -13,13 +13,38 @@ part 'repository.dart';
 
 part 'states/_node.dart';
 part 'states/_data.dart';
+part 'states/_get_data.dart';
 
 class BlockchainBloc extends Bloc<ChainEvent, ChainState> {
   BlockchainBloc() : super(const ChainInitial()) {
     on<GetConnectionString>(_getConnectionString);
     on<PostData>(_postData);
+    on<GetData>(_getData);
   }
   final repo = _ChainRepo();
+
+  Future<void> _getData(GetData event, Emitter<ChainState> emit) async {
+    emit(
+      state.copyWith(
+        getData: const GetDataLoading(),
+      ),
+    );
+    try {
+      final data = await _ChainProvider.getData(event.nodeAddress);
+      emit(
+        state.copyWith(
+          getData: const GetDataSuccess(),
+          analyticalData: data,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          getData: GetDataFailure(message: e.toString()),
+        ),
+      );
+    }
+  }
 
   Future<void> _postData(PostData event, Emitter<ChainState> emit) async {
     emit(
