@@ -11,7 +11,7 @@ class _Drawer extends StatelessWidget {
     final jobsBloc = BlocProvider.of<JobsBloc>(context);
     final screenState = _ScreenState.s(context, true);
     final walletBloc = BlocProvider.of<WalletBloc>(context);
-    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final nodeBloc = BlocProvider.of<BlockchainBloc>(context);
     final address = nodeBloc.state.address;
 
     return SizedBox(

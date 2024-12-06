@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:prism/blocs/node/bloc.dart';
+import 'package:prism/blocs/blockchain/bloc.dart';
 import 'package:prism/blocs/transaction/transaction_bloc.dart';
 import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';

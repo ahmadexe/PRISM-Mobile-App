@@ -7,7 +7,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenState = _ScreenState.s(context, true);
     final transactionBloc = BlocProvider.of<TransactionBloc>(context);
-    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final nodeBloc = BlocProvider.of<BlockchainBloc>(context);
     final nodeAddress = nodeBloc.state.address!;
     return SafeArea(
       child: Scaffold(

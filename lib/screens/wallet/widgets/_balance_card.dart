@@ -6,7 +6,7 @@ class _BalanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nodeBloc = BlocProvider.of<NodeBloc>(context);
+    final nodeBloc = BlocProvider.of<BlockchainBloc>(context);
     final address = nodeBloc.state.address;
     return BlocBuilder<WalletBloc, WalletState>(
       builder: (context, state) {

@@ -15,7 +15,7 @@ class _BodyState extends State<_Body> {
       const PostsFetchEvent(),
     );
 
-    BlocProvider.of<NodeBloc>(context).add(
+    BlocProvider.of<BlockchainBloc>(context).add(
       GetConnectionString(),
     );
     super.initState();
@@ -67,10 +67,10 @@ class _BodyState extends State<_Body> {
             }
           },
         ),
-        BlocListener<NodeBloc, NodeState>(
+        BlocListener<BlockchainBloc, ChainState>(
           listener: (context, state) {
-            if (state is NodeLoaded) {
-              final address = state.data;
+            if (state.node is NodeSuccess) {
+              final address = state.address!;
               walletBloc.add(GetWalletDetails(nodeAddress: address));
             }
           },

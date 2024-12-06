@@ -59,6 +59,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                       upVotes++;
                       isUpVoted = true;
                       isDownVoted = false;
+                      
                     }
                   });
 
