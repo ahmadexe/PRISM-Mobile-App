@@ -14,3 +14,10 @@ class CreateTransaction extends TransactionEvent {
     required this.nodeAddress,
   });
 }
+
+class GetTransactions extends TransactionEvent {
+  final String nodeAddress;
+  const GetTransactions({
+    required this.nodeAddress,
+  });
+}
