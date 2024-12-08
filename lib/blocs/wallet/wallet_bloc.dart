@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +31,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     );
 
     try {
-      final wallet = await _WallterProvider.getWalletDetails(event.nodeAddress);
+      final wallet = await _WallterProvider.getWalletDetails(event.nodeAddress, event.publicKey, event.privateKey);
 
       emit(
         state.copyWith(

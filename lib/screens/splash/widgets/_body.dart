@@ -69,16 +69,27 @@ class _BodyState extends State<_Body> {
           },
         ),
         BlocListener<BlockchainBloc, ChainState>(
-          listenWhen: (a, b) => NodeState.match(a,b),
-          listener: (context, state) {
+          listenWhen: (a, b) => NodeState.match(a, b),
+          listener: (context, state) async {
             if (state.node is NodeSuccess) {
               final address = state.address!;
-              walletBloc.add(GetWalletDetails(nodeAddress: address));
               chainBloc.add(
                 GetData(
                   nodeAddress: address,
                 ),
               );
+
+              
+
+              final cache = AppCache();
+              final publicKey = await cache.getString("PublicKey");
+              final privateKey = await cache.getString("PrivateKey");
+
+              walletBloc.add(GetWalletDetails(
+                nodeAddress: address,
+                publicKey: publicKey,
+                privateKey: privateKey,
+              ));
             }
           },
         ),

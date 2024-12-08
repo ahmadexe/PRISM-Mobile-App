@@ -10,6 +10,7 @@ import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:flutter/material.dart';
 import 'package:prism/router/routes.dart';
+import 'package:prism/services/cache.dart';
 import 'package:prism/static/app_statics.dart';
 
 part 'widgets/_body.dart';

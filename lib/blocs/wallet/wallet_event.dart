@@ -7,7 +7,13 @@ abstract class WalletEvent {
 
 class GetWalletDetails extends WalletEvent {
   final String nodeAddress;
-  const GetWalletDetails({required this.nodeAddress}) : super();
+  final String? publicKey;
+  final String? privateKey;
+  const GetWalletDetails({
+    required this.nodeAddress,
+    this.privateKey,
+    this.publicKey,
+  }) : super();
 }
 
 class GetWalletAmount extends WalletEvent {
