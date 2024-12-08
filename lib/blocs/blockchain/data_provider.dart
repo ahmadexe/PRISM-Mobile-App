@@ -54,8 +54,10 @@ class _ChainProvider {
 
       final dataRaw = response.data as Map<String, dynamic>;
 
-      final dataSeg = dataRaw['data'] as List<dynamic>;
-
+      final dataSeg = dataRaw['data'] as List<dynamic>?;
+      if (dataSeg == null) {
+        return [];
+      }
       final data = dataSeg
           .map((e) => DataModel.fromMap(e as Map<String, dynamic>))
           .toList();
