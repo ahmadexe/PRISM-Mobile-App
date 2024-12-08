@@ -31,6 +31,7 @@ part 'states/_toggle_follow.dart';
 part 'states/_search.dart';
 part 'states/_service_provider.dart';
 part 'states/_device_token.dart';
+part 'states/_data.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -46,10 +47,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SubscribeToSearch>(_subscribeToSearch);
     on<ToggleServiceProviderEvent>(_toggleServiceProvider);
     on<UpdateDeviceToken>(_updateDeviceToken);
+    on<ToggleShareData>(_onToggleShareData);
   }
 
   final _adaptor = _AuthAdaptor();
   late StreamSubscription<User?> listener;
+
+  Future<void> _onToggleShareData(
+      ToggleShareData event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(data: const DataLoading()));
+    try {
+      await _AuthDataProvider.toggleIsSharingData(event.id);
+      emit(state.copyWith(data: const DataSuccess()));
+    } catch (e) {
+      emit(state.copyWith(data: DataFailure(message: e.toString())));
+    }
+  }
 
   void _register(AuthRegister event, Emitter<AuthState> emit) async {
     emit(state.copyWith(register: const AuthRegisterLoading()));

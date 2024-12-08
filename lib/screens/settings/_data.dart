@@ -2,6 +2,7 @@ part of 'settings.dart';
 
 final accountSettingsData = [
   _ListData(icon: const Icon(Iconsax.user), title: 'Account'),
+  _ListData(icon: const Icon(Iconsax.chart), title: 'Share Data'),
   _ListData(icon: const Icon(Iconsax.security_safe), title: 'Privacy & Safety'),
   _ListData(icon: const Icon(Iconsax.box_2), title: 'Analytics'),
   _ListData(

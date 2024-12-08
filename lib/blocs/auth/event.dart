@@ -112,3 +112,11 @@ class UpdateDeviceToken extends AuthEvent {
     required this.userId,
   });
 }
+
+class ToggleShareData extends AuthEvent {
+  final String id;
+
+  const ToggleShareData({
+    required this.id,
+  });
+}
