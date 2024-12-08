@@ -9,6 +9,8 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final screenState = _ScreenState.s(context, true);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,7 +38,21 @@ class _SettingsTile extends StatelessWidget {
                   style: AppText.b2b!
                       .cl(isProminant ? Colors.red : AppTheme.c.white!),
                 ),
-                trailing: const Icon(Icons.chevron_right),
+                trailing: data[index].title == "Share Data"
+                    ? Switch(
+                        value: screenState.isSharingData ??
+                            authBloc.state.user!.isSharingData,
+                        onChanged: (value) {
+                          screenState.setIsSharingData(value);
+                          authBloc.add(
+                            ToggleShareData(
+                              id: authBloc.state.user!.id,
+                            ),
+                          );
+                        },
+                        activeColor: AppTheme.c.accent,
+                      )
+                    : const Icon(Icons.chevron_right),
                 onTap: isProminant
                     ? () {
                         BlocProvider.of<AuthBloc>(context)
