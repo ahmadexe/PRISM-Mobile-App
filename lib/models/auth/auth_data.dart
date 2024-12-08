@@ -19,6 +19,7 @@ class AuthData {
   final bool isServiceProvider;
   final String deviceToken;
   final bool isSupercharged;
+  final bool isSharingData;
 
   AuthData({
     required this.email,
@@ -37,6 +38,7 @@ class AuthData {
     required this.isRanked,
     required this.deviceToken,
     required this.isSupercharged,
+    required this.isSharingData,
   });
 
   AuthData copyWith({
@@ -56,6 +58,7 @@ class AuthData {
     bool? isRanked,
     String? deviceToken,
     bool? isSupercharged,
+    bool? isSharingData,
   }) {
     return AuthData(
       email: email ?? this.email,
@@ -74,6 +77,7 @@ class AuthData {
       isRanked: isRanked ?? this.isRanked,
       deviceToken: deviceToken ?? this.deviceToken,
       isSupercharged: isSupercharged ?? this.isSupercharged,
+      isSharingData: isSharingData ?? this.isSharingData,
     );
   }
 
@@ -95,6 +99,7 @@ class AuthData {
       'isRanked': isRanked,
       'deviceToken': deviceToken,
       'isSupercharged': isSupercharged,
+      'isSharingData': isSharingData,
     };
   }
 
@@ -120,6 +125,7 @@ class AuthData {
       isRanked: map['isRanked'] as bool,
       deviceToken: map['deviceToken'] as String,
       isSupercharged: map['isSupercharged'] as bool,
+      isSharingData: map['isSharingData'] as bool,
     );
   }
 
@@ -130,7 +136,7 @@ class AuthData {
 
   @override
   String toString() {
-    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked, deviceToken: $deviceToken, isSupercharged: $isSupercharged)';
+    return 'AuthData(email: $email, domain: $domain, fullname: $fullname, uid: $uid, id: $id, createdAt: $createdAt, bio: $bio, imageUrl: $imageUrl, bannerImageUrl: $bannerImageUrl, followers: $followers, following: $following, isBusinessAcc: $isBusinessAcc, isServiceProvider: $isServiceProvider, isRanked: $isRanked, deviceToken: $deviceToken, isSupercharged: $isSupercharged, isSharingData: $isSharingData)';
   }
 
   @override
@@ -152,7 +158,8 @@ class AuthData {
         other.isServiceProvider == isServiceProvider &&
         other.isRanked == isRanked &&
         other.deviceToken == deviceToken &&
-        other.isSupercharged == isSupercharged;
+        other.isSupercharged == isSupercharged &&
+        other.isSharingData == isSharingData;
   }
 
   @override
@@ -172,6 +179,7 @@ class AuthData {
         isServiceProvider.hashCode ^
         isRanked.hashCode ^
         deviceToken.hashCode ^
-        isSupercharged.hashCode;
+        isSupercharged.hashCode ^
+        isSharingData.hashCode;
   }
 }
