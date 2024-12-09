@@ -7,10 +7,10 @@ class StripeService {
   StripeService._();
   static final StripeService instance = StripeService._();
 
-  Future<void> makePayment(int amount) async {
+  Future<bool> makePayment(int amount) async {
     try {
       final clientSecret = await _createPaymentIntent(amount, 'usd');
-      if (clientSecret == null) return;
+      if (clientSecret == null) return false;
 
       await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
@@ -18,9 +18,11 @@ class StripeService {
       ));
 
       await _processPayment();
+      return true;
     } catch (e) {
       debugPrint('----- ERROR in Stripe Service -----');
       debugPrint(e.toString());
+      return false;
     }
   }
 

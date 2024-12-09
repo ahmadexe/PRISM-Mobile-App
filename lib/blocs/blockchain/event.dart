@@ -32,3 +32,18 @@ final class GetData extends ChainEvent {
   @override
   List<Object> get props => [nodeAddress];
 }
+
+final class BuyCoins extends ChainEvent {
+  final String nodeAddress;
+  final String userChainAddress;
+  final double amount;
+
+  const BuyCoins({
+    required this.nodeAddress,
+    required this.amount,
+    required this.userChainAddress,
+  });
+
+  @override
+  List<Object> get props => [nodeAddress, amount, userChainAddress];
+}

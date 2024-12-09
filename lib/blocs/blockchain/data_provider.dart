@@ -69,4 +69,30 @@ class _ChainProvider {
       throw Exception('Failed to get data');
     }
   }
+
+  static Future<void> buyCoins(String nodeAddress, String userAddress, double amount) async {
+    try {
+      final client = Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 60000),
+      ));
+
+      final response = await client.post(
+        'http://$nodeAddress:10111/buy',
+        data: json.encode({
+          'requestAddress': userAddress,
+          'amount': amount,
+        }),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to buy coins');
+      }
+    } catch (e) {
+      debugPrint('----- ERROR in Buy Coins Provider -----');
+      debugPrint(e.toString());
+      throw Exception('Failed to buy coins');
+    }
+  }
 }

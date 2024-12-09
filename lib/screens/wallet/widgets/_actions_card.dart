@@ -11,7 +11,7 @@ class _ActionsCard extends StatelessWidget {
         if (isTransaction) {
           AppRoutes.transaction.push(context);
         } else {
-          StripeService.instance.makePayment(10);
+          AppRoutes.buyCoins.push(context);
         }
       },
       child: Container(
