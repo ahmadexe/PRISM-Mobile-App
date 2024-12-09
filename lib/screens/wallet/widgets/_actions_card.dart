@@ -10,6 +10,8 @@ class _ActionsCard extends StatelessWidget {
       onTap: () {
         if (isTransaction) {
           AppRoutes.transaction.push(context);
+        } else {
+          StripeService.instance.makePayment(10);
         }
       },
       child: Container(
@@ -44,7 +46,7 @@ class _ActionsCard extends StatelessWidget {
               ),
               Space.y!,
               Text(
-                'View Keys',
+                'Buy Coins',
                 style: AppText.b1b,
               ),
             ],
