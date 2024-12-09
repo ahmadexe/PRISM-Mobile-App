@@ -1,4 +1,5 @@
 abstract class AppRoutes {
+  static const buyCoins = '/buy-coins';
   static const generateWallet = '/generate-wallet';
   static const transactions = '/transactions';
   static const transaction = '/transaction';
