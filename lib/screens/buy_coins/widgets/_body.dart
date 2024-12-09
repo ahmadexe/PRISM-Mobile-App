@@ -62,10 +62,10 @@ class _Body extends StatelessWidget {
 
                               final amountRaw =
                                   form.value[_FormKeys.amount] as String;
-                              final amount = double.parse(amountRaw);
+                              final amount = int.parse(amountRaw);
 
                               final isSuccessful = await StripeService.instance
-                                  .makePayment(10);
+                                  .makePayment(amount);
 
                               if (isSuccessful) {
                                 final cache = AppCache();
@@ -75,7 +75,7 @@ class _Body extends StatelessWidget {
                                 if (chainAddress != null) {
                                   chainBloc.add(BuyCoins(
                                     nodeAddress: chainBloc.state.address!,
-                                    amount: amount,
+                                    amount: amount.toDouble(),
                                     userChainAddress: chainAddress,
                                   ));
                                 }

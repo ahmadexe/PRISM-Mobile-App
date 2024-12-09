@@ -15,10 +15,11 @@ class StripeService {
       await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
         merchantDisplayName: "PRISM",
+        style: ThemeMode.dark,
       ));
 
-      await _processPayment();
-      return true;
+      final ok = await _processPayment();
+      return ok;
     } catch (e) {
       debugPrint('----- ERROR in Stripe Service -----');
       debugPrint(e.toString());
@@ -64,12 +65,14 @@ class StripeService {
     }
   }
 
-  Future<void> _processPayment() async {
+  Future<bool> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
+      return true;
     } catch (e) {
       debugPrint('----- ERROR in Stripe Service -----');
       debugPrint(e.toString());
+      return false;
     }
   }
 }
