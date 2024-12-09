@@ -120,3 +120,11 @@ class ToggleShareData extends AuthEvent {
     required this.id,
   });
 }
+
+class ToggleSupercharge extends AuthEvent {
+  final String id;
+
+  const ToggleSupercharge({
+    required this.id,
+  });
+}

@@ -16,6 +16,7 @@ class AuthState extends Equatable {
   final ServiceProviderToggleState serviceProvider;
   final TokenState token;
   final DataState data;
+  final SuperchargeState supercharge;
 
   const AuthState({
     this.channel,
@@ -32,6 +33,7 @@ class AuthState extends Equatable {
     required this.serviceProvider,
     required this.token,
     required this.data,
+    required this.supercharge,
   });
 
   AuthState copyWith({
@@ -49,6 +51,7 @@ class AuthState extends Equatable {
     ServiceProviderToggleState? serviceProvider,
     TokenState? token,
     DataState? data,
+    SuperchargeState? supercharge,
   }) {
     return AuthState(
       channel: channel ?? this.channel,
@@ -65,6 +68,7 @@ class AuthState extends Equatable {
       serviceProvider: serviceProvider ?? this.serviceProvider,
       token: token ?? this.token,
       data: data ?? this.data,
+      supercharge: supercharge ?? this.supercharge,
     );
   }
 
@@ -84,6 +88,7 @@ class AuthState extends Equatable {
         serviceProvider,
         token,
         data,
+        supercharge,
       ];
 }
 
@@ -102,5 +107,6 @@ final class AuthDefault extends AuthState {
           serviceProvider: const ServiceProviderToggleDefault(),
           token: const TokenDefault(),
           data: const DataDefault(),
+          supercharge: const SuperchargeDefault(),
         );
 }

@@ -9,6 +9,9 @@ class _Body extends StatelessWidget {
     final transactionBloc = BlocProvider.of<TransactionBloc>(context);
     final nodeBloc = BlocProvider.of<BlockchainBloc>(context);
     final address = nodeBloc.state.address;
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
+    final user = authBloc.state.user!;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -91,6 +94,7 @@ class _Body extends StatelessWidget {
                           recipientBlockchainAddress:
                               data[_FormKeys.receiverAddress],
                           value: double.parse(data[_FormKeys.amount]),
+                          share: user.isSupercharged,
                         );
 
                         transactionBloc.add(

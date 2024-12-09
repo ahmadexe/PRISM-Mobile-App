@@ -255,4 +255,23 @@ class _AuthDataProvider {
       rethrow;
     }
   }
+
+  static Future<void> toggleIsSupercharged(String userId) async {
+    try {
+      final user = _auth.currentUser;
+
+      final token = await user?.getIdToken();
+      _client.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await _client.put('/users/supercharge/$userId');
+      
+      if (response.statusCode != 200) {
+        throw 'Failed to toggle is sharing data';
+      }
+    } catch (e) {
+      debugPrint('Exception in Auth Data Provider(toggleIsSharingData): $e');
+      debugPrint('--------------------------');
+      rethrow;
+    }
+  }
 }

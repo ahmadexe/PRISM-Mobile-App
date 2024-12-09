@@ -32,6 +32,7 @@ part 'states/_search.dart';
 part 'states/_service_provider.dart';
 part 'states/_device_token.dart';
 part 'states/_data.dart';
+part 'states/_supercharge.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(const AuthDefault()) {
@@ -48,10 +49,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ToggleServiceProviderEvent>(_toggleServiceProvider);
     on<UpdateDeviceToken>(_updateDeviceToken);
     on<ToggleShareData>(_onToggleShareData);
+    on<ToggleSupercharge>(_onToggleSupercharge);
   }
 
   final _adaptor = _AuthAdaptor();
   late StreamSubscription<User?> listener;
+
+  Future<void> _onToggleSupercharge(
+      ToggleSupercharge event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(supercharge: const SuperchargeLoading()));
+    try {
+      await _AuthDataProvider.toggleIsSupercharged(event.id);
+      final user =
+          state.user!.copyWith(isSupercharged: !state.user!.isSupercharged);
+      emit(state.copyWith(supercharge: const SuperchargeSuccess(), user: user));
+    } catch (e) {
+      emit(state.copyWith(
+          supercharge: SuperchargeFailure(message: e.toString())));
+    }
+  }
 
   Future<void> _onToggleShareData(
       ToggleShareData event, Emitter<AuthState> emit) async {

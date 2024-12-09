@@ -6,6 +6,7 @@ class Transaction {
   final String senderBlockchainAddress;
   final String recipientBlockchainAddress;
   final double value;
+  final bool share;
 
   Transaction({
     required this.senderPublicKey,
@@ -13,6 +14,7 @@ class Transaction {
     required this.senderBlockchainAddress,
     required this.recipientBlockchainAddress,
     required this.value,
+    required this.share,
   });
 
   Transaction copyWith({
@@ -21,6 +23,7 @@ class Transaction {
     String? senderBlockchainAddress,
     String? recipientBlockchainAddress,
     double? value,
+    bool? share,
   }) {
     return Transaction(
       senderPublicKey: senderPublicKey ?? this.senderPublicKey,
@@ -28,6 +31,7 @@ class Transaction {
       senderBlockchainAddress: senderBlockchainAddress ?? this.senderBlockchainAddress,
       recipientBlockchainAddress: recipientBlockchainAddress ?? this.recipientBlockchainAddress,
       value: value ?? this.value,
+      share: share ?? this.share,
     );
   }
 
@@ -38,6 +42,7 @@ class Transaction {
       'senderBlockchainAddress': senderBlockchainAddress,
       'recipientBlockchainAddress': recipientBlockchainAddress,
       'value': value,
+      'share': share,
     };
   }
 
@@ -48,6 +53,7 @@ class Transaction {
       senderBlockchainAddress: map['senderBlockchainAddress'] as String,
       recipientBlockchainAddress: map['recipientBlockchainAddress'] as String,
       value: map['value'] as double,
+      share: map['share'] as bool,
     );
   }
 
@@ -57,7 +63,7 @@ class Transaction {
 
   @override
   String toString() {
-    return 'Transaction(senderPublicKey: $senderPublicKey, senderPrivateKey: $senderPrivateKey, senderBlockchainAddress: $senderBlockchainAddress, recipientBlockchainAddress: $recipientBlockchainAddress, value: $value)';
+    return 'Transaction(senderPublicKey: $senderPublicKey, senderPrivateKey: $senderPrivateKey, senderBlockchainAddress: $senderBlockchainAddress, recipientBlockchainAddress: $recipientBlockchainAddress, value: $value, share: $share)';
   }
 
   @override
@@ -69,7 +75,8 @@ class Transaction {
       other.senderPrivateKey == senderPrivateKey &&
       other.senderBlockchainAddress == senderBlockchainAddress &&
       other.recipientBlockchainAddress == recipientBlockchainAddress &&
-      other.value == value;
+      other.value == value &&
+      other.share == share;
   }
 
   @override
@@ -78,6 +85,7 @@ class Transaction {
       senderPrivateKey.hashCode ^
       senderBlockchainAddress.hashCode ^
       recipientBlockchainAddress.hashCode ^
-      value.hashCode;
+      value.hashCode ^
+      share.hashCode;
   }
 }
