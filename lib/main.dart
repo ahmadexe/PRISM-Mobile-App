@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:navigation_history_observer/navigation_history_observer.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/chats/bloc.dart';
@@ -27,12 +28,21 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  //
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   NotificationBase.init(flutterLocalNotificationsPlugin);
+  //
+  final publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'];
+  if (publishableKey == null || publishableKey.isEmpty) {
+    throw Exception('Stripe publishable key not found');
+  }
+  Stripe.publishableKey = publishableKey;
+  //
   runApp(const MyApp());
 }
 

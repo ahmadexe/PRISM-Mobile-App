@@ -1,3 +1,4 @@
+import 'package:prism/screens/buy_coins/buy_coins.dart';
 import 'package:prism/screens/generate_wallet/generate_wallet.dart';
 import 'package:prism/screens/transactions/transactions.dart';
 import 'package:prism/screens/transaction/transaction.dart';
@@ -28,6 +29,7 @@ import 'package:prism/router/routes.dart';
 import 'package:prism/screens/home/home.dart';
 
 final Map<String, Widget Function(dynamic)> appRoutes = {
+  AppRoutes.buyCoins: (_) => const BuyCoinsScreen(),
   AppRoutes.generateWallet: (_) => const GenerateWalletScreen(),
   AppRoutes.transactions: (_) => const TransactionsScreen(),
   AppRoutes.transaction: (_) => const TransactionScreen(),

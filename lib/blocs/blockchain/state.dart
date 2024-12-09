@@ -6,6 +6,7 @@ class ChainState extends Equatable {
   final NodeState node;
   final PostDataState data;
   final GetDataState getData;
+  final BuyCoinsState buy;
 
   const ChainState({
     this.address,
@@ -13,6 +14,7 @@ class ChainState extends Equatable {
     required this.node,
     required this.data,
     required this.getData,
+    required this.buy,
   });
 
   @override
@@ -22,6 +24,7 @@ class ChainState extends Equatable {
         node,
         data,
         getData,
+        buy,
       ];
 
   ChainState copyWith({
@@ -30,6 +33,7 @@ class ChainState extends Equatable {
     NodeState? node,
     PostDataState? data,
     GetDataState? getData,
+    BuyCoinsState? buy,
   }) {
     return ChainState(
       address: address ?? this.address,
@@ -37,6 +41,7 @@ class ChainState extends Equatable {
       node: node ?? this.node,
       data: data ?? this.data,
       getData: getData ?? this.getData,
+      buy: buy ?? this.buy,
     );
   }
 }
@@ -47,5 +52,6 @@ class ChainInitial extends ChainState {
           node: const NodeDefault(),
           data: const PostDataDefault(),
           getData: const GetDataDefault(),
+          buy: const BuyCoinsDefault(),
         );
 }

@@ -14,14 +14,42 @@ part 'repository.dart';
 part 'states/_node.dart';
 part 'states/_data.dart';
 part 'states/_get_data.dart';
+part 'states/_buy.dart';
 
 class BlockchainBloc extends Bloc<ChainEvent, ChainState> {
   BlockchainBloc() : super(const ChainInitial()) {
     on<GetConnectionString>(_getConnectionString);
     on<PostData>(_postData);
     on<GetData>(_getData);
+    on<BuyCoins>(_onBuyCoins);
   }
   final repo = _ChainRepo();
+
+  Future<void> _onBuyCoins(BuyCoins event, Emitter<ChainState> emit) async {
+    emit(
+      state.copyWith(
+        buy: const BuyCoinsLoading(),
+      ),
+    );
+    try {
+      await _ChainProvider.buyCoins(
+        event.nodeAddress,
+        event.userChainAddress,
+        event.amount,
+      );
+      emit(
+        state.copyWith(
+          buy: const BuyCoinsSuccess(),
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          buy: BuyCoinsFailure(message: e.toString()),
+        ),
+      );
+    }
+  }
 
   Future<void> _getData(GetData event, Emitter<ChainState> emit) async {
     emit(
