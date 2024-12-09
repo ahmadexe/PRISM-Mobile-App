@@ -8,7 +8,7 @@ class _Body extends StatelessWidget {
     final screenState = _ScreenState.s(context, true);
     final lensBloc = BlocProvider.of<LensBloc>(context);
     final chainBloc = BlocProvider.of<BlockchainBloc>(context);
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
 
     return SafeArea(
       child: Scaffold(
@@ -24,7 +24,7 @@ class _Body extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   lensBloc.add(SuperchargeLensToggle(
-                      data: chainBloc.state.analyticalData!));
+                      data: chainBloc.state.analyticalData ?? []));
                   authBloc.add(ToggleSupercharge(id: authBloc.state.user!.id));
                 },
                 child: Row(
@@ -38,7 +38,7 @@ class _Body extends StatelessWidget {
                     if (authBloc.state.user!.isSupercharged)
                       Text(
                         'Lens Supercharged! 🚀',
-                        style: AppText.b1!.cl(AppTheme.c.primary!),
+                        style: AppText.b1!,
                       )
                     else
                       Text(

@@ -94,7 +94,7 @@ class _Body extends StatelessWidget {
                           recipientBlockchainAddress:
                               data[_FormKeys.receiverAddress],
                           value: double.parse(data[_FormKeys.amount]),
-                          share: user.isSupercharged,
+                          share: user.isBusinessAcc,
                         );
 
                         transactionBloc.add(
