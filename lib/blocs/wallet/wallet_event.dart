@@ -9,10 +9,12 @@ class GetWalletDetails extends WalletEvent {
   final String nodeAddress;
   final String? publicKey;
   final String? privateKey;
+  final String? address;
   const GetWalletDetails({
     required this.nodeAddress,
     this.privateKey,
     this.publicKey,
+    this.address,
   }) : super();
 }
 

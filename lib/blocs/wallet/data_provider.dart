@@ -2,7 +2,7 @@ part of 'wallet_bloc.dart';
 
 class _WallterProvider {
   static Future<Wallet> getWalletDetails(String address,
-      [String? publicKey, String? privateKey]) async {
+      [String? publicKey, String? privateKey, String? chainAddress]) async {
     try {
       final client = Dio(BaseOptions(
         contentType: "application/json",
@@ -11,8 +11,21 @@ class _WallterProvider {
       ));
 
       final Response<dynamic> response;
-      print('publicKey: $publicKey');
-      print('privateKey: $privateKey');
+
+      if (chainAddress != null && publicKey != null && privateKey != null) {
+        final amount = await getAmount(chainAddress, address);
+        Map<String, dynamic> data = {
+          'blockchainAddress': chainAddress,
+          'publicKey': publicKey,
+          'privateKey': privateKey,
+        };
+        data['amount'] = amount;
+
+        final wallet = Wallet.fromMap(data);
+
+        return wallet;
+      }
+
       if (publicKey != null && privateKey != null) {
         final url = 'http://$address:11101/generate/wallet';
         response = await client.get(

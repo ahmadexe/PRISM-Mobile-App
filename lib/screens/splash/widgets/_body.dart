@@ -63,11 +63,14 @@ class _BodyState extends State<_Body> {
               final cache = AppCache();
               final publicKey = await cache.getString("PublicKey");
               final privateKey = await cache.getString("PrivateKey");
+              final chainAddress = await cache.getString("ChainAddress");
+
               if (publicKey != null && privateKey != null) {
                 walletBloc.add(GetWalletDetails(
                   nodeAddress: chainBloc.state.address!,
                   publicKey: publicKey,
                   privateKey: privateKey,
+                  address: chainAddress,
                 ));
                 if (context.mounted) {
                   Navigator.pushReplacementNamed(context, AppRoutes.home);
@@ -95,11 +98,17 @@ class _BodyState extends State<_Body> {
                   nodeAddress: address,
                 ),
               );
-              // walletBloc.add(GetWalletDetails(
-              //   nodeAddress: address,
-              //   publicKey: publicKey,
-              //   privateKey: privateKey,
-              // ));
+            }
+          },
+        ),
+        BlocListener<WalletBloc, WalletState>(listener: 
+          (context, state) {
+            if (state.walletInfo is WalletInfoLoaded) {
+              final wallet = state.wallet!;
+              final cache = AppCache();
+              cache.setString("PublicKey", wallet.publicKey);
+              cache.setString("PrivateKey", wallet.privateKey);
+              cache.setString("ChainAddress", wallet.blockchainAddress);
             }
           },
         ),

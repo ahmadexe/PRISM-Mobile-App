@@ -31,7 +31,7 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
     );
 
     try {
-      final wallet = await _WallterProvider.getWalletDetails(event.nodeAddress, event.publicKey, event.privateKey);
+      final wallet = await _WallterProvider.getWalletDetails(event.nodeAddress, event.publicKey, event.privateKey, event.address);
 
       emit(
         state.copyWith(
