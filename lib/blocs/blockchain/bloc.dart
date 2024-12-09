@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prism/models/data/data.dart';
+import 'package:prism/services/api.dart';
 
 part 'event.dart';
 part 'state.dart';
