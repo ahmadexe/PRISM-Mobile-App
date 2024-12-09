@@ -76,6 +76,17 @@ class _Body extends StatelessWidget {
                         isDarkField: true,
                         type: FieldType.secondary,
                       ),
+                      Space.y2!,
+                      AppTextField(
+                        name: _FormKeys.address,
+                        prefixIcon: Icon(
+                          Iconsax.lock,
+                          size: AppDimensions.normalize(7),
+                        ),
+                        hint: 'Enter Blockchain Address',
+                        isDarkField: true,
+                        type: FieldType.secondary,
+                      ),
                       Space.yf(50),
                       AppButton(
                           label: "Let's Go!",
@@ -88,6 +99,8 @@ class _Body extends StatelessWidget {
                                 form.value[_FormKeys.publicKey] as String;
                             final privateKey =
                                 form.value[_FormKeys.privateKey] as String;
+                            final address =
+                                form.value[_FormKeys.address] as String;
 
                             final nodeBloc =
                                 BlocProvider.of<BlockchainBloc>(context);
@@ -96,6 +109,7 @@ class _Body extends StatelessWidget {
                               nodeAddress: nodeBloc.state.address!,
                               publicKey: publicKey,
                               privateKey: privateKey,
+                              address: address,
                             ));
 
                             AppRoutes.home.pushReplace(context);
