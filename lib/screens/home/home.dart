@@ -11,6 +11,7 @@ import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/wallet/wallet_bloc.dart';
 import 'package:prism/configs/configs.dart';
 import 'package:prism/router/routes.dart';
+import 'package:prism/services/cache.dart';
 import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';

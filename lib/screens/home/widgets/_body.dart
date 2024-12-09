@@ -5,21 +5,23 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
     final chainBloc = BlocProvider.of<BlockchainBloc>(context);
     final user = authBloc.state.user!;
     final screenState = _ScreenState.s(context, true);
 
     return BlocListener<LensBloc, LensState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.analyzeImage is AnalyzePostSuccess) {
           if (user.isSharingData) {
             final data = state.data;
             if (data!.length % 3 == 0) {
+              final cache = AppCache();
+              final address = await cache.getString('ChainAddress');
               chainBloc.add(
                 PostData(
                   data: data,
-                  blockchainAddress: "Random address",
+                  blockchainAddress: address!,
                 ),
               );
             }

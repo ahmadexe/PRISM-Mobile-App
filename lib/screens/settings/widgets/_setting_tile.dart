@@ -9,7 +9,7 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
     final screenState = _ScreenState.s(context, true);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
