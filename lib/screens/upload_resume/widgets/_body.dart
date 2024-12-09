@@ -17,7 +17,7 @@ class _Body extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
-                AppRoutes.home.pushReplace(context);
+                AppRoutes.generateWallet.pushReplace(context);
                 mediaProvider.removeInputImage();
                 mediaProvider.removeMedia();
               },

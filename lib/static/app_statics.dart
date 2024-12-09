@@ -13,4 +13,5 @@ class AppStaticData {
   static const chatbot = 'assets/chatbot.png';
   static const resume = 'assets/resume.png';
   static const coin = 'assets/coin.png';
+  static const wallet = 'assets/wallet.png';
 }

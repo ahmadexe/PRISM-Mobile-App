@@ -60,7 +60,24 @@ class _BodyState extends State<_Body> {
                 FetchNotifications(uid: user.uid),
               );
 
-              Navigator.pushReplacementNamed(context, AppRoutes.home);
+              final cache = AppCache();
+              final publicKey = await cache.getString("PublicKey");
+              final privateKey = await cache.getString("PrivateKey");
+              if (publicKey != null && privateKey != null) {
+                walletBloc.add(GetWalletDetails(
+                  nodeAddress: chainBloc.state.address!,
+                  publicKey: publicKey,
+                  privateKey: privateKey,
+                ));
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(context, AppRoutes.home);
+                }
+              } else {
+                if (context.mounted) {
+                  Navigator.pushReplacementNamed(
+                      context, AppRoutes.generateWallet);
+                }
+              }
             } else if (state.init is AuthInitFailure) {
               await Future.delayed(const Duration(seconds: 2));
               if (!context.mounted) return;
@@ -78,18 +95,11 @@ class _BodyState extends State<_Body> {
                   nodeAddress: address,
                 ),
               );
-
-              
-
-              final cache = AppCache();
-              final publicKey = await cache.getString("PublicKey");
-              final privateKey = await cache.getString("PrivateKey");
-
-              walletBloc.add(GetWalletDetails(
-                nodeAddress: address,
-                publicKey: publicKey,
-                privateKey: privateKey,
-              ));
+              // walletBloc.add(GetWalletDetails(
+              //   nodeAddress: address,
+              //   publicKey: publicKey,
+              //   privateKey: privateKey,
+              // ));
             }
           },
         ),

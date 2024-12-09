@@ -11,7 +11,8 @@ class _WallterProvider {
       ));
 
       final Response<dynamic> response;
-
+      print('publicKey: $publicKey');
+      print('privateKey: $privateKey');
       if (publicKey != null && privateKey != null) {
         final url = 'http://$address:11101/generate/wallet';
         response = await client.get(
@@ -31,10 +32,11 @@ class _WallterProvider {
       Map<String, dynamic> data = response.data as Map<String, dynamic>;
 
       final myAddress = data['blockchainAddress'] as String;
-
-      await client.post(
-        "http://$address:10111/join/?address=$myAddress",
-      );
+      if (publicKey == null && privateKey == null) {
+        await client.post(
+          "http://$address:10111/join/?address=$myAddress",
+        );
+      }
 
       final amount = await getAmount(myAddress, address);
 

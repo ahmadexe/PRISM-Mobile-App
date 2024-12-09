@@ -101,7 +101,7 @@ class _Body extends StatelessWidget {
 
                       notisBloc.add(FetchNotifications(uid: user.uid));
 
-                      AppRoutes.home.pushReplace(context);
+                      AppRoutes.generateWallet.pushReplace(context);
                     }
                   },
                   builder: (context, state) {

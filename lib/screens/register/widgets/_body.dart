@@ -171,7 +171,7 @@ class _Body extends StatelessWidget {
                         );
 
                         if (user.isBusinessAcc) {
-                          AppRoutes.home.pushReplace(context);
+                          AppRoutes.generateWallet.pushReplace(context);
                           jobsBloc.add(FetchMyJobs(userId: user.id));
                         }
 
