@@ -10,24 +10,40 @@ class _Body extends StatelessWidget {
     final user = authBloc.state.user!;
     final screenState = _ScreenState.s(context, true);
 
-    return BlocListener<LensBloc, LensState>(
-      listener: (context, state) async {
-        if (state.analyzeImage is AnalyzePostSuccess) {
-          if (user.isSharingData) {
-            final data = state.data;
-            if (data!.length % 3 == 0) {
-              final cache = AppCache();
-              final address = await cache.getString('ChainAddress');
-              chainBloc.add(
-                PostData(
-                  data: data,
-                  blockchainAddress: address!,
-                ),
-              );
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LensBloc, LensState>(
+          listener: (context, state) async {
+            if (state.analyzeImage is AnalyzePostSuccess) {
+              if (user.isSharingData) {
+                final data = state.data;
+                if (data!.length % 3 == 0) {
+                  final cache = AppCache();
+                  final address = await cache.getString('ChainAddress');
+                  chainBloc.add(
+                    PostData(
+                      data: data,
+                      blockchainAddress: address!,
+                    ),
+                  );
+                }
+              }
             }
-          }
-        }
-      },
+          },
+        ),
+
+        BlocListener<WalletBloc, WalletState>(
+          listener: (context, state) {
+            if (state.walletInfo is WalletInfoLoaded) {
+              final wallet = state.wallet!;
+              final cache = AppCache();
+              cache.setString("PublicKey", wallet.publicKey);
+              cache.setString("PrivateKey", wallet.privateKey);
+              cache.setString("ChainAddress", wallet.blockchainAddress);
+            }
+          },
+        ),
+      ],
       child: SafeArea(
         child: Scaffold(
           bottomNavigationBar: const BottomBar(),

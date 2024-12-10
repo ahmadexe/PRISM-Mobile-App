@@ -33,6 +33,8 @@ class _BodyState extends State<_Body> {
           listenWhen: AuthLogoutState.match,
           listener: (context, state) {
             if (state.logout is AuthLogoutSuccess) {
+              final cache = AppCache();
+              cache.clear();
               Navigator.of(context).pushNamedAndRemoveUntil(
                 AppRoutes.login,
                 (route) => false,
@@ -47,7 +49,8 @@ class _BodyState extends State<_Body> {
             } else if (state.get is GetUserSuccess && !isMe) {
               final user = state.get.user!;
 
-              return _Profile(user: user, isMe: isMe, isApplicant: widget.isApplicant);
+              return _Profile(
+                  user: user, isMe: isMe, isApplicant: widget.isApplicant);
             } else if (state.get is GetUserFailure) {
               return const Center(
                 child: ErrorWarning(

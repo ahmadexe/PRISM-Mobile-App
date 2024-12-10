@@ -12,6 +12,7 @@ import 'package:prism/models/auth/auth_data.dart';
 import 'package:prism/models/post/post.dart';
 import 'package:prism/providers/job_provider.dart';
 import 'package:prism/router/routes.dart';
+import 'package:prism/services/cache.dart';
 import 'package:prism/static/app_statics.dart';
 import 'package:prism/widgets/avatar.dart';
 import 'package:prism/widgets/core/bottom_bar/bottom_bar.dart';

@@ -14,4 +14,9 @@ class AppCache {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
+
+  Future<void> clear() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }

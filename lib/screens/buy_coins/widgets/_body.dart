@@ -11,7 +11,7 @@ class _Body extends StatelessWidget {
     return BlocListener<BlockchainBloc, ChainState>(
       listener: (context, state) {
         if (state.buy is BuyCoinsSuccess) {
-          SnackBars.success(context, "Coins bought successfully");
+          SnackBars.success(context, "Coins bought successfully, please wait for the mining!");
           ''.pop(context);
         } else if (state.buy is BuyCoinsFailure) {
           SnackBars.failure(context, "Failed to buy coins");

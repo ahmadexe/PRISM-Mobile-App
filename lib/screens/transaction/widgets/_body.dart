@@ -76,33 +76,52 @@ class _Body extends StatelessWidget {
                       isDarkField: true,
                     ),
                     Space.y2!,
-                    AppButton(
-                      label: 'Send',
-                      onPressed: () {
-                        final form = screenState.formKey.currentState!;
-                        final isValid = form.saveAndValidate();
-                        if (!isValid) return;
+                    BlocConsumer<TransactionBloc, TransactionState>(
+                      listenWhen: CreateTransactionState.match,
+                      listener: (context, state) {
+                        if (state.create is CreateTransactionSuccess) {
+                          SnackBars.success(context,
+                              'Transaction Successful, wait for it to be mined!');
+                          ''.pop(context);
+                        } else if (state.create is CreateTransactionFailure) {
+                          SnackBars.failure(context, 'Transaction Failed');
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state.create is CreateTransactionLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return AppButton(
+                          label: 'Send',
+                          onPressed: () {
+                            final form = screenState.formKey.currentState!;
+                            final isValid = form.saveAndValidate();
+                            if (!isValid) return;
 
-                        final data = form.value;
-                        final transaction = Transaction(
-                          senderPublicKey: data[_FormKeys.publicKey],
-                          senderPrivateKey: data[_FormKeys.privateKey],
-                          senderBlockchainAddress:
-                              data[_FormKeys.blockchainAddress],
-                          recipientBlockchainAddress:
-                              data[_FormKeys.receiverAddress],
-                          value: double.parse(data[_FormKeys.amount]),
-                          share: true,
-                        );
+                            final data = form.value;
+                            final transaction = Transaction(
+                              senderPublicKey: data[_FormKeys.publicKey],
+                              senderPrivateKey: data[_FormKeys.privateKey],
+                              senderBlockchainAddress:
+                                  data[_FormKeys.blockchainAddress],
+                              recipientBlockchainAddress:
+                                  data[_FormKeys.receiverAddress],
+                              value: double.parse(data[_FormKeys.amount]),
+                              share: true,
+                            );
 
-                        transactionBloc.add(
-                          CreateTransaction(
-                            transaction: transaction,
-                            nodeAddress: address!,
-                          ),
+                            transactionBloc.add(
+                              CreateTransaction(
+                                transaction: transaction,
+                                nodeAddress: address!,
+                              ),
+                            );
+                          },
+                          buttonType: ButtonType.borderedSecondary,
                         );
                       },
-                      buttonType: ButtonType.borderedSecondary,
                     )
                   ],
                 );
