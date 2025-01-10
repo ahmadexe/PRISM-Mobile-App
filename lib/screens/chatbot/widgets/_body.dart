@@ -26,6 +26,10 @@ class _Body extends StatelessWidget {
                   lensBloc.add(SuperchargeLensToggle(
                       data: chainBloc.state.analyticalData ?? []));
                   authBloc.add(ToggleSupercharge(id: authBloc.state.user!.id));
+                  if (!authBloc.state.user!.isSupercharged) {
+                    final nodeAddress = chainBloc.state.address!;
+                    chainBloc.add(GetData(nodeAddress: nodeAddress));
+                  }
                 },
                 child: Row(
                   children: [
