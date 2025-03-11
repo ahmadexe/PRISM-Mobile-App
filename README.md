@@ -1,16 +1,8 @@
-# prism
+# PRISM
+![Banner](https://github.com/user-attachments/files/18886648/prism.3by2.pdf)
 
-A new Flutter project.
+## The Problem?
+Social media platforms exploit user data by selling it for profit without compensating users. They also collect and use personal information without clear consent, leading to privacy violations and security risks.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## What does PRISM do?
+PRISM solves this by leveraging blockchain to securely store user data, ensuring that only users have control over their information. Additionally, it eliminates unauthorized data exploitation by providing a transparent, consent-driven system where users decide how their data is used, while AI enhances personalization without compromising privacy.
