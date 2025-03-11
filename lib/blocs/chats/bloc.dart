@@ -15,7 +15,7 @@ part 'event.dart';
 part 'state.dart';
 
 part 'data_provider.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 
 part 'states/_socket_init.dart';
 part 'states/_send_message.dart';

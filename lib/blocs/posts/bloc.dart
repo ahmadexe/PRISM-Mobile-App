@@ -15,7 +15,7 @@ part 'event.dart';
 part 'state.dart';
 
 part 'data_provider.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 
 part 'states/_fetch.dart';
 part 'states/_post.dart';

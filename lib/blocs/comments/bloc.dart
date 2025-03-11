@@ -10,7 +10,7 @@ import 'package:prism/services/api.dart';
 
 part 'event.dart';
 part 'state.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 part 'data_provider.dart';
 
 part 'states/_create.dart';

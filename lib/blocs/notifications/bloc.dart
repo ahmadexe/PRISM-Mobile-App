@@ -7,7 +7,7 @@ import 'package:prism/services/notifications/base.dart';
 
 part 'event.dart';
 part 'state.dart';
-part 'adaptor.dart';
+part 'repository.dart';
 part 'data_provider.dart';
 
 part 'states/_send.dart';
