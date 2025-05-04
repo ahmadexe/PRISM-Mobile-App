@@ -71,9 +71,11 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
                         widget.post.imageUrl!,
                       );
                       if (inputImage != null) {
-                        lensBloc.add(AnalyzePost(inputImage: inputImage));
+                        lensBloc.add(AnalyzePost(
+                            inputImage: inputImage,
+                            text: widget.post.description));
                       }
-                    } else if (widget.post.description != null) {
+                    } else {
                       lensBloc.add(AnalyzePost(text: widget.post.description!));
                     }
                   }

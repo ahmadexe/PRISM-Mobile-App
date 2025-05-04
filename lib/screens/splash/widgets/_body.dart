@@ -89,7 +89,6 @@ class _BodyState extends State<_Body> {
           },
         ),
         BlocListener<BlockchainBloc, ChainState>(
-          listenWhen: (a, b) => NodeState.match(a, b),
           listener: (context, state) async {
             if (state.node is NodeSuccess) {
               final address = state.address!;

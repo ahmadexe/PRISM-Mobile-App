@@ -157,7 +157,6 @@ class _Body extends StatelessWidget {
                   ),
                   Space.y2!,
                   BlocConsumer<AuthBloc, AuthState>(
-                    listenWhen: AuthRegisterState.match,
                     listener: (context, state) {
                       if (state.register is AuthRegisterSuccess) {
                         final postBloc = BlocProvider.of<PostsBloc>(context);
@@ -169,8 +168,9 @@ class _Body extends StatelessWidget {
                           context,
                           'Welcome to Prism!',
                         );
-
-                        if (user.isBusinessAcc) {
+                        final form = screenState.formKey.currentState!;
+                        final data = form.value;
+                        if (data[_FormKeys.isBusiness] as bool) {
                           AppRoutes.generateWallet.pushReplace(context);
                           jobsBloc.add(FetchMyJobs(userId: user.id));
                         }

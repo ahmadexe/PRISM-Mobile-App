@@ -75,6 +75,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
       AnalyzePost event, Emitter<LensState> emit) async {
     emit(state.copyWith(analyzeImage: const AnalyzePostLoading()));
     try {
+      List<String> data = [];
       if (event.inputImage != null) {
         final Uint8List image = event.inputImage!;
 
@@ -92,15 +93,9 @@ class LensBloc extends Bloc<LensEvent, LensState> {
           throw Exception('Failed to analyze image');
         }
 
-        final List<String> data = [content, ...state.data ?? []];
-
-        emit(
-          state.copyWith(
-            analyzeImage: const AnalyzePostSuccess(),
-            data: data,
-          ),
-        );
-      } else if (event.text != null) {
+        data = [content, ...state.data ?? []];
+      }
+      if (event.text != null) {
         final String text = event.text!;
 
         String prompt =
@@ -114,15 +109,15 @@ class LensBloc extends Bloc<LensEvent, LensState> {
           throw Exception('Failed to analyze text');
         }
 
-        final List<String> data = [content, ...state.data ?? []];
-
-        emit(
-          state.copyWith(
-            analyzeImage: const AnalyzePostSuccess(),
-            data: data,
-          ),
-        );
+        data = [content, ...state.data ?? []];
       }
+
+      emit(
+        state.copyWith(
+          analyzeImage: const AnalyzePostSuccess(),
+          data: data,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
@@ -141,15 +136,17 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     emit(state.copyWith(messages: [event.prompt, ...state.messages ?? []]));
     emit(state.copyWith(response: const LensLoading()));
     try {
-      if (state.isSupercharged) {
-        final dataPool = state.analyticalData;
+      if (event.chainData != null && event.chainData!.isNotEmpty) {
+        final dataPool = event.chainData!;
         final prompt =
-            "${dataPool!}\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Following is the prompt: ${event.prompt.message}";
+            "$dataPool\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Following is the prompt: ${event.prompt.message}";
 
-        final content = await _service.generateContentFromText(
-          prompt: prompt,
-        );
-
+        final content = event.image != null
+            ? await _service.generateContentFromImage(
+                prompt: prompt,
+                dataPart: DataPart('image/jpeg', event.image!),
+              )
+            : await _service.generateContentFromText(prompt: prompt);
         if (content == null) {
           throw Exception('Failed to generate content');
         }

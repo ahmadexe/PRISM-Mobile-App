@@ -26,10 +26,6 @@ class _Body extends StatelessWidget {
                   lensBloc.add(SuperchargeLensToggle(
                       data: chainBloc.state.analyticalData ?? []));
                   authBloc.add(ToggleSupercharge(id: authBloc.state.user!.id));
-                  if (!authBloc.state.user!.isSupercharged) {
-                    final nodeAddress = chainBloc.state.address!;
-                    chainBloc.add(GetData(nodeAddress: nodeAddress));
-                  }
                 },
                 child: Row(
                   children: [
@@ -53,37 +49,42 @@ class _Body extends StatelessWidget {
                 ),
               ),
               BlocBuilder<LensBloc, LensState>(
-                builder: (context, state) {
-                  final data = state.messages ?? [];
+                builder: (context, lensState) {
+                  final data = lensState.messages ?? [];
                   if (data.isEmpty) {
                     return const Expanded(child: _NoMessages());
                   }
-                  return Expanded(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView.separated(
-                            padding: Space.all(),
-                            reverse: true,
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              final message = data[index];
-                              return _MessageBubble(message: message);
-                            },
-                            separatorBuilder: (context, index) => Space.y2!,
-                          ),
-                        ),
-                        if (state.response is LensLoading) ...[
-                          Space.y2!,
-                          Padding(
-                            padding: Space.all(),
-                            child: const TypingIndicator(
-                              showIndicator: true,
+                  return BlocBuilder<BlockchainBloc, ChainState>(
+                    builder: (context, chainState) {
+                      return Expanded(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.separated(
+                                padding: Space.all(),
+                                reverse: true,
+                                itemCount: data.length,
+                                itemBuilder: (context, index) {
+                                  final message = data[index];
+                                  return _MessageBubble(message: message);
+                                },
+                                separatorBuilder: (context, index) => Space.y2!,
+                              ),
                             ),
-                          )
-                        ],
-                      ],
-                    ),
+                            if (lensState.response is LensLoading ||
+                                chainState is GetDataLoading) ...[
+                              Space.y2!,
+                              Padding(
+                                padding: Space.all(),
+                                child: const TypingIndicator(
+                                  showIndicator: true,
+                                ),
+                              )
+                            ],
+                          ],
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -117,27 +118,57 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                   Space.x!,
-                  GestureDetector(
-                    onTap: () {
-                      if (!screenState.isWriting) return;
-                      final form = screenState.formKey.currentState!;
-                      form.save();
-                      final message = form.value[_FormKeys.message] as String;
-                      final prompt = LensMessage(
-                          message: message,
-                          isFromLens: false,
-                          time: DateTime.now());
+                  BlocListener<BlockchainBloc, ChainState>(
+                    listener: (context, state) {
+                      if (state.getData is GetDataSuccess) {
+                        final data = state.analyticalData ?? [];
+                        final form = screenState.formKey.currentState!;
+                        form.save();
+                        final message = form.value[_FormKeys.message] as String;
+                        final prompt = LensMessage(
+                            message: message,
+                            isFromLens: false,
+                            time: DateTime.now());
 
-                      lensBloc.add(GenerateContent(prompt: prompt));
+                        form.reset();
 
-                      form.reset();
+                        final processedData =
+                            data.map((e) => e.toString()).join('\n');
+
+                        lensBloc.add(
+                          GenerateContent(
+                            prompt: prompt,
+                            chainData: processedData,
+                          ),
+                        );
+                      }
                     },
-                    child: Icon(
-                      Iconsax.send_2,
-                      size: AppDimensions.normalize(10),
-                      color: screenState.isWriting
-                          ? AppTheme.c.primary
-                          : AppTheme.c.white,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (!screenState.isWriting) return;
+                        final form = screenState.formKey.currentState!;
+                        form.save();
+                        final message = form.value[_FormKeys.message] as String;
+                        final prompt = LensMessage(
+                            message: message,
+                            isFromLens: false,
+                            time: DateTime.now());
+
+                        if (authBloc.state.user!.isSupercharged) {
+                          final nodeAddress = chainBloc.state.address!;
+                          chainBloc.add(GetData(nodeAddress: nodeAddress));
+                        } else {
+                          lensBloc.add(GenerateContent(prompt: prompt));
+                          form.reset();
+                        }
+                      },
+                      child: Icon(
+                        Iconsax.send_2,
+                        size: AppDimensions.normalize(10),
+                        color: screenState.isWriting
+                            ? AppTheme.c.primary
+                            : AppTheme.c.white,
+                      ),
                     ),
                   ),
                 ],

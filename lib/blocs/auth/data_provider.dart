@@ -186,7 +186,7 @@ class _AuthDataProvider {
 
   static WebSocketChannel initSearchChannel(String userId) {
     final channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.111.196.231:3000/v1/users/fetch/ws/$userId'),
+      Uri.parse('ws://13.60.4.99:3000/v1/users/fetch/ws/$userId'),
     );
 
     return channel;
@@ -218,7 +218,14 @@ class _AuthDataProvider {
 
   static Future<void> updateDeviceToken(String userId) async {
     try {
-      final deviceToken = await _messaging.getToken();
+      String deviceToken;
+
+      if (Platform.isIOS) {
+        deviceToken = await _messaging.getAPNSToken() ?? '';
+      } else {
+        deviceToken = await _messaging.getToken() ?? '';
+      }
+      
       final token = await _auth.currentUser?.getIdToken();
 
       _client.options.headers['Authorization'] = 'Bearer $token';
@@ -264,7 +271,7 @@ class _AuthDataProvider {
       _client.options.headers['Authorization'] = 'Bearer $token';
 
       final response = await _client.put('/users/supercharge/$userId');
-      
+
       if (response.statusCode != 200) {
         throw 'Failed to toggle is sharing data';
       }

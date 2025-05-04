@@ -7,7 +7,7 @@ class _ChatsProvider {
   static WebSocketChannel initChatChannel(String senderId, String receiverId) {
     final channel = WebSocketChannel.connect(
       Uri.parse(
-          'ws://3.111.196.231:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId'),
+          'ws://13.60.4.99:3002/v1/chats/ws?id1=$senderId&&id2=$receiverId'),
     );
 
     return channel;
