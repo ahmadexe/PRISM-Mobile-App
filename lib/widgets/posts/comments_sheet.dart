@@ -100,7 +100,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
                             ),
                             Space.y!,
                             Text(
-                              'No posts yet',
+                              'No comments yet',
                               style: AppText.h3b!.cl(AppTheme.c.textGrey!),
                             ),
                           ],
