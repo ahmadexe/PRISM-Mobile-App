@@ -162,6 +162,7 @@ class _Body extends StatelessWidget {
                         final postBloc = BlocProvider.of<PostsBloc>(context);
                         postBloc.add(const PostsFetchEvent());
                         final user = state.user!;
+                        BlocProvider.of<LensBloc>(context).init(user);
                         authBloc.add(UpdateDeviceToken(userId: user.id));
 
                         SnackBars.success(

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:prism/blocs/auth/bloc.dart';
 import 'package:prism/blocs/jobs/bloc.dart';
 import 'package:prism/blocs/blockchain/bloc.dart';
+import 'package:prism/blocs/lens/bloc.dart';
 import 'package:prism/blocs/notifications/bloc.dart';
 import 'package:prism/blocs/posts/bloc.dart';
 import 'package:prism/blocs/wallet/wallet_bloc.dart';
