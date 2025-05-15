@@ -100,8 +100,8 @@ class _BodyState extends State<_Body> {
             }
           },
         ),
-        BlocListener<WalletBloc, WalletState>(listener: 
-          (context, state) {
+        BlocListener<WalletBloc, WalletState>(
+          listener: (context, state) {
             if (state.walletInfo is WalletInfoLoaded) {
               final wallet = state.wallet!;
               final cache = AppCache();

@@ -7,7 +7,7 @@ class Comment {
   final String userName;
   final String? userProfilePic;
   final String content;
-  final DateTime createdAt; 
+  final DateTime createdAt;
 
   Comment({
     required this.id,
@@ -57,7 +57,9 @@ class Comment {
       userId: map['userId'] as String,
       postId: map['postId'] as String,
       userName: map['userName'] as String,
-      userProfilePic: map['userProfilePic'] != null ? map['userProfilePic'] as String : null,
+      userProfilePic: map['userProfilePic'] != null
+          ? map['userProfilePic'] as String
+          : null,
       content: map['content'] as String,
       createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt'] as int),
     );
@@ -65,7 +67,8 @@ class Comment {
 
   String toJson() => json.encode(toMap());
 
-  factory Comment.fromJson(String source) => Comment.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Comment.fromJson(String source) =>
+      Comment.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -75,25 +78,24 @@ class Comment {
   @override
   bool operator ==(covariant Comment other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.userId == userId &&
-      other.postId == postId &&
-      other.userName == userName &&
-      other.userProfilePic == userProfilePic &&
-      other.content == content &&
-      other.createdAt == createdAt;
+
+    return other.id == id &&
+        other.userId == userId &&
+        other.postId == postId &&
+        other.userName == userName &&
+        other.userProfilePic == userProfilePic &&
+        other.content == content &&
+        other.createdAt == createdAt;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      userId.hashCode ^
-      postId.hashCode ^
-      userName.hashCode ^
-      userProfilePic.hashCode ^
-      content.hashCode ^
-      createdAt.hashCode;
+        userId.hashCode ^
+        postId.hashCode ^
+        userName.hashCode ^
+        userProfilePic.hashCode ^
+        content.hashCode ^
+        createdAt.hashCode;
   }
 }

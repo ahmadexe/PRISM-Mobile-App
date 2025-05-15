@@ -1,7 +1,8 @@
 part of '../bloc.dart';
 
 class NotificationCounterState extends Equatable {
-  static bool match(NotificationsState a, NotificationsState b) => a.counter != b.counter;
+  static bool match(NotificationsState a, NotificationsState b) =>
+      a.counter != b.counter;
 
   final String? message;
 
@@ -12,7 +13,6 @@ class NotificationCounterState extends Equatable {
   @override
   List<Object?> get props => [message];
 }
-
 
 class NotificationCounterDefault extends NotificationCounterState {
   const NotificationCounterDefault();

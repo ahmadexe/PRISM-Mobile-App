@@ -59,7 +59,8 @@ class JobApplication {
 
   String toJson() => json.encode(toMap());
 
-  factory JobApplication.fromJson(String source) => JobApplication.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory JobApplication.fromJson(String source) =>
+      JobApplication.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -69,23 +70,22 @@ class JobApplication {
   @override
   bool operator ==(covariant JobApplication other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.jobId == jobId &&
-      other.userId == userId &&
-      other.isHired == isHired &&
-      other.username == username &&
-      other.avatar == avatar;
+
+    return other.id == id &&
+        other.jobId == jobId &&
+        other.userId == userId &&
+        other.isHired == isHired &&
+        other.username == username &&
+        other.avatar == avatar;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      jobId.hashCode ^
-      userId.hashCode ^
-      isHired.hashCode ^
-      username.hashCode ^
-      avatar.hashCode;
+        jobId.hashCode ^
+        userId.hashCode ^
+        isHired.hashCode ^
+        username.hashCode ^
+        avatar.hashCode;
   }
 }

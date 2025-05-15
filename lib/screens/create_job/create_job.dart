@@ -19,7 +19,6 @@ part 'static/_data.dart';
 
 part 'widgets/_body.dart';
 
-
 class CreateJobScreen extends StatelessWidget {
   const CreateJobScreen({Key? key}) : super(key: key);
 

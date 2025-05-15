@@ -6,10 +6,7 @@ class GetUserState extends Equatable {
   final AuthData? user;
   final String? message;
 
-  const GetUserState({
-    this.message,
-    this.user
-  });
+  const GetUserState({this.message, this.user});
 
   @override
   List<Object?> get props => [message];

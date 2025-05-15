@@ -32,7 +32,7 @@ class _AuthAdaptor {
     return res;
   }
 
-  void sendSearchQuery(WebSocketChannel channel ,String query, String id) {
+  void sendSearchQuery(WebSocketChannel channel, String query, String id) {
     final payload = {
       'query': query,
       'id': id,

@@ -20,8 +20,7 @@ class ViewApplicationsScreen extends StatelessWidget {
     App.init(context);
 
     return ChangeNotifierProvider<_ScreenState>(
-      create: (_) => _ScreenState(
-      ),
+      create: (_) => _ScreenState(),
       child: const _Body(),
     );
   }

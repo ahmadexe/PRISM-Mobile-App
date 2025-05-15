@@ -4,7 +4,7 @@ class LensMessage {
   final String message;
   final bool isFromLens;
   final DateTime time;
-  
+
   LensMessage({
     required this.message,
     required this.isFromLens,
@@ -41,19 +41,20 @@ class LensMessage {
 
   String toJson() => json.encode(toMap());
 
-  factory LensMessage.fromJson(String source) => LensMessage.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory LensMessage.fromJson(String source) =>
+      LensMessage.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'LensMessage(message: $message, isFromLens: $isFromLens, time: $time)';
+  String toString() =>
+      'LensMessage(message: $message, isFromLens: $isFromLens, time: $time)';
 
   @override
   bool operator ==(covariant LensMessage other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.message == message &&
-      other.isFromLens == isFromLens &&
-      other.time == time;
+
+    return other.message == message &&
+        other.isFromLens == isFromLens &&
+        other.time == time;
   }
 
   @override

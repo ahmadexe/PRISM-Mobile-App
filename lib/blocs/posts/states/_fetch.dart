@@ -14,7 +14,6 @@ class PostsfetchState extends Equatable {
   List<Object?> get props => [message];
 }
 
-
 @immutable
 class PostsfetchDefault extends PostsfetchState {
   const PostsfetchDefault();

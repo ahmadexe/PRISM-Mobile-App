@@ -223,9 +223,7 @@ class _Body extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (state.update is AuthUpdateLoading)
-                  const FullScreenLoader(
-                  ),
+                if (state.update is AuthUpdateLoading) const FullScreenLoader(),
               ],
             );
           },

@@ -68,7 +68,8 @@ class _ChainProvider {
     }
   }
 
-  static Future<void> buyCoins(String nodeAddress, String userAddress, double amount) async {
+  static Future<void> buyCoins(
+      String nodeAddress, String userAddress, double amount) async {
     try {
       final client = Dio(BaseOptions(
         contentType: "application/json",

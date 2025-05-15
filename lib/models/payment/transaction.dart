@@ -28,8 +28,10 @@ class Transaction {
     return Transaction(
       senderPublicKey: senderPublicKey ?? this.senderPublicKey,
       senderPrivateKey: senderPrivateKey ?? this.senderPrivateKey,
-      senderBlockchainAddress: senderBlockchainAddress ?? this.senderBlockchainAddress,
-      recipientBlockchainAddress: recipientBlockchainAddress ?? this.recipientBlockchainAddress,
+      senderBlockchainAddress:
+          senderBlockchainAddress ?? this.senderBlockchainAddress,
+      recipientBlockchainAddress:
+          recipientBlockchainAddress ?? this.recipientBlockchainAddress,
       value: value ?? this.value,
       share: share ?? this.share,
     );
@@ -59,7 +61,8 @@ class Transaction {
 
   String toJson() => json.encode(toMap());
 
-  factory Transaction.fromJson(String source) => Transaction.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Transaction.fromJson(String source) =>
+      Transaction.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -69,23 +72,22 @@ class Transaction {
   @override
   bool operator ==(covariant Transaction other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.senderPublicKey == senderPublicKey &&
-      other.senderPrivateKey == senderPrivateKey &&
-      other.senderBlockchainAddress == senderBlockchainAddress &&
-      other.recipientBlockchainAddress == recipientBlockchainAddress &&
-      other.value == value &&
-      other.share == share;
+
+    return other.senderPublicKey == senderPublicKey &&
+        other.senderPrivateKey == senderPrivateKey &&
+        other.senderBlockchainAddress == senderBlockchainAddress &&
+        other.recipientBlockchainAddress == recipientBlockchainAddress &&
+        other.value == value &&
+        other.share == share;
   }
 
   @override
   int get hashCode {
     return senderPublicKey.hashCode ^
-      senderPrivateKey.hashCode ^
-      senderBlockchainAddress.hashCode ^
-      recipientBlockchainAddress.hashCode ^
-      value.hashCode ^
-      share.hashCode;
+        senderPrivateKey.hashCode ^
+        senderBlockchainAddress.hashCode ^
+        recipientBlockchainAddress.hashCode ^
+        value.hashCode ^
+        share.hashCode;
   }
 }

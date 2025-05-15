@@ -12,14 +12,14 @@ class NotificationsState extends Equatable {
     required this.counter,
     this.data,
   });
-  
+
   @override
   List<Object?> get props => [
-    data,
-    send,
-    fetch,
-    counter,
-  ];
+        data,
+        send,
+        fetch,
+        counter,
+      ];
 
   NotificationsState copyWith({
     List<NotificationModel>? data,
@@ -37,9 +37,10 @@ class NotificationsState extends Equatable {
 }
 
 final class NotificationsInitial extends NotificationsState {
-  const NotificationsInitial() : super(
-    send: const SendNotificationDefault(),
-    fetch: const FetchNotificationDefault(),
-    counter: const NotificationCounterDefault(),
-  );
+  const NotificationsInitial()
+      : super(
+          send: const SendNotificationDefault(),
+          fetch: const FetchNotificationDefault(),
+          counter: const NotificationCounterDefault(),
+        );
 }

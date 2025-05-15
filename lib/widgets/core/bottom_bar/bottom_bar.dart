@@ -28,7 +28,8 @@ class _BottomBarState extends State<BottomBar> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
 
-    final bottomNavElements = _IconUtils.getBottomNavElements(user.isBusinessAcc);
+    final bottomNavElements =
+        _IconUtils.getBottomNavElements(user.isBusinessAcc);
 
     return Padding(
       padding: Space.hf(10),

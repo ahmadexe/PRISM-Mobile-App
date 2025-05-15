@@ -12,7 +12,8 @@ class StripeService {
       final clientSecret = await _createPaymentIntent(amount, 'usd');
       if (clientSecret == null) return false;
 
-      await Stripe.instance.initPaymentSheet(paymentSheetParameters: SetupPaymentSheetParameters(
+      await Stripe.instance.initPaymentSheet(
+          paymentSheetParameters: SetupPaymentSheetParameters(
         paymentIntentClientSecret: clientSecret,
         merchantDisplayName: "PRISM",
         style: ThemeMode.dark,
@@ -28,36 +29,31 @@ class StripeService {
   }
 
   Future<String?> _createPaymentIntent(int value, String currency) async {
-    try { 
+    try {
       final client = Dio();
       final data = {
         'amount': (value * 100).toString(),
         'currency': currency,
       };
-      
+
       final secretKey = dotenv.env['STRIPE_SECRET_KEY'];
       if (secretKey == null || secretKey.isEmpty) {
         throw Exception('Stripe secret key not found');
       }
 
-      final res = await client.post(
-        'https://api.stripe.com/v1/payment_intents',
-        data: data,
-        options: Options(
-          contentType: Headers.formUrlEncodedContentType,
-          headers: {
+      final res = await client.post('https://api.stripe.com/v1/payment_intents',
+          data: data,
+          options:
+              Options(contentType: Headers.formUrlEncodedContentType, headers: {
             'Authorization': 'Bearer $secretKey',
             'Content-Type': 'application/x-www-form-urlencoded',
-          }
-        )
-      );
+          }));
 
       if (res.data != null) {
         return res.data['client_secret'];
       }
 
       return null;
-
     } catch (e) {
       debugPrint('----- ERROR in Stripe Service -----');
       debugPrint(e.toString());

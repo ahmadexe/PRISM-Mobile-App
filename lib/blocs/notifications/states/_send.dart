@@ -1,7 +1,8 @@
 part of '../bloc.dart';
 
 class SendNotificationState extends Equatable {
-  static bool match(NotificationsState a, NotificationsState b) => a.send != b.send;
+  static bool match(NotificationsState a, NotificationsState b) =>
+      a.send != b.send;
 
   final String? message;
 
@@ -12,7 +13,6 @@ class SendNotificationState extends Equatable {
   @override
   List<Object?> get props => [message];
 }
-
 
 class SendNotificationDefault extends SendNotificationState {
   const SendNotificationDefault();

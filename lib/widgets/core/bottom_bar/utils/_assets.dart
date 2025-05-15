@@ -56,7 +56,7 @@ final bottomNavElementsRegularUsers = [
 ];
 
 final bottomNavElementsBusinessUser = [
-    _Asset(
+  _Asset(
     'assets/animated_icons/icons.riv',
     artboard: 'CHAT',
     stateMachineName: 'CHAT_Interactivity',

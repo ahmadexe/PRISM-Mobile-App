@@ -1,7 +1,8 @@
 part of 'bloc.dart';
 
 class _ChainRepo {
-  Future<void> postData(List<String> data, String blockchainAddress, String nodeAddress) async {
+  Future<void> postData(
+      List<String> data, String blockchainAddress, String nodeAddress) async {
     try {
       final payload = {
         'data': data,

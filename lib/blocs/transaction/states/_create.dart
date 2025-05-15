@@ -1,7 +1,8 @@
 part of '../transaction_bloc.dart';
 
 class CreateTransactionState extends Equatable {
-  static bool match(TransactionState a, TransactionState b) => a.create != b.create;
+  static bool match(TransactionState a, TransactionState b) =>
+      a.create != b.create;
 
   final String? message;
 
@@ -12,7 +13,6 @@ class CreateTransactionState extends Equatable {
   @override
   List<Object?> get props => [message];
 }
-
 
 class CreateTransactionDefault extends CreateTransactionState {
   const CreateTransactionDefault();

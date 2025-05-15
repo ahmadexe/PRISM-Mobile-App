@@ -30,7 +30,6 @@ part 'widgets/_body_service_provider.dart';
 
 part 'static/_form_keys.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -42,7 +41,8 @@ class HomeScreen extends StatelessWidget {
 
     return ChangeNotifierProvider<_ScreenState>(
       create: (_) => _ScreenState(),
-      child: user.isServiceProvider ? const _BodyServiceProvider() : const _Body(),
+      child:
+          user.isServiceProvider ? const _BodyServiceProvider() : const _Body(),
     );
   }
 }

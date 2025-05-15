@@ -1,7 +1,8 @@
 part of '../bloc.dart';
 
 final class FetchApplicationsState extends Equatable {
-  static bool match(JobsState a, JobsState b) => a.applications != b.applications;
+  static bool match(JobsState a, JobsState b) =>
+      a.applications != b.applications;
 
   final String? error;
   final List<JobApplication>? applications;

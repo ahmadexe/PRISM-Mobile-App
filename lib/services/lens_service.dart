@@ -16,7 +16,6 @@ class LensService {
 
   Future<String?> generateContentFromImage(
       {required String prompt, required DataPart dataPart}) async {
-
     final text = TextPart(prompt);
     final response = await model.generateContent([
       Content.multi([text, dataPart])

@@ -65,10 +65,7 @@ class _TypeModal extends StatelessWidget {
                       ''.pop(context);
                       postsBloc.add(
                         ReportPostEvent(
-                          postId: postId,
-                          type: e.type,
-                          url: imageUrl
-                        ),
+                            postId: postId, type: e.type, url: imageUrl),
                       );
                     },
                     child: Text(

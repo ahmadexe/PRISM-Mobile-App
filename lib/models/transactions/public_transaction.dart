@@ -11,14 +11,14 @@ class PublicTransaction {
     required this.value,
   });
 
-
   PublicTransaction copyWith({
     String? recipientChainAddress,
     String? senderChainAddress,
     double? value,
   }) {
     return PublicTransaction(
-      recipientChainAddress: recipientChainAddress ?? this.recipientChainAddress,
+      recipientChainAddress:
+          recipientChainAddress ?? this.recipientChainAddress,
       senderChainAddress: senderChainAddress ?? this.senderChainAddress,
       value: value ?? this.value,
     );
@@ -42,21 +42,25 @@ class PublicTransaction {
 
   String toJson() => json.encode(toMap());
 
-  factory PublicTransaction.fromJson(String source) => PublicTransaction.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PublicTransaction.fromJson(String source) =>
+      PublicTransaction.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'PublicTransaction(recipientChainAddress: $recipientChainAddress, senderChainAddress: $senderChainAddress, value: $value)';
+  String toString() =>
+      'PublicTransaction(recipientChainAddress: $recipientChainAddress, senderChainAddress: $senderChainAddress, value: $value)';
 
   @override
   bool operator ==(covariant PublicTransaction other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.recipientChainAddress == recipientChainAddress &&
-      other.senderChainAddress == senderChainAddress &&
-      other.value == value;
+
+    return other.recipientChainAddress == recipientChainAddress &&
+        other.senderChainAddress == senderChainAddress &&
+        other.value == value;
   }
 
   @override
-  int get hashCode => recipientChainAddress.hashCode ^ senderChainAddress.hashCode ^ value.hashCode;
+  int get hashCode =>
+      recipientChainAddress.hashCode ^
+      senderChainAddress.hashCode ^
+      value.hashCode;
 }

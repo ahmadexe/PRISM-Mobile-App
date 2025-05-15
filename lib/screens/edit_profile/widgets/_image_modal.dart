@@ -7,7 +7,7 @@ class _ImageModal extends StatelessWidget {
     Key? key,
     this.isBanner = false,
     required this.screenState,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

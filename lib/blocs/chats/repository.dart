@@ -2,16 +2,16 @@ part of 'bloc.dart';
 
 class _ChatsAdaptor {
   void sendMessage(
-  WebSocketChannel channel,
-  DateTime createdAt,
-  String message,
-  String senderId,
-  String receiverId,
-  String conversationId,
-  String senderName,
-  String receiverName,
-  String? senderImage,
-  String? receiverPic,
+    WebSocketChannel channel,
+    DateTime createdAt,
+    String message,
+    String senderId,
+    String receiverId,
+    String conversationId,
+    String senderName,
+    String receiverName,
+    String? senderImage,
+    String? receiverPic,
   ) {
     final Map<String, dynamic> payload = {
       'createdAt': createdAt.millisecondsSinceEpoch,

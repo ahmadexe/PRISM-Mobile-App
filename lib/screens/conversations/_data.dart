@@ -2,7 +2,7 @@ part of 'conversations.dart';
 
 final List<Conversation> conversations = [
   Conversation(
-  id: 'id1',
+    id: 'id1',
     user1Id: '6634d505183202c93324d022',
     user2Id: 'idu2',
     user1Name: 'Ahmad',

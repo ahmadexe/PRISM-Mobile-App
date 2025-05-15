@@ -225,7 +225,7 @@ class _AuthDataProvider {
       } else {
         deviceToken = await _messaging.getToken() ?? '';
       }
-      
+
       final token = await _auth.currentUser?.getIdToken();
 
       _client.options.headers['Authorization'] = 'Bearer $token';

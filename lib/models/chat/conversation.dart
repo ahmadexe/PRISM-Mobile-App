@@ -8,7 +8,7 @@ class Conversation {
   final String user2Name;
   final String? user1Pic;
   final String? user2Pic;
-  
+
   Conversation({
     required this.id,
     required this.user1Id,
@@ -65,7 +65,8 @@ class Conversation {
 
   String toJson() => json.encode(toMap());
 
-  factory Conversation.fromJson(String source) => Conversation.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Conversation.fromJson(String source) =>
+      Conversation.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -75,25 +76,24 @@ class Conversation {
   @override
   bool operator ==(covariant Conversation other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.user1Id == user1Id &&
-      other.user2Id == user2Id &&
-      other.user1Name == user1Name &&
-      other.user2Name == user2Name &&
-      other.user1Pic == user1Pic &&
-      other.user2Pic == user2Pic;
+
+    return other.id == id &&
+        other.user1Id == user1Id &&
+        other.user2Id == user2Id &&
+        other.user1Name == user1Name &&
+        other.user2Name == user2Name &&
+        other.user1Pic == user1Pic &&
+        other.user2Pic == user2Pic;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      user1Id.hashCode ^
-      user2Id.hashCode ^
-      user1Name.hashCode ^
-      user2Name.hashCode ^
-      user1Pic.hashCode ^
-      user2Pic.hashCode;
+        user1Id.hashCode ^
+        user2Id.hashCode ^
+        user1Name.hashCode ^
+        user2Name.hashCode ^
+        user1Pic.hashCode ^
+        user2Pic.hashCode;
   }
 }

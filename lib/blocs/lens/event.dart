@@ -9,14 +9,10 @@ sealed class LensEvent extends Equatable {
 
 class GenerateContent extends LensEvent {
   final LensMessage prompt;
-  final String? chainData; 
+  final String? chainData;
   final Uint8List? image;
 
-  const GenerateContent({
-    required this.prompt,
-    this.image,
-    this.chainData
-  });
+  const GenerateContent({required this.prompt, this.image, this.chainData});
 }
 
 class ExtractSkills extends LensEvent {

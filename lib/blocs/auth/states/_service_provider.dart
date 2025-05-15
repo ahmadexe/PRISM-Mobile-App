@@ -1,7 +1,8 @@
 part of '../bloc.dart';
 
 class ServiceProviderToggleState extends Equatable {
-  static bool match(AuthState a, AuthState b) => a.serviceProvider != b.serviceProvider;
+  static bool match(AuthState a, AuthState b) =>
+      a.serviceProvider != b.serviceProvider;
 
   final String? message;
 

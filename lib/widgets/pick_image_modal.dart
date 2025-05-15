@@ -7,7 +7,7 @@ import 'package:prism/widgets/design/buttons/app_button.dart';
 class PickImageModal extends StatelessWidget {
   const PickImageModal({
     Key? key,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class PickImageModal extends StatelessWidget {
               onPressed: () {
                 mediaProvider.removeMedia();
                 mediaProvider.pickMedia(ImageSource.gallery);
-                ''.pop(context);  
+                ''.pop(context);
               },
               label: 'Gallery',
             ),

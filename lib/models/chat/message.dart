@@ -77,13 +77,15 @@ class Message {
       conversationId: map['conversationId'] as String,
       receiverId: map['receiverId'] as String,
       receiverName: map['receiverName'] as String,
-      receiverPic: map['receiverPic'] != null ? map['receiverPic'] as String : null,
+      receiverPic:
+          map['receiverPic'] != null ? map['receiverPic'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Message.fromJson(String source) => Message.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Message.fromJson(String source) =>
+      Message.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -93,31 +95,30 @@ class Message {
   @override
   bool operator ==(covariant Message other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.createdAt == createdAt &&
-      other.message == message &&
-      other.senderId == senderId &&
-      other.senderName == senderName &&
-      other.senderPic == senderPic &&
-      other.conversationId == conversationId &&
-      other.receiverId == receiverId &&
-      other.receiverName == receiverName &&
-      other.receiverPic == receiverPic;
+
+    return other.id == id &&
+        other.createdAt == createdAt &&
+        other.message == message &&
+        other.senderId == senderId &&
+        other.senderName == senderName &&
+        other.senderPic == senderPic &&
+        other.conversationId == conversationId &&
+        other.receiverId == receiverId &&
+        other.receiverName == receiverName &&
+        other.receiverPic == receiverPic;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      createdAt.hashCode ^
-      message.hashCode ^
-      senderId.hashCode ^
-      senderName.hashCode ^
-      senderPic.hashCode ^
-      conversationId.hashCode ^
-      receiverId.hashCode ^
-      receiverName.hashCode ^
-      receiverPic.hashCode;
+        createdAt.hashCode ^
+        message.hashCode ^
+        senderId.hashCode ^
+        senderName.hashCode ^
+        senderPic.hashCode ^
+        conversationId.hashCode ^
+        receiverId.hashCode ^
+        receiverName.hashCode ^
+        receiverPic.hashCode;
   }
 }

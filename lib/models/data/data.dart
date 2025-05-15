@@ -36,18 +36,19 @@ class DataModel {
 
   String toJson() => json.encode(toMap());
 
-  factory DataModel.fromJson(String source) => DataModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory DataModel.fromJson(String source) =>
+      DataModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'DataModel(data: $data, blockchainAddress: $blockchainAddress)';
+  String toString() =>
+      'DataModel(data: $data, blockchainAddress: $blockchainAddress)';
 
   @override
   bool operator ==(covariant DataModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      listEquals(other.data, data) &&
-      other.blockchainAddress == blockchainAddress;
+
+    return listEquals(other.data, data) &&
+        other.blockchainAddress == blockchainAddress;
   }
 
   @override

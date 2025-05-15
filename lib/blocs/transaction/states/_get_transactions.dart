@@ -1,7 +1,8 @@
 part of '../transaction_bloc.dart';
 
 class GetTransactionsState extends Equatable {
-  static bool match(TransactionState a, TransactionState b) => a.getTransactions != b.getTransactions;
+  static bool match(TransactionState a, TransactionState b) =>
+      a.getTransactions != b.getTransactions;
 
   final String? message;
 

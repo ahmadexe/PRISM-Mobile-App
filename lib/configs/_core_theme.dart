@@ -22,7 +22,6 @@ final themeDark = ThemeData(
       TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
     },
   ),
-
   colorScheme: ThemeData.dark().colorScheme.copyWith(
         secondary: AppTheme.dark.primary,
         surface: AppTheme.dark.background,

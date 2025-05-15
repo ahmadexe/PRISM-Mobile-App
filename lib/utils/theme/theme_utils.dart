@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ThemeUtils {
   static MaterialColor getMaterialColor(Color color) {
-   final int red = color.red;
+    final int red = color.red;
     final int green = color.green;
     final int blue = color.blue;
 

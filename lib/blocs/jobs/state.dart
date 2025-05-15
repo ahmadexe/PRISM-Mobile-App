@@ -22,7 +22,8 @@ class JobsState extends Equatable {
   });
 
   @override
-  List<Object?> get props => [create, fetch, jobs, like, apply, myJobs, applications, hire];
+  List<Object?> get props =>
+      [create, fetch, jobs, like, apply, myJobs, applications, hire];
 
   JobsState copyWith({
     List<Job>? jobs,

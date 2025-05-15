@@ -7,7 +7,7 @@ class _ScreenState extends ChangeNotifier {
   final formKey = GlobalKey<FormBuilderState>();
 
   bool isWriting = false;
-  
+
   void setWriting(bool value) {
     isWriting = value;
     notifyListeners();

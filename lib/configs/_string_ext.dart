@@ -33,6 +33,6 @@ extension SuperString on String {
       (_) => false,
     );
   }
-      
+
   //
 }

@@ -24,7 +24,8 @@ class JobsDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     App.init(context);
-    final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final job = args['job'] as Job;
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final user = authBloc.state.user!;
