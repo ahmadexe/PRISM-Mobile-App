@@ -238,7 +238,7 @@ class _Body extends StatelessWidget {
                         TextSpan(
                           text: 'Already have an account? ',
                           style: AppText.b2!.cl(
-                            AppTheme.c.white!.withOpacity(0.5),
+                            AppTheme.c.white!.withValues(alpha: .5),
                           ),
                         ),
                         TextSpan(

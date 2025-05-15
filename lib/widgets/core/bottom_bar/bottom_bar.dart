@@ -36,7 +36,7 @@ class _BottomBarState extends State<BottomBar> {
       child: Container(
         height: AppDimensions.normalize(21),
         decoration: BoxDecoration(
-          color: AppTheme.c.fieldLight!.withOpacity(.75),
+          color: AppTheme.c.fieldLight!.withValues(alpha: .5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(

@@ -59,7 +59,7 @@ class _Body extends StatelessWidget {
                             Container(
                               height: AppDimensions.normalize(65),
                               width: double.infinity,
-                              color: Colors.black.withOpacity(.5),
+                              color: Colors.black.withValues(alpha: .5),
                             ),
                             Positioned(
                               top: AppDimensions.normalize(28),
@@ -134,7 +134,7 @@ class _Body extends StatelessWidget {
                               Center(
                                 child: CircleAvatar(
                                   radius: AppDimensions.normalize(17),
-                                  backgroundColor: Colors.black.withOpacity(.5),
+                                  backgroundColor: Colors.black.withValues(alpha: .5),
                                 ),
                               ),
                             ],

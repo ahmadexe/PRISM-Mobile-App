@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ThemeUtils {
   static MaterialColor getMaterialColor(Color color) {
-    final int red = color.red;
-    final int green = color.green;
-    final int blue = color.blue;
+    final int red = color.r.toInt();
+    final int green = color.g.toInt();
+    final int blue = color.b.toInt();
 
     final Map<int, Color> shades = {
       50: Color.fromRGBO(red, green, blue, .1),
@@ -19,6 +19,6 @@ class ThemeUtils {
       900: Color.fromRGBO(red, green, blue, 1),
     };
 
-    return MaterialColor(color.value, shades);
+    return MaterialColor(color.toARGB32(), shades);
   }
 }
