@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:agenix/agenix.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +8,8 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:prism/models/data/data.dart';
-import 'package:prism/models/lens/lens_message.dart';
 import 'package:prism/services/lens_service.dart';
+import 'package:uuid/uuid.dart';
 
 part 'event.dart';
 part 'state.dart';
@@ -32,6 +33,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
   }
 
   late final LensService _service;
+  late final String convoId;
 
   void init() {
     final key = dotenv.env['GEMINI_API_KEY'];
@@ -39,8 +41,20 @@ class LensBloc extends Bloc<LensEvent, LensState> {
       throw Exception('API key not found');
     }
 
-    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: key);
-    _service = LensService(model: model);
+    Agent().init(
+      dataStore: DataStore.firestoreDataStore(),
+      llm: LLM.geminiLLM(
+        apiKey: key,
+        modelName: 'gemini-1.5-flash',
+      ),
+    );
+
+    _service = LensService(
+      model: GenerativeModel(model: 'gemini-1.5-flash', apiKey: key),
+    );
+
+    convoId = const Uuid().v4();
+
     debugPrint('LensBloc initialized');
   }
 
@@ -136,49 +150,26 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     emit(state.copyWith(messages: [event.prompt, ...state.messages ?? []]));
     emit(state.copyWith(response: const LensLoading()));
     try {
+      String prompt = event.prompt.content;
       if (event.chainData != null && event.chainData!.isNotEmpty) {
-        final dataPool = event.chainData!;
-        final prompt =
-            "$dataPool\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Following is the prompt: ${event.prompt.message}";
-
-        final content = event.image != null
-            ? await _service.generateContentFromImage(
-                prompt: prompt,
-                dataPart: DataPart('image/jpeg', event.image!),
-              )
-            : await _service.generateContentFromText(prompt: prompt);
-        if (content == null) {
-          throw Exception('Failed to generate content');
-        }
-
-        final message = LensMessage(
-          message: content,
-          isFromLens: true,
-          time: DateTime.now(),
-        );
-
-        emit(state.copyWith(messages: [message, ...state.messages ?? []]));
-        emit(state.copyWith(response: const LensSuccess()));
-        return;
+        final chainData = event.chainData!;
+        prompt =
+            "$chainData\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Use this data for analysis, generating insights, any useful information you can provide from this data. You are not restricted to this data only but you should use it as a starting point. Following is the prompt: ${event.prompt.content}";
       }
 
-      final content = event.image != null
-          ? await _service.generateContentFromImage(
-              prompt: event.prompt.message,
-              dataPart: DataPart('image/jpeg', event.image!),
-            )
-          : await _service.generateContentFromText(
-              prompt: event.prompt.message);
-      if (content == null) {
-        throw Exception('Failed to generate content');
-      }
-      final message = LensMessage(
-        message: content,
-        isFromLens: true,
-        time: DateTime.now(),
+      final userMessage = AgentMessage(
+        content: prompt,
+        generatedAt: DateTime.now(),
+        isFromAgent: false,
+        imageData: event.image,
       );
-      emit(state.copyWith(messages: [message, ...state.messages ?? []]));
+
+      final response = await Agent()
+          .generateResponse(convoId: convoId, userMessage: userMessage);
+
+      emit(state.copyWith(messages: [response, ...state.messages ?? []]));
       emit(state.copyWith(response: const LensSuccess()));
+      return;
     } catch (e) {
       emit(
         state.copyWith(

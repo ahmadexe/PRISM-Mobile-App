@@ -1,12 +1,12 @@
 part of '../chatbot.dart';
 
 class _MessageBubble extends StatelessWidget {
-  final LensMessage message;
+  final AgentMessage message;
   const _MessageBubble({required this.message});
 
   @override
   Widget build(BuildContext context) {
-    if (message.isFromLens) {
+    if (message.isFromAgent) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -16,7 +16,7 @@ class _MessageBubble extends StatelessWidget {
             width: AppDimensions.normalize(15),
           ),
           Space.x!,
-          Expanded(child: Text(message.message)),
+          Expanded(child: Text(message.content)),
         ],
       );
     }
@@ -29,7 +29,7 @@ class _MessageBubble extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
-          message.message,
+          message.content,
         ),
       ),
     );

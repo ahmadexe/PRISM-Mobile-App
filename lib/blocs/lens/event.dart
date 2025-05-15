@@ -8,7 +8,7 @@ sealed class LensEvent extends Equatable {
 }
 
 class GenerateContent extends LensEvent {
-  final LensMessage prompt;
+  final AgentMessage prompt;
   final String? chainData;
   final Uint8List? image;
 

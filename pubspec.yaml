@@ -81,7 +81,10 @@ dependencies:
   flutter_stripe: ^11.3.0
   
   # AI Agent
-  agenix: ^2.0.0
+  agenix: 
+    git:
+      url: git@github.com:ahmadexe/agenix.git
+  uuid: ^4.5.1
 
 
 dev_dependencies:

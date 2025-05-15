@@ -20,10 +20,11 @@ packages:
   agenix:
     dependency: "direct main"
     description:
-      name: agenix
-      sha256: "36cc659466a605ecd4c7784933715697827509d8fb030bbb1bdf3da0fa6b7c2d"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "29fe161f672e5074bf487c66b4013195c68173f5"
+      url: "git@github.com:ahmadexe/agenix.git"
+    source: git
     version: "2.0.0"
   archive:
     dependency: transitive
@@ -1107,7 +1108,7 @@ packages:
     source: hosted
     version: "2.2.2"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff

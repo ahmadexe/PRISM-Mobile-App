@@ -4,7 +4,7 @@ class LensState extends Equatable {
   final List<String>? data;
   final String? analyticalData;
   final bool isSupercharged;
-  final List<LensMessage>? messages;
+  final List<AgentMessage>? messages;
   final LensResponseState response;
   final SkillExtractionState skills;
   final KeywordsExtractionState keywords;
@@ -40,7 +40,7 @@ class LensState extends Equatable {
     List<String>? data,
     String? analyticalData,
     bool? isSupercharged,
-    List<LensMessage>? messages,
+    List<AgentMessage>? messages,
     LensResponseState? response,
     SkillExtractionState? skills,
     KeywordsExtractionState? keywords,

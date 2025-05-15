@@ -125,10 +125,12 @@ class _Body extends StatelessWidget {
                         final form = screenState.formKey.currentState!;
                         form.save();
                         final message = form.value[_FormKeys.message] as String;
-                        final prompt = LensMessage(
-                            message: message,
-                            isFromLens: false,
-                            time: DateTime.now());
+                        final prompt = AgentMessage(
+                          content: message,
+                          generatedAt: DateTime.now(),
+                          isFromAgent: false,
+                          imageData: null,
+                        );
 
                         form.reset();
 
@@ -149,10 +151,12 @@ class _Body extends StatelessWidget {
                         final form = screenState.formKey.currentState!;
                         form.save();
                         final message = form.value[_FormKeys.message] as String;
-                        final prompt = LensMessage(
-                            message: message,
-                            isFromLens: false,
-                            time: DateTime.now());
+                        final prompt = AgentMessage(
+                          content: message,
+                          generatedAt: DateTime.now(),
+                          isFromAgent: false,
+                          imageData: null,
+                        );
 
                         if (authBloc.state.user!.isSupercharged) {
                           final nodeAddress = chainBloc.state.address!;
