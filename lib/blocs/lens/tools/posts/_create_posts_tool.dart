@@ -1,7 +1,10 @@
 part of '../../bloc.dart';
 
 class _CreatePostsTool extends Tool {
-  _CreatePostsTool({required super.name, required super.description, required super.parameters});
+  _CreatePostsTool(
+      {required super.name,
+      required super.description,
+      required super.parameters});
 
   static final Dio _client = Api.getClient(ClientType.post);
   static final _auth = FirebaseAuth.instance;
@@ -24,7 +27,11 @@ class _CreatePostsTool extends Tool {
     final response = await _client.post('/posts', data: json.encode(payload));
 
     if (response.statusCode != 201) {
-      return ToolResponse(toolName: name, isRequestSuccessful: false, message: 'I could not create the post, can I do something else for you?');
+      return ToolResponse(
+          toolName: name,
+          isRequestSuccessful: false,
+          message:
+              'I could not create the post, can I do something else for you?');
     }
 
     return ToolResponse(

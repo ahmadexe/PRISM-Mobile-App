@@ -88,7 +88,7 @@ class _Body extends StatelessWidget {
                     if (state.login is AuthLoginSuccess) {
                       final user = state.user!;
                       BlocProvider.of<LensBloc>(context).init(user);
-                      
+
                       authBloc.add(UpdateDeviceToken(userId: user.id));
 
                       final postBloc = BlocProvider.of<PostsBloc>(context);

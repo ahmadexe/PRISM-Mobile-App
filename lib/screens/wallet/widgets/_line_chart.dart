@@ -44,7 +44,8 @@ class _LineChart extends StatelessWidget {
   LineTouchData get lineTouchData1 => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
-          getTooltipColor: (touchedSpot) => Colors.blueGrey.withValues(alpha: .8),
+          getTooltipColor: (touchedSpot) =>
+              Colors.blueGrey.withValues(alpha: .8),
         ),
       );
 
@@ -170,8 +171,8 @@ class _LineChart extends StatelessWidget {
   FlBorderData get borderData => FlBorderData(
         show: true,
         border: Border(
-          bottom:
-              BorderSide(color: AppTheme.c.primary!.withValues(alpha: .2), width: 4),
+          bottom: BorderSide(
+              color: AppTheme.c.primary!.withValues(alpha: .2), width: 4),
           left: const BorderSide(color: Colors.transparent),
           right: const BorderSide(color: Colors.transparent),
           top: const BorderSide(color: Colors.transparent),
@@ -339,7 +340,8 @@ class LineChartSample1State extends State<LineChartSample1> {
           IconButton(
             icon: Icon(
               Icons.refresh,
-              color: Colors.white.withValues(alpha: isShowingMainData ? 1.0 : 0.5),
+              color:
+                  Colors.white.withValues(alpha: isShowingMainData ? 1.0 : 0.5),
             ),
             onPressed: () {
               setState(() {

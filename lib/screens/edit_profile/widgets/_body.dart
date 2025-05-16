@@ -134,7 +134,8 @@ class _Body extends StatelessWidget {
                               Center(
                                 child: CircleAvatar(
                                   radius: AppDimensions.normalize(17),
-                                  backgroundColor: Colors.black.withValues(alpha: .5),
+                                  backgroundColor:
+                                      Colors.black.withValues(alpha: .5),
                                 ),
                               ),
                             ],

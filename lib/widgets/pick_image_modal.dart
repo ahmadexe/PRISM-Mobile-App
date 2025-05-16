@@ -56,7 +56,8 @@ class PickImageModal extends StatelessWidget {
               child: AppButton(
                 onPressed: () {
                   mediaProvider.removeMedia();
-                  mediaProvider.pickMedia(ImageSource.camera, MediaUsecase.profile);
+                  mediaProvider.pickMedia(
+                      ImageSource.camera, MediaUsecase.profile);
                   ''.pop(context);
                 },
                 label: 'Camera',
@@ -67,7 +68,8 @@ class PickImageModal extends StatelessWidget {
               backgroundColor: AppTheme.c.accent,
               onPressed: () {
                 mediaProvider.removeMedia();
-                mediaProvider.pickMedia(ImageSource.gallery, MediaUsecase.profile);
+                mediaProvider.pickMedia(
+                    ImageSource.gallery, MediaUsecase.profile);
                 ''.pop(context);
               },
               label: 'Gallery',

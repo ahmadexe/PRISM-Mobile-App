@@ -11,7 +11,8 @@ class AppDivider extends StatelessWidget {
     return Padding(
       padding: Space.vf(),
       child: text == null
-          ? Divider(color: AppTheme.c.white!.withValues(alpha: .5), thickness: 1)
+          ? Divider(
+              color: AppTheme.c.white!.withValues(alpha: .5), thickness: 1)
           : Row(
               children: [
                 Expanded(
