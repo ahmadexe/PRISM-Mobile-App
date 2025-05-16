@@ -5,17 +5,7 @@ class _CreatePostsTool extends Tool {
 
   static final Dio _client = Api.getClient(ClientType.post);
   static final _auth = FirebaseAuth.instance;
-  // static final _storage = FirebaseStorage.instance;
-  // static final _ref = _storage.ref();
 
-//  final Map<String, dynamic> payload = {
-//                               'title': title,
-//                               'description': description,
-//                               'userId': userId,
-//                               'category': category,
-//                               'userName': userName,
-//                               'userProfilePic': userProfilePic,
-//                             };
   @override
   Future<ToolResponse> run(Map<String, dynamic> params) async {
     final token = await _auth.currentUser?.getIdToken();
