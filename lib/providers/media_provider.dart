@@ -8,13 +8,29 @@ class MediaProvider extends ChangeNotifier {
       Provider.of<MediaProvider>(context, listen: listen);
 
   XFile? media;
-
   InputImage? inputImage;
 
-  void pickMedia(ImageSource source, [bool generateInputImg = false]) async {
+  XFile? mediaForLens;
+  InputImage? inputImageForLens;
+
+  void pickMedia(ImageSource source, MediaUsecase mediaUsecase,
+      [bool generateInputImg = false]) async {
     final image = await ImagePicker().pickImage(source: source);
     if (image != null) {
-      media = image;
+      switch (mediaUsecase) {
+        case MediaUsecase.lens:
+          mediaForLens = image;
+          if (generateInputImg) {
+            inputImageForLens = InputImage.fromFilePath(mediaForLens!.path);
+          }
+          break;
+        case MediaUsecase.profile:
+          media = image;
+          if (generateInputImg) {
+            inputImage = InputImage.fromFilePath(media!.path);
+          }
+          break;
+      }
       notifyListeners();
     }
   }
@@ -34,4 +50,20 @@ class MediaProvider extends ChangeNotifier {
     inputImage = null;
     notifyListeners();
   }
+
+  void clearMedia(MediaUsecase mediaUsecase) {
+    switch (mediaUsecase) {
+      case MediaUsecase.lens:
+        mediaForLens = null;
+        inputImageForLens = null;
+        break;
+      case MediaUsecase.profile:
+        media = null;
+        inputImage = null;
+        break;
+    }
+    notifyListeners();
+  }
 }
+
+enum MediaUsecase { lens, profile }

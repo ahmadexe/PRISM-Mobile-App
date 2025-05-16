@@ -11,12 +11,13 @@ class AppDivider extends StatelessWidget {
     return Padding(
       padding: Space.vf(),
       child: text == null
-          ? Divider(color: AppTheme.c.white!.withOpacity(.5), thickness: 1)
+          ? Divider(
+              color: AppTheme.c.white!.withValues(alpha: .5), thickness: 1)
           : Row(
               children: [
                 Expanded(
                   child: Divider(
-                    color: AppTheme.c.white!.withOpacity(.5),
+                    color: AppTheme.c.white!.withValues(alpha: .5),
                     thickness: 1,
                   ),
                 ),
@@ -29,7 +30,7 @@ class AppDivider extends StatelessWidget {
                 ),
                 Expanded(
                   child: Divider(
-                    color: AppTheme.c.white!.withOpacity(.5),
+                    color: AppTheme.c.white!.withValues(alpha: .5),
                     thickness: 1,
                   ),
                 ),

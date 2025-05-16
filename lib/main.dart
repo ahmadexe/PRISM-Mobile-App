@@ -68,7 +68,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => PostsBloc()),
         BlocProvider(create: (context) => CommentsBloc()),
         BlocProvider(create: (context) => ChatsBloc()),
-        BlocProvider(create: (context) => LensBloc()..init()),
+        BlocProvider(create: (context) => LensBloc()),
         BlocProvider(create: (context) => TextRecognitionBloc()),
         BlocProvider(create: (context) => JobsBloc()),
         BlocProvider(create: (context) => NotificationsBloc()),

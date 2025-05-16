@@ -70,7 +70,7 @@ class _Body extends StatelessWidget {
                       child: Text(
                         'Forgot password?',
                         style: AppText.b2!.cl(
-                          AppTheme.c.white!.withOpacity(0.5),
+                          AppTheme.c.white!.withValues(alpha: .5),
                         ),
                       ),
                     ),
@@ -87,6 +87,8 @@ class _Body extends StatelessWidget {
                     }
                     if (state.login is AuthLoginSuccess) {
                       final user = state.user!;
+                      BlocProvider.of<LensBloc>(context).init(user);
+
                       authBloc.add(UpdateDeviceToken(userId: user.id));
 
                       final postBloc = BlocProvider.of<PostsBloc>(context);
@@ -139,7 +141,7 @@ class _Body extends StatelessWidget {
                         TextSpan(
                           text: 'Don\'t have an account? ',
                           style: AppText.b2!.cl(
-                            AppTheme.c.white!.withOpacity(0.5),
+                            AppTheme.c.white!.withValues(alpha: .5),
                           ),
                         ),
                         TextSpan(

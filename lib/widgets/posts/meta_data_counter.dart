@@ -46,7 +46,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.withOpacity(.5)),
+            border: Border.all(color: Colors.grey.withValues(alpha: .5)),
             borderRadius: BorderRadius.circular(100),
           ),
           padding: Space.all(4, 4),
@@ -154,7 +154,7 @@ class _MetaDataCounterState extends State<MetaDataCounter> {
           },
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.withOpacity(.5)),
+              border: Border.all(color: Colors.grey.withValues(alpha: .5)),
               borderRadius: BorderRadius.circular(100),
             ),
             padding: Space.all(10, 6),

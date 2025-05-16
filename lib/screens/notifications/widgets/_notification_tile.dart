@@ -12,7 +12,7 @@ class _NotificationTile extends StatelessWidget {
       padding: Space.all(),
       margin: EdgeInsets.only(bottom: 10.h),
       decoration: BoxDecoration(
-        color: AppTheme.c.fieldLight!.withOpacity(.7),
+        color: AppTheme.c.fieldLight!.withValues(alpha: .75),
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Column(

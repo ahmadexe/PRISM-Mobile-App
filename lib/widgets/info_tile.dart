@@ -25,7 +25,7 @@ class InfoTile extends StatelessWidget {
       child: Container(
         height: 35,
         decoration: BoxDecoration(
-          color: AppTheme.c.fieldLight!.withOpacity(.75),
+          color: AppTheme.c.fieldLight!.withValues(alpha: .75),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(

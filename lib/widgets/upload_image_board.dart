@@ -28,7 +28,7 @@ class UploadImageBoard extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(.5),
+                  color: Colors.black.withValues(alpha: .5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 height: AppDimensions.normalize(150),

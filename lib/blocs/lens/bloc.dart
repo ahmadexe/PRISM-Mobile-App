@@ -1,16 +1,23 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:agenix/agenix.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:google_generative_ai/google_generative_ai.dart' as gemini;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:prism/models/auth/auth_data.dart';
 import 'package:prism/models/data/data.dart';
-import 'package:prism/models/lens/lens_message.dart';
+import 'package:prism/services/api.dart';
 import 'package:prism/services/lens_service.dart';
+import 'package:uuid/uuid.dart';
 
 part 'event.dart';
+
 part 'state.dart';
 part 'repository.dart';
 part 'data_provider.dart';
@@ -22,6 +29,8 @@ part 'state/_key_words.dart';
 part 'state/_analyze_post.dart';
 part 'state/_supercharge.dart';
 
+part 'tools/posts/_create_posts_tool.dart';
+
 class LensBloc extends Bloc<LensEvent, LensState> {
   LensBloc() : super(const LensDefault()) {
     on<GenerateContent>(_onGenerateContent);
@@ -32,15 +41,80 @@ class LensBloc extends Bloc<LensEvent, LensState> {
   }
 
   late final LensService _service;
+  late final String convoId;
+  late final AuthData _userData;
 
-  void init() {
+  void init(AuthData user) {
     final key = dotenv.env['GEMINI_API_KEY'];
     if (key == null || key.isEmpty) {
       throw Exception('API key not found');
     }
 
-    final model = GenerativeModel(model: 'gemini-1.5-flash', apiKey: key);
-    _service = LensService(model: model);
+    Agent().init(
+      dataStore: DataStore.firestoreDataStore(),
+      llm: LLM.geminiLLM(
+        apiKey: key,
+        modelName: 'gemini-1.5-flash',
+      ),
+    );
+
+    _service = LensService(
+      model: gemini.GenerativeModel(model: 'gemini-1.5-flash', apiKey: key),
+    );
+
+    _userData = user;
+
+    convoId = const Uuid().v4();
+
+    ToolRegistry().registerTool(
+      _CreatePostsTool(
+        name: 'create_post_tool',
+        description:
+            'This tool is used whenever a user wants to create a post.',
+        parameters: [
+          ParameterSpecification(
+            name: 'title',
+            type: 'string',
+            description: 'Title of the post',
+            required: true,
+          ),
+          ParameterSpecification(
+            name: 'description',
+            type: 'string',
+            description: 'Description of the post',
+            required: true,
+          ),
+          ParameterSpecification(
+            name: 'userId',
+            type: 'string',
+            description: 'This is the id of the user who is creating the post',
+            required: true,
+          ),
+          ParameterSpecification(
+            name: 'category',
+            type: 'string',
+            description:
+                'This is the category of the post. The domain of the user will be used as the category, based on provided info, it can be Software, Technology, Business, Entertainment, etc.',
+            required: true,
+          ),
+          ParameterSpecification(
+            name: 'userName',
+            type: 'string',
+            description:
+                'This is the name of the user who is creating the post',
+            required: true,
+          ),
+          ParameterSpecification(
+            name: 'userProfilePic',
+            type: 'string',
+            description:
+                'This is the profile picture of the user who is creating the post',
+            required: false,
+          ),
+        ],
+      ),
+    );
+
     debugPrint('LensBloc initialized');
   }
 
@@ -82,7 +156,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
         const String prompt =
             "Analyze the image and output the result, describe the image in great detail. Don't include any additional text.";
 
-        final DataPart dataPart = DataPart('image/jpeg', image);
+        final gemini.DataPart dataPart = gemini.DataPart('image/jpeg', image);
 
         final content = await _service.generateContentFromImage(
           prompt: prompt,
@@ -136,49 +210,28 @@ class LensBloc extends Bloc<LensEvent, LensState> {
     emit(state.copyWith(messages: [event.prompt, ...state.messages ?? []]));
     emit(state.copyWith(response: const LensLoading()));
     try {
+      String prompt = event.prompt.content;
+      prompt =
+          'For additional context this is the data of the user ${_userData.toString()}. The prompt is: $prompt';
       if (event.chainData != null && event.chainData!.isNotEmpty) {
-        final dataPool = event.chainData!;
-        final prompt =
-            "$dataPool\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Following is the prompt: ${event.prompt.message}";
-
-        final content = event.image != null
-            ? await _service.generateContentFromImage(
-                prompt: prompt,
-                dataPart: DataPart('image/jpeg', event.image!),
-              )
-            : await _service.generateContentFromText(prompt: prompt);
-        if (content == null) {
-          throw Exception('Failed to generate content');
-        }
-
-        final message = LensMessage(
-          message: content,
-          isFromLens: true,
-          time: DateTime.now(),
-        );
-
-        emit(state.copyWith(messages: [message, ...state.messages ?? []]));
-        emit(state.copyWith(response: const LensSuccess()));
-        return;
+        final chainData = event.chainData!;
+        prompt =
+            "$chainData\n Using this data, generate content. The output should be based on this provided data. If the question can not be answered by the current data, generate a response yourself. Use this data for analysis, generating insights, any useful information you can provide from this data. You are not restricted to this data only but you should use it as a starting point. $prompt";
       }
 
-      final content = event.image != null
-          ? await _service.generateContentFromImage(
-              prompt: event.prompt.message,
-              dataPart: DataPart('image/jpeg', event.image!),
-            )
-          : await _service.generateContentFromText(
-              prompt: event.prompt.message);
-      if (content == null) {
-        throw Exception('Failed to generate content');
-      }
-      final message = LensMessage(
-        message: content,
-        isFromLens: true,
-        time: DateTime.now(),
+      final userMessage = AgentMessage(
+        content: prompt,
+        generatedAt: DateTime.now(),
+        isFromAgent: false,
+        imageData: event.prompt.imageData,
       );
-      emit(state.copyWith(messages: [message, ...state.messages ?? []]));
+
+      final response = await Agent()
+          .generateResponse(convoId: convoId, userMessage: userMessage);
+
+      emit(state.copyWith(messages: [response, ...state.messages ?? []]));
       emit(state.copyWith(response: const LensSuccess()));
+      return;
     } catch (e) {
       emit(
         state.copyWith(

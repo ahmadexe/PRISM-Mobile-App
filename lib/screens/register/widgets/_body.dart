@@ -162,6 +162,7 @@ class _Body extends StatelessWidget {
                         final postBloc = BlocProvider.of<PostsBloc>(context);
                         postBloc.add(const PostsFetchEvent());
                         final user = state.user!;
+                        BlocProvider.of<LensBloc>(context).init(user);
                         authBloc.add(UpdateDeviceToken(userId: user.id));
 
                         SnackBars.success(
@@ -237,7 +238,7 @@ class _Body extends StatelessWidget {
                         TextSpan(
                           text: 'Already have an account? ',
                           style: AppText.b2!.cl(
-                            AppTheme.c.white!.withOpacity(0.5),
+                            AppTheme.c.white!.withValues(alpha: .5),
                           ),
                         ),
                         TextSpan(

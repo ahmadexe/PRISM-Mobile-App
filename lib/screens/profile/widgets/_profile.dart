@@ -73,7 +73,7 @@ class _Profile extends StatelessWidget {
                           child: Container(
                             padding: Space.all(),
                             decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.5),
+                              color: Colors.black.withValues(alpha: .5),
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Icon(
