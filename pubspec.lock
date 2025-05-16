@@ -22,7 +22,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d1eb09c2732a2272a01d67f1d5cd03b295851ce7
+      resolved-ref: e1b5fdf4088f77530aab8cdd3aa04bfdaa240219
       url: "https://github.com/ahmadexe/agenix.git"
     source: git
     version: "2.0.0"

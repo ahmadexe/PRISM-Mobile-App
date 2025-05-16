@@ -9,6 +9,7 @@ class _Body extends StatelessWidget {
     final lensBloc = BlocProvider.of<LensBloc>(context);
     final chainBloc = BlocProvider.of<BlockchainBloc>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context, listen: true);
+    final mediaProvider = MediaProvider.s(context, true);
 
     return SafeArea(
       child: Scaffold(
@@ -91,7 +92,8 @@ class _Body extends StatelessWidget {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => mediaProvider.pickMedia(
+                        ImageSource.gallery, MediaUsecase.lens),
                     child: Icon(
                       Iconsax.export_1,
                       size: AppDimensions.normalize(10),
@@ -119,20 +121,26 @@ class _Body extends StatelessWidget {
                   ),
                   Space.x!,
                   BlocListener<BlockchainBloc, ChainState>(
-                    listener: (context, state) {
+                    listener: (context, state) async {
                       if (state.getData is GetDataSuccess) {
                         final data = state.analyticalData ?? [];
                         final form = screenState.formKey.currentState!;
                         form.save();
                         final message = form.value[_FormKeys.message] as String;
+                        Uint8List? imageData;
+                        if (mediaProvider.mediaForLens != null) {
+                          imageData =
+                              await mediaProvider.mediaForLens!.readAsBytes();
+                        }
                         final prompt = AgentMessage(
                           content: message,
                           generatedAt: DateTime.now(),
                           isFromAgent: false,
-                          imageData: null,
+                          imageData: imageData,
                         );
 
                         form.reset();
+                        mediaProvider.clearMedia(MediaUsecase.lens);
 
                         final processedData =
                             data.map((e) => e.toString()).join('\n');
@@ -146,16 +154,22 @@ class _Body extends StatelessWidget {
                       }
                     },
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         if (!screenState.isWriting) return;
                         final form = screenState.formKey.currentState!;
                         form.save();
                         final message = form.value[_FormKeys.message] as String;
+                        Uint8List? imageData;
+                        if (mediaProvider.mediaForLens != null) {
+                          imageData =
+                              await mediaProvider.mediaForLens!.readAsBytes();
+                        }
+
                         final prompt = AgentMessage(
                           content: message,
                           generatedAt: DateTime.now(),
                           isFromAgent: false,
-                          imageData: null,
+                          imageData: imageData,
                         );
 
                         if (authBloc.state.user!.isSupercharged) {
@@ -164,6 +178,7 @@ class _Body extends StatelessWidget {
                         } else {
                           lensBloc.add(GenerateContent(prompt: prompt));
                           form.reset();
+                          mediaProvider.clearMedia(MediaUsecase.lens);
                         }
                       },
                       child: Icon(
@@ -177,6 +192,21 @@ class _Body extends StatelessWidget {
                   ),
                 ],
               ),
+              if (mediaProvider.mediaForLens != null) ...[
+                Space.y!,
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.file(
+                      width: AppDimensions.normalize(35),
+                      height: AppDimensions.normalize(35),
+                      File(mediaProvider.mediaForLens!.path),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

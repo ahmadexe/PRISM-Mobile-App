@@ -223,7 +223,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
         content: prompt,
         generatedAt: DateTime.now(),
         isFromAgent: false,
-        imageData: event.image,
+        imageData: event.prompt.imageData,
       );
 
       final response = await Agent()
