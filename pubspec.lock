@@ -22,8 +22,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e14f854e9309096630417e328804ef1850936a97
-      url: "git@github.com:ahmadexe/agenix.git"
+      resolved-ref: d1eb09c2732a2272a01d67f1d5cd03b295851ce7
+      url: "https://github.com/ahmadexe/agenix.git"
     source: git
     version: "2.0.0"
   archive:

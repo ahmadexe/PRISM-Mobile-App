@@ -83,7 +83,7 @@ dependencies:
   # AI Agent
   agenix: 
     git:
-      url: git@github.com:ahmadexe/agenix.git
+      url: https://github.com/ahmadexe/agenix.git
   uuid: ^4.5.1
 
 

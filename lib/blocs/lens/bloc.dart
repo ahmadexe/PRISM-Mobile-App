@@ -94,7 +94,7 @@ class LensBloc extends Bloc<LensEvent, LensState> {
             name: 'category',
             type: 'string',
             description:
-                'This is the category of the post. The domain of the user will be used as the category',
+                'This is the category of the post. The domain of the user will be used as the category, based on provided info, it can be Software, Technology, Business, Entertainment, etc.',
             required: true,
           ),
           ParameterSpecification(
