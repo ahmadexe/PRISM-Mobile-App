@@ -20,12 +20,11 @@ packages:
   agenix:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e1b5fdf4088f77530aab8cdd3aa04bfdaa240219
-      url: "https://github.com/ahmadexe/agenix.git"
-    source: git
-    version: "2.0.0"
+      name: agenix
+      sha256: a222a3d559b00ec4698ef1bd0d1276bb0baa9e059ee995a189da476d81e7ffe4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   archive:
     dependency: transitive
     description:

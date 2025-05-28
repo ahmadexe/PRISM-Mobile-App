@@ -45,6 +45,7 @@ dependencies:
   rive: ^0.12.4
   flutter_svg: ^2.0.9
   image_picker: ^1.0.7
+  uuid: ^4.5.1
   
   # forms
   form_builder_validators: ^11.0.0
@@ -81,10 +82,7 @@ dependencies:
   flutter_stripe: ^11.3.0
   
   # AI Agent
-  agenix: 
-    git:
-      url: https://github.com/ahmadexe/agenix.git
-  uuid: ^4.5.1
+  agenix: ^2.1.0
 
 
 dev_dependencies:
